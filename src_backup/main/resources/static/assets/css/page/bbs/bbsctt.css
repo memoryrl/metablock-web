@@ -1,0 +1,141 @@
+
+.bbscttCnt-form .ck-editor__editable{ min-height: 300px; }
+.answerCnt-save .ck-editor__editable{ min-height: 300px; }
+.answerCnt-edit .ck-editor__editable{ min-height: 300px; }
+
+.bbscttCnt-view .ck-editor__editable{ min-height: 200px; }
+
+.dataTable tr.odd:hover,
+.dataTable tr.even:hover {
+    cursor: pointer; /* 선택적으로 커서도 포인터로 */
+}
+
+/* ==  list mode : 사용자 영역 == */
+.user-profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.user-info-wrapper {
+    display: flex;
+    align-items: center;
+}
+.user-text-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==  view mode : 제목 및 날짜 하단 언더라인 == */
+.bbsctt-title-underline {
+    width: 50px;
+    height: 3px;
+    background-color: #5f9def;
+    margin: 10px auto 15px auto;
+}
+.bbsctt-meta-divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 15px 0;
+}
+.bbscttCnt-view-divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 15px 0;
+}
+
+
+/* == save,form mode : 상단에 제목 == */
+.sidebar-widget .sidebar-widget-title-2 h4.custom:after {
+    position: absolute;
+    content: "";
+    left: 7px;
+    top: 7px;
+    width: 16px;
+    height: 16px;
+    background-color: #5f9def;
+    border: 2px solid #ffffff;
+}
+.sidebar-widget .sidebar-widget-title-2 h4.custom:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #5f9def;
+}
+.sidebar-widget .sidebar-widget-title-2 h4.custom {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1;
+    color: #4a4a4a;
+    padding-left: 35px;
+    position: relative;
+}
+
+
+/* == view mode : ckeditor border 제거 == */
+.bbscttCnt-view .ck-editor__editable_inline { border: none !important; outline: none !important; }
+.bbscttCnt-view .ck-editor__top { display: none; }
+.answerCnt-view .ck-editor__editable_inline { border: none !important; outline: none !important; }
+.answerCnt-view .ck-editor__top { display: none; }
+
+/* == view mode : uploader 영역 == */
+.file-meta-divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 15px 0;
+}
+
+/* == view mode : answer toggle == */
+.answer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.answer-info-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.answer-toggle-btn {
+    background: none;
+    border: none;
+    color: #5f9def;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 14px;
+}
+
+/* == thumbnail modal === */
+/* 블로그형 게시판 폼에서 썸네일 고르기 css */
+.thumbnail-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 80vh; /* 뷰포트 높이의 80%로 최대 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤바 추가 */
+}
+.thumbnail-item {
+    flex: 1 0 30%; /* 한 줄에 3개씩 */
+    margin: 5px;
+    text-align: center;
+    position: relative;
+}
+.thumbnail-item img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+}
+.thumbnail-item.selected img {
+    border: 5px solid #5f9def; /* 선택된 경우 테두리 색상 */
+}
+.thumbnail-item input[type="radio"] {
+    display: none;
+}

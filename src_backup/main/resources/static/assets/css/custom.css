@@ -1,0 +1,222 @@
+a.menu-a-url.active,
+span[data-active=true] {
+    color: #e97730 !important;
+}
+
+.custom-container {
+    max-width: 1400px !important;
+}
+
+/* =*=*=*=*=*=*=*=*=*=*=*= [S] validation error message =*=*=*=*=*=*=*=*=*=*=*= */
+.validation-error-message {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.775rem;
+    color: #ea5455;
+}
+/* =*=*=*=*=*=*=*=*=*=*=*= [E] validation error message =*=*=*=*=*=*=*=*=*=*=*= */
+
+
+/* =*=*=*=*=*=*=*=*=*=*=*= [S] alert =*=*=*=*=*=*=*=*=*=*=*= */
+/* 알랏창 [확인] 버튼 커스터미이징 */
+.btn-confirm-control {
+    display: flex !important;
+    padding: 8px 16px !important;
+    margin-right: 10px;
+    border: 1px solid transparent !important;
+    border-radius: 5px;
+    background: #ea7a35 !important;
+    color: #ffffff !important;
+}
+.btn-confirm-control:hover {
+    border: 1px solid transparent !important;
+    background: #f68e50 !important;
+    color: #ffffff !important;
+}
+.btn-confirm-control:focus {
+    outline: none;
+}
+/* 알랏창 [취소] 버튼 커스터미이징 */
+.btn-cancel-control {
+    display: flex !important;
+    padding: 8px 16px !important;
+    margin-left: 10px;
+    border: 1px solid transparent !important;
+    border-radius: 5px;
+    background: #171717EC !important;
+    color: #ffffff !important;
+}
+.btn-cancel-control:hover {
+    border: 1px solid transparent !important;
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+.btn-cancel-control:focus {
+    outline: none;
+}
+/* =*=*=*=*=*=*=*=*=*=*=*= [E] alert =*=*=*=*=*=*=*=*=*=*=*= */
+
+
+/* =*=*=*=*=*=*=*=*=*=*=*= [S] 뒤돌아가기 상단 헤더 =*=*=*=*=*=*=*=*=*=*=*= */
+.top-info {
+    display: flex;
+    align-items: center; /* 수직 정렬 */
+    gap: 10px;
+    margin: 20px 0;
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+.circle-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #241d39;
+    background-color: #eef5fa;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1; /* 줄맞춤 보정 */
+    box-sizing: border-box;
+}
+.circle-btn:hover {
+    background-color: #d0e2f0;
+}
+.title-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 1px;
+    line-height: 1.2; /* 텍스트 높이 조정 */
+    cursor: pointer;
+}
+/* =*=*=*=*=*=*=*=*=*=*=*= [E] 뒤돌아가기 상단 헤더 =*=*=*=*=*=*=*=*=*=*=*= */
+
+
+/* =*=*=*=*=*=*=*=*=*=*=*= [S] 폼 영역 =*=*=*=*=*=*=*=*=*=*=*= */
+/* == form row == */
+.custom-row {
+    margin-bottom: 30px;
+}
+
+/* == form input == */
+.custom-input {
+    height: 40px !important;
+    padding: 2px 15px !important;
+}
+.custom-input:disabled {
+    background-color: #e9e9e9b5 !important;
+}
+.custom-input::placeholder {
+    color: gray;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+/* == form textarea === */
+.custom-textarea {
+    margin-bottom: 0px !important;
+    min-height: 80px !important;
+    padding: 10px 10px 10px 10px !important;
+    font-weight: 300;
+    height: 150px !important;
+    font-size: 13px;
+}
+.custom-textarea::placeholder {
+    color: gray;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+/* == custom nice-select == */
+.custom-select {
+    width: 100% !important;
+}
+.custom-select .list {
+    width: 100% !important;
+}
+
+/* == form label == */
+.custom-label {
+    margin: 0 0 5px
+}
+
+/* == form button wrap == */
+.custom-btn-wrap {
+    gap: 10px;
+    display: flex;
+    margin-top: 30px;
+}
+.custom-btn-wrap button {
+    background-color: #d7e4f5 !important;
+    border-radius: 5px !important;
+    border: none !important;
+    padding: 7px 10px 7px 12px !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    color: #1a3e6e !important;
+    width: 100px !important;
+}
+
+/* == custom button == */
+.custom-button {
+    background-color: #d7e4f5;
+    border-radius: 5px !important;
+    border: none;
+    padding: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    color: #1a3e6e;
+    width: 100px;
+}
+.custom-button:hover {
+    font-weight: bold;
+}
+.custom-button:disabled {
+    cursor: default !important;
+    background-color: #a2b5ce !important;
+}
+.custom-button.not-clickable:active {
+    pointer-events: none; /* 클릭은 안 되게 */
+}
+.custom-button:disabled:hover {
+    font-weight: normal;
+}
+.custom-button.active {
+    font-weight: bold;
+    background-color: #b5cbf1;
+}
+
+.custom-check-form-flex {
+    display: flex;
+    gap: 20px;
+}
+.custom-check-form-block {
+    /*  */
+}
+.custom-check-form-block .form-check {
+    margin-bottom: 10px !important;
+}
+
+/* == thumbnail == */
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #eee;
+}
+
+/* == file upload == */
+.uppy-Dashboard-inner {
+    border: 1px solid #e8e8e8 !important;
+    background-color: #ffffff !important;
+}
+
+/* =*=*=*=*=*=*=*=*=*=*=*= [E] 폼 영역 =*=*=*=*=*=*=*=*=*=*=*= */
+
+

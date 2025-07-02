@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="render(field, colClass, value)">
+    <div th:class="${colClass}" th:with="safeVal=${value != null and value[field.name] != null ? value[field.name] : ''}">
+        <div>
+            <label th:for="${field.name}" class="custom-label" th:text="${field.label}">라벨</label>
+
+            <input th:if="${field.type == 'TEXT'}" class="form-control custom-input" type="text" th:id="${field.name}"
+                   th:name="${field.name}"  th:value="${safeVal}" th:placeholder="${field.placeholder}" th:required="${field.required}">
+
+            <textarea th:if="${field.type == 'TEXTAREA'}" class="form-control custom-textarea" th:id="${field.name}"
+                      th:name="${field.name}"  th:text="${safeVal}" th:placeholder="${field.placeholder}" th:required="${field.required}"/>
+
+            <input th:if="${field.type == 'NUMBER'}" class="form-control custom-input" type="number"
+                   th:id="${field.name}" th:name="${field.name}"  th:value="${safeVal}"
+                   th:placeholder="${field.placeholder}" th:required="${field.required}">
+
+            <input th:if="${field.type == 'EMAIL'}" class="form-control custom-input" type="text" th:id="${field.name}"
+                   th:name="${field.name}" th:value="${safeVal}" th:placeholder="${field.placeholder}" th:required="${field.required}">
+
+            <input th:if="${field.type == 'DATE'}" type="date" class="form-control custom-input" th:id="${field.name}"
+                   th:name="${field.name}"  th:value="${safeVal}" th:placeholder="${field.placeholder}" th:required="${field.required}"/>
+
+            <input th:if="${field.type == 'TEL'}" class="form-control custom-input" type="tel" th:id="${field.name}"
+                   th:name="${field.name}"  th:value="${safeVal}" th:placeholder="${field.placeholder}" th:required="${field.required}">
+
+            <select th:if="${field.type == 'SELECT'}" class="nice-select nice-select-style-1 custom-select preview-select"
+                    th:id="${field.name}" th:name="${field.name}" th:required="${field.required}">
+                <option value="" disabled selected>-- SELECT TYPE --</option>
+                <option th:each="option : ${field.options}"
+                        th:value="${option.name}"
+                        th:selected="${value != null and value[field.name] != null and option.name == value[field.name].toString()}"
+                        th:text="${option.label}"></option>
+            </select>
+
+            <div th:if="${field.type == 'RADIO'}" class="custom-check-form-flex">
+                <div class="form-check" th:each="option, iter: ${field.options}">
+                    <input type="radio" th:id="${field.name + '-' + iter.index}" th:name="${field.name}"
+                           class="form-check-input" th:value="${option.name}" th:checked="${value != null and value[field.name] != null and option.name == value[field.name].toString()}">
+                    <label class="form-check-label" th:for="${field.name + '-' + iter.index}"
+                           th:text="${option.label}"></label>
+                </div>
+            </div>
+
+            <div th:if="${field.type == 'CHECKBOX'}" class="custom-check-form-flex">
+                <div class="form-check" th:each="option, iter: ${field.options}">
+                    <input type="checkbox" th:id="${field.name + '-' + iter.index}" th:name="${field.name}"
+                           class="form-check-input" th:value="${option.name}" th:checked="${value != null and value[field.name] != null and option.name == value[field.name].toString()}">
+                    <label class="form-check-label" th:for="${field.name + '-' + iter.index}"
+                           th:text="${option.label}"></label>
+                </div>
+            </div>
+
+            <select th:if="${field.type == 'MULTISELECT'}" class="select2 form-select round border_line"
+                    th:id="${field.name}" th:name="${field.name}" th:placeholder="${field.placeholder}" multiple th:required="${field.required}">
+                <option th:each="option : ${field.options}"
+                        th:value="${option.name}"
+                        th:text="${option.label}"
+                        th:selected="${value != null and value[field.name] != null and value[field.name].contains(option.name)}"
+                ></option>
+            </select>
+
+            <div th:if="${field.type == 'IMAGE'}">
+                <div>
+                    <div th:id="|${field.name}-image|" style="display: none;"></div>
+                    <img src="/assets/images/page/detail/profile_noimage.png" alt="Profile"
+                         th:id="${field.name + '-id-1'}" class="profile-img">
+                </div>
+                <div class="custom-btn-wrap">
+                    <button type="button" class="custom-button delete-btn" th:id="|delete-btn-${field.name}|">삭제</button>
+                    <button type="button" class="custom-button upload-btn" th:id="|upload-btn-${field.name}|">업로드</button>
+                </div>
+            </div>
+
+            <div th:if="${field.type == 'FILE'}">
+                <div th:id="${field.name + '-doc'}" class="mt-1 template-file-container"></div>
+            </div>
+
+            <div class="validation-error-message" th:id="|${field.name}-error|"></div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default2}">
+
+<th:block layout:fragment="center-image">
+    <th:block th:with="title1=${currentPageName}, title2=${navigation}, leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+        <th:block th:replace="fragments/center-image :: main-image-title(${title1}, ${title2}, ${leftImg}, ${rightImg})"></th:block>
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+    <link rel="stylesheet" th:href="@{'/assets/css/page/detail.css'}" />
+    <link rel="stylesheet" th:href="@{'/assets/css/page/detail-template03.css'}" />
+    <link rel="stylesheet" th:href="@{'/assets/css/page/detail-template04.css'}" />
+</th:block>
+
+<th:block layout:fragment="content">
+<div class="ratting-edit-area pb-95">
+  <div class="container">
+     <div class="section-title-2 st-border-center text-center mb-35 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+        <h2>컨텐츠 관리</h2>
+      </div>
+      <hr>
+
+      <!-- s:buttons -->
+      <div>
+
+        <div class="d-flex justify-content-end pe-4">
+          <div class="btn-container" style="margin-top: 0px !important;">
+            <!-- 왼쪽 버튼 -->
+            <!-- 오른쪽 버튼들 -->
+            <div class="right-buttons">
+              <button type="button" class="custom-button" id="update-btn">저장</button>
+              <button type="button" class="custom-button" id="del-btn">삭제</button>
+              <button type="button" class="custom-button" id="list-btn">목록</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- e:buttons -->
+
+    <div class="card" style="margin-top: 30px">
+        <div class="pb-3 border-bottom" style="padding: 30px;">
+          <div class="row align-items-center">
+            <h3 class="mb-0">기본 정보</h3>
+          </div>
+        </div>
+
+         <form class="needs-validation" id="content-update-form" novalidate="">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="label">UID</label>
+                        <div class="input-group">
+                        <input type="text" id="uid" name="uid" class="form-control" th:value="${content.uid}" disabled>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="workplaceUid">워크플레이스 UID</label>
+                        <div class="input-group">
+                        <input type="text" id="workplaceUid" name="workplaceUid" class="form-control" th:value="${content.workplaceUid}" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label for="title">컨텐츠 제목</label>
+                        <div class="input-group">
+                        <input type="text" id="title" name="title" class="form-control" th:value="${content.title}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="description">컨텐츠 설명</label>
+                        <div class="input-group">
+                        <input type="text" id="description" name="description" class="form-control" th:value="${content.description}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="contents">컨텐츠 내용</label>
+                        <div class="input-group">
+                        <input type="text" id="contents" name="contents" class="form-control" th:value="${content.contents}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="metadata">메타데이터 (json)</label>
+                        <div class="input-group">
+                        <input type="text" id="metadata" name="metadata" class="form-control" th:value="${content.metadata}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="sampleData">샘플 데이터 (json)</label>
+                        <div class="input-group">
+                        <input type="text" id="sampleData" name="sampleData" class="form-control" th:value="${content.sampleData}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="thumbnailUid">썸네일 UID</label>
+                        <div class="input-group">
+                        <input type="text" id="thumbnailUid" name="thumbnailUid" class="form-control" th:value="${content.thumbnailUid}" disabled>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="fileUid">파일 UID</label>
+                        <div class="input-group">
+                        <input type="text" id="fileUid" name="fileUid" class="form-control" th:value="${content.fileUid}" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="single-input-item">
+                            <div for="contentFile" class="required">썸네일</div>
+                            <div>
+                                <div id="thumbnail-upload-container" class="mt-1"></div>
+                            </div>
+                            <div>
+                                <span style="font-size: 11px;color: #868181;">* 최대 1개의 파일만 업로드가 가능힙니다.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="single-input-item">
+                            <div for="contentFile" class="required">컨텐츠 파일</div>
+                            <div>
+                                <div id="contentFile-upload-container" class="mt-1"></div>
+                            </div>
+                            <div>
+                                <span style="font-size: 11px;color: #868181;">* 최대 1개의 파일만 업로드가 가능힙니다.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="regUid">등록자</label>
+                        <div class="input-group">
+                        <input type="text" id="regUid" name="regUid" class="form-control" th:value="${content.regUid}" disabled>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="regDt">등록일</label>
+                        <div class="input-group">
+                        <input type="text" id="regDt" name="regDt" class="form-control" th:value="${content.regDt}" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="updtUid">수정자</label>
+                        <div class="input-group">
+                        <input type="text" id="updtUid" name="updtUid" class="form-control" th:value="${content.updtUid}" disabled>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="updtDt">수정일</label>
+                        <div class="input-group">
+                        <input type="text" id="updtDt" name="updtDt" class="form-control" th:value="${content.updtDt}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </form>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{'/assets/js/page/manager/contents/contents-list-form.js'}"></script>
+    <script th:inline="javascript">
+        const content = [[${content}]]
+
+        $(function() {
+            contentsJS.initUploaders(content.thumbnailUid, content.fileUid);
+
+            // const table = new Table('contents-table')
+            //     .switchDiv()
+            //     .get(`/cetus/api/contents?workplaceUid=${1}`)
+            //     .add(new Column("uid").center())
+            //     .add(new Column("title").center())
+            //     .add(new Column("workplaceUid").center())
+            //     .add(new Column("regUid").center())
+            //     .add(new Column("regDt").center())
+            //     .selectable()
+            //     .select(function (data) {
+            //         location.href = `/manager/cetus/contents/${data.uid}`
+            //     })
+            //     .init();
+
+        });
+
+        $("#update-btn").on('click', function () {
+            contentsJS.updateForm();
+        });
+
+    </script>
+</th:block>
+</html>

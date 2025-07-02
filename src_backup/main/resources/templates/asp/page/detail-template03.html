@@ -1,0 +1,73 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="divTabDetailRelactionData"> 
+    <div class="page-area page-responsive ">
+        <div class="container">
+          <div class="row flex-row-reverse">
+            <div class="col-lg-9">
+              <div class="page-topbar-wrapper mb-40">
+                <div class="page-topbar-left">
+                  <div class="showing-item">
+                    <span id="showing-card">
+                        <!-- Showing 1–12 of 60 results -->
+                    </span>
+                    <span id="showing-list">
+                        <!-- Showing 1–12 of 60 results -->
+                    </span>
+                  </div>
+                </div>
+                <div class="page-topbar-right">
+                    <div class="page-sorting-area">
+                        <select class="nice-select nice-select-style-1">
+                            <option value="title">이름순</option>
+                            <option value="update">업데이트순</option>
+                            <option value="rating">별점순</option>
+                        </select>
+                    </div>
+                  <div class="page-view-mode nav" role="tablist">
+                    <a class="active" href="#shop-1" data-bs-toggle="tab" aria-selected="true" tabindex="-1" role="tab" onclick="fnTab('card')"><i class=" ti-layout-grid3 "></i> </a>
+                    <a href="#shop-2" data-bs-toggle="tab" aria-selected="false" role="tab" onclick="fnTab('list')"><i class=" ti-view-list-alt "></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="page-bottom-area">
+                <div class="tab-content jump">
+                  <div id="shop-1" class="tab-pane active" role="tabpanel">
+                    <div class="row">
+                      <!-- card view -->
+                    </div>
+                    <div id="card-pagination" class="pagination-style-1">
+                      <!-- card pagination -->
+                    </div>
+                     
+                  </div>
+                  <div id="shop-2" class="tab-pane" role="tabpanel">
+                    <!-- list view -->
+                    <!-- list pagination -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="sidebar-wrapper">
+                <div class="sidebar-widget mb-40 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                  <div class="search-wrap-2">
+                    <form class="search-2-form" id="searchForm" action="#">
+                      <input id="keyword" placeholder="검색어를 입력하세요" type="text">
+                      <button class="button-search"><i class=" ti-search "></i></button>
+                    </form>
+                  </div>
+                </div>
+                <div class="sidebar-widget mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
+                    <div class="sidebar-widget-title mb-25">
+                        <h3>카테고리</h3>
+                    </div>
+                    <div id="categories" class="sidebar-widget-color sidebar-list-style">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</th:block>
+</html>

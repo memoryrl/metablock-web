@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default2}">
+
+<th:block layout:fragment="center-image">
+    <th:block th:with="title1=${currentPageName}, title2=${navigation}, leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+        <th:block th:replace="fragments/center-image :: main-image-title(${title1}, ${title2}, ${leftImg}, ${rightImg})"></th:block>
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+    <link rel="stylesheet" th:href="@{'/assets/css/page/home.css'}" />
+    <style>
+        .card-background {
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        .clamp-multiline {
+            display: -webkit-box !important;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: var(--line-clamp, 3);
+        }
+        .card-text-shadow {
+            z-index: 1;
+            position: relative;
+            text-shadow: 1px 1px 1px #eaeaea;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content">
+
+    <div class="checkout-main-area pt-80">
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{'/assets/js/page/home.js'}"></script>
+    <script th:src="@{'/assets/js/page/home2.js'}"></script>
+    <script th:src="@{'/assets/js/page/draw-home-type.js'}"></script>
+    <script th:inline="javascript">
+        $(async function(e) {
+            
+            const configData = await Http.getJson('/assets/data/3xmeta/type_config_data.json');
+            homeJS.setTypeConfig(configData);
+
+            const homeData1 = await Http.getJson('/assets/data/3xmeta/A_list_data.json');
+            homeJS.drawMainContent(homeData1);
+
+            const homeData2 = await Http.getJson('/assets/data/3xmeta/B_list_data.json');
+            homeJS.drawMainContent(homeData2);
+
+            const homeData3 = await Http.getJson('/assets/data/3xmeta/C_list_data.json');
+            homeJS.drawMainContent(homeData3);
+
+            const homeData4 = await Http.getJson('/assets/data/3xmeta/D_list_data.json');
+            homeJS.drawMainContent(homeData4);
+
+            $(document).on('click', '.category-list a', function(e) {
+                homeJS.handleCategoryClick(this)
+            });
+
+        });
+
+        // 뷰 버튼 클릭
+        $(document).on('click', '.detail-btn', function(e) {
+            const uid = $(this).data('uid');
+            window.location.href = '/asp/detail/' + uid;
+        });
+    </script>
+</th:block>
+</html>

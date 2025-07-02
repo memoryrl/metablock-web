@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' - Metablock'">Metablock</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVDiNpZNLaJNnGMd/7/t+SZM0bZo0XdI2S2/WdnPt6os6O8ccQ08T9OLAwWAnBVkHOweeDMP1ZDAYIjgYbAzGQEHcGAzEgVvBzQ3cwcUL2MHNgZvBTmRjsKE7tGnSJk2atEm+9/8enkYQdLD9g4fD8/A8v/f5P/+HABhjDMAYg3/p7wRIJpNIfX39WyZJkhgjQ0MJehIEdp1oPeOu1zb5O1uWrNbaykqlciWT2Z1KB3vmp0a/mJn5Jg4EEEER+v9hIEwRJw5gGPb4T1Q6FvV6e+sJiMPTGp8fPTu4tJSIZvNFkwml9/c/MPbmvHhoeFkJpNZDEJgJJJQHw==">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">Metablock</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/about}">소개</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            CMS
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/cms}">CMS 홈</a></li>
+                            <li><a class="dropdown-item" th:href="@{/cms/posts}">포스트</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="http://localhost:3001/admin" target="_blank">CMS 관리자</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron bg-primary text-white p-5 rounded">
+                    <h1 class="display-4" th:text="${title}">Metablock 웹 애플리케이션</h1>
+                    <p class="lead" th:text="${message}">환영합니다!</p>
+                    <hr class="my-4">
+                    <p>Spring Boot와 Thymeleaf를 사용한 현대적인 웹 애플리케이션입니다.</p>
+                    <a class="btn btn-light btn-lg me-2" th:href="@{/about}" role="button">더 알아보기</a>
+                    <a class="btn btn-outline-light btn-lg" th:href="@{/cms}" role="button">CMS 체험하기</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Spring Boot</h5>
+                        <p class="card-text">강력하고 유연한 Java 기반 프레임워크로 빠른 개발을 지원합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thymeleaf</h5>
+                        <p class="card-text">자연스러운 템플릿 엔진으로 서버사이드 렌더링을 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Payload CMS</h5>
+                        <p class="card-text">Headless CMS로 동적 컨텐츠 관리와 JSON 기반 렌더링을 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CMS 기능 소개 -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2>CMS 기능</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">동적 페이지</h5>
+                                <p class="card-text">JSON 데이터를 기반으로 다양한 UI 컴포넌트가 동적으로 구성됩니다.</p>
+                                <ul class="list-unstyled">
+                                    <li>✅ 헤딩, 텍스트, 이미지 블록</li>
+                                    <li>✅ 카드 그리드 및 히어로 섹션</li>
+                                    <li>✅ CTA 버튼 및 커스텀 컴포넌트</li>
+                                </ul>
+                                <a th:href="@{/cms}" class="btn btn-success">체험하기</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h5 class="card-title text-info">컨텐츠 관리</h5>
+                                <p class="card-text">Payload CMS를 통해 쉽게 컨텐츠를 관리할 수 있습니다.</p>
+                                <ul class="list-unstyled">
+                                    <li>✅ 블로그 포스트 관리</li>
+                                    <li>✅ 카테고리별 분류</li>
+                                    <li>✅ 실시간 미리보기</li>
+                                </ul>
+                                <a href="http://localhost:3001/admin" target="_blank" class="btn btn-info">관리자 패널</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Metablock. 모든 권리 보유.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html> 

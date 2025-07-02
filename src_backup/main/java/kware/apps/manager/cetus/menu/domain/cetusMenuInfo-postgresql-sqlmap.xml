@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cetusMenuInfo">
+
+	<select id="findSessionMenuList" resultType="SessionMenuList" parameterType="SessionMenuListSearch">
+		/* cetusMenuInfo.findSessionMenuList */
+		WITH RECURSIVE MENU_LIST(MENU_NO
+							   , PROGRAM_UID
+							   , UPPER_MENU_NO
+							   , MENU_NM
+							   , MENU_ICON
+							   , SORT_NO
+							   , MENU_DC
+							   , USE_AT
+		    				   , DELETE_AT
+							   , REG_UID
+							   , REG_DT
+							   , UPDT_UID
+							   , UPDT_DT
+		    				   , AUTHOR_CD
+		    				   , MENU_STYLE
+		    				   , MENU_STYLE1
+		    	 			   , MENU_STYLE2
+		    			  	   , ROOT_MENU_CD
+		    				   , WORKPLACE_UID
+							   , URL
+							   , DEPTH
+							   , PATH_NM
+							   , PATH
+							   , CYCLE) AS
+			   (SELECT A.MENU_NO
+			   		 , A.PROGRAM_UID
+					 , A.UPPER_MENU_NO
+					 , A.MENU_NM
+            		 , A.MENU_ICON
+            		 , A.SORT_NO
+            		 , A.MENU_DC
+            		 , A.USE_AT
+			         , A.DELETE_AT
+            		 , A.REG_UID
+            		 , A.REG_DT
+            		 , A.UPDT_UID
+            		 , A.UPDT_DT
+			         , A.AUTHOR_CD
+			         , A.MENU_STYLE
+			         , A.MENU_STYLE1
+			         , A.MENU_STYLE2
+			         , A.ROOT_MENU_CD
+			         , A.WORKPLACE_UID
+					 , B.URL
+            		 , 1
+					 , ARRAY[A.MENU_NM::TEXT]
+            		 , ARRAY[A.MENU_NO::INT]
+            		 , false
+		  		  FROM cetus_menu_info A
+		  	 LEFT JOIN cetus_progrm_info B ON A.program_uid = B.uid
+				 WHERE A.delete_at = 'N'
+		   		   AND A.UPPER_MENU_NO IS NULL
+				   AND A.AUTHOR_CD = #{authorCd}
+				<if test="@Ognl@isNotEmpty(workplaceUid)">
+					AND A.WORKPLACE_UID = #{workplaceUid}::bigint
+				</if>
+				<if test="@Ognl@isNotEmpty(menuNo)">
+				   AND A.MENU_NO = #{menuNo}::bigint
+				</if>
+				<if test="@Ognl@isNotEmpty(useAt)">
+				   AND A.USE_AT = #{useAt}
+				</if>
+			 UNION ALL
+				SELECT A.MENU_NO
+					 , A.PROGRAM_UID
+            		 , A.UPPER_MENU_NO
+            		 , A.MENU_NM
+            		 , A.MENU_ICON
+            		 , A.SORT_NO
+            		 , A.MENU_DC
+            		 , A.USE_AT
+				     , A.DELETE_AT
+            		 , A.REG_UID
+            		 , A.REG_DT
+            		 , A.UPDT_UID
+            		 , A.UPDT_DT
+				     , A.AUTHOR_CD
+				     , A.MENU_STYLE
+				     , A.MENU_STYLE1
+				     , A.MENU_STYLE2
+				     , A.ROOT_MENU_CD
+				     , A.WORKPLACE_UID
+					 , C.URL
+            		 , B.DEPTH + 1
+					 , ARRAY_APPEND(B.PATH_NM, A.MENU_NM::TEXT)
+            		 , ARRAY_APPEND(B.PATH, A.SORT_NO::INT)
+            		 , A.menu_no = ANY(B.PATH)
+				  FROM cetus_menu_info A
+         	INNER JOIN MENU_LIST B ON A.upper_menu_no = B.MENU_NO
+		  	 LEFT JOIN cetus_progrm_info C ON A.program_uid = C.uid
+		 		 WHERE A.delete_at = 'N'
+		   		   AND NOT CYCLE
+		 		   AND A.AUTHOR_CD = #{authorCd}
+				<if test="@Ognl@isNotEmpty(workplaceUid)">
+		 		   AND A.WORKPLACE_UID = #{workplaceUid}::bigint
+				</if>
+				<if test="@Ognl@isNotEmpty(useAt)">
+				   AND A.USE_AT = #{useAt}
+				</if>
+			   )
+				SELECT A.MENU_NO
+             		 , A.PROGRAM_UID
+             		 , A.UPPER_MENU_NO
+             		 , A.MENU_NM
+			 		 , LPAD('', DEPTH * 8) || A.MENU_NM AS TREE_MENU_NM
+             		 , A.MENU_ICON
+             		 , A.SORT_NO
+             		 , A.MENU_DC
+             		 , A.USE_AT
+				     , A.DELETE_AT
+             		 , A.REG_UID
+             		 , TO_CHAR(A.REG_DT, 'YYYY-MM-DD HH24:MI:SS') AS REG_DT
+					 , CU_REG.USER_NM AS REG_NM
+             		 , A.UPDT_UID
+             		 , TO_CHAR(A.UPDT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPDT_DT
+					 , CU_UPDT.USER_NM AS UPDT_NM
+				     , A.AUTHOR_CD
+				     , A.MENU_STYLE
+				     , A.MENU_STYLE1
+				     , A.MENU_STYLE2
+				     , A.ROOT_MENU_CD
+				     , A.WORKPLACE_UID
+				     , CF_LEFT.FILE_ID AS LEFT_SLIDE_IMG_ID
+				     , CF_RIGHT.FILE_ID AS RIGHT_SLIDE_IMG_ID
+			 		 , A.URL
+			 		 , A.DEPTH
+			 		 , REPLACE(REPLACE(array_to_string(PATH_NM, ','), ',', '<![CDATA[<]]>'), 'root <![CDATA[<]]>', '') AS MENU_PATH
+			 		 , CASE WHEN EXISTS(SELECT 1 
+			 		 					  FROM CETUS_MENU_INFO
+					 					 WHERE UPPER_MENU_NO = A.MENU_NO
+										   AND DELETE_AT = 'N') THEN 'N' ELSE 'Y'
+					 		 END AS IS_LEAF
+		  		 FROM MENU_LIST A
+		  		 LEFT JOIN CETUS_USER CU_REG ON CU_REG.UID = A.REG_UID
+		  		 LEFT JOIN CETUS_USER CU_UPDT ON CU_UPDT.UID = A.UPDT_UID
+		  		 LEFT JOIN CETUS_PROGRM_INFO CPI ON CPI.UID = A.PROGRAM_UID
+		  		 LEFT JOIN CETUS_FILE CF_LEFT ON CF_LEFT.FILE_UID = CPI.LEFT_SLIDE_IMG AND CF_LEFT.USE_AT = 'Y' AND CF_LEFT.SAVED = 'Y'
+		  		 LEFT JOIN CETUS_FILE CF_RIGHT ON CF_RIGHT.FILE_UID = CPI.RIGHT_SLIDE_IMG AND CF_RIGHT.USE_AT = 'Y' AND CF_RIGHT.SAVED = 'Y'
+ 		 		ORDER BY PATH
+	</select>
+
+
+	<select id="findMenuTreeList" resultType="MenuTreeList" parameterType="MenuTreeSearch">
+		/* cetusMenuInfo.findMenuTreeList */
+		WITH RECURSIVE MENU_LIST(MENU_NO
+							   , PROGRAM_UID
+							   , UPPER_MENU_NO
+							   , MENU_NM
+							   , MENU_ICON
+							   , SORT_NO
+							   , MENU_DC
+							   , USE_AT
+							   , REG_UID
+							   , REG_DT
+							   , UPDT_UID
+							   , UPDT_DT
+		    				   , AUTHOR_CD
+		    				   , MENU_STYLE
+		    				   , MENU_STYLE1
+		    				   , MENU_STYLE2
+		    				   , ROOT_MENU_CD
+		    				   , WORKPLACE_UID
+							   , URL
+							   , DEPTH
+							   , PATH_NM
+							   , PATH
+							   , CYCLE) AS
+			   (SELECT A.MENU_NO
+			   		 , A.PROGRAM_UID
+					 , A.UPPER_MENU_NO
+					 , A.MENU_NM
+            		 , A.MENU_ICON
+            		 , A.SORT_NO
+            		 , A.MENU_DC
+            		 , A.USE_AT
+            		 , A.REG_UID
+            		 , A.REG_DT
+            		 , A.UPDT_UID
+            		 , A.UPDT_DT
+			         , A.AUTHOR_CD
+			         , A.MENU_STYLE
+			         , A.MENU_STYLE1
+			         , A.MENU_STYLE2
+			         , A.ROOT_MENU_CD
+			         , A.WORKPLACE_UID
+					 , B.URL
+            		 , 1
+					 , ARRAY[A.MENU_NM::TEXT]
+            		 , ARRAY[A.MENU_NO::INT]
+            		 , false
+		  		  FROM cetus_menu_info A
+		  	 LEFT JOIN cetus_progrm_info B
+		    		ON A.program_uid = B.uid
+				 WHERE A.delete_at = 'N'
+		   		   AND A.UPPER_MENU_NO IS NULL
+				   AND A.WORKPLACE_UID = #{workplaceUid}::bigint
+				   AND A.AUTHOR_CD = #{authorCd}
+			 UNION ALL
+				SELECT A.MENU_NO
+					 , A.PROGRAM_UID
+            		 , A.UPPER_MENU_NO
+            		 , A.MENU_NM
+            		 , A.MENU_ICON
+            		 , A.SORT_NO
+            		 , A.MENU_DC
+            		 , A.USE_AT
+            		 , A.REG_UID
+            		 , A.REG_DT
+            		 , A.UPDT_UID
+            		 , A.UPDT_DT
+				     , A.AUTHOR_CD
+				     , A.MENU_STYLE
+				     , A.MENU_STYLE1
+				     , A.MENU_STYLE2
+				     , A.ROOT_MENU_CD
+				     , A.WORKPLACE_UID
+					 , C.URL
+            		 , B.DEPTH + 1
+					 , ARRAY_APPEND(B.PATH_NM, A.MENU_NM::TEXT)
+            		 , ARRAY_APPEND(B.PATH, A.SORT_NO::INT)
+            		 , A.menu_no = ANY(B.PATH)
+				  FROM cetus_menu_info A
+         	INNER JOIN MENU_LIST B ON A.upper_menu_no = B.MENU_NO
+		  	 LEFT JOIN cetus_progrm_info C ON A.program_uid = C.uid
+		 		 WHERE A.delete_at = 'N'
+		   		   AND NOT CYCLE
+				   AND A.WORKPLACE_UID = #{workplaceUid}::bigint
+				   AND A.AUTHOR_CD = #{authorCd}
+			   )
+				SELECT A.MENU_NO AS NO
+					 , A.UPPER_MENU_NO AS UPPER_NO
+					 , A.MENU_NM AS TEXT
+					 , A.PROGRAM_UID
+			 		 , LPAD('', DEPTH * 8) || A.MENU_NM AS TREE_MENU_NM
+             		 , A.MENU_ICON
+             		 , A.SORT_NO
+             		 , A.MENU_DC
+             		 , A.USE_AT
+             		 , A.REG_UID
+             		 , TO_CHAR(A.REG_DT, 'YYYY-MM-DD HH24:MI:SS') AS REG_DT
+					 , CU_REG.USER_NM AS REG_NM
+             		 , A.UPDT_UID
+             		 , TO_CHAR(A.UPDT_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPDT_DT
+					 , CU_UPDT.USER_NM AS UPDT_NM
+				     , A.AUTHOR_CD
+				     , A.MENU_STYLE
+				     , A.MENU_STYLE1
+				     , A.MENU_STYLE2
+				     , A.ROOT_MENU_CD
+				     , CASE WHEN A.ROOT_MENU_CD = 'TOP_ROOT' THEN '상단 메뉴 루트'
+				         	WHEN A.ROOT_MENU_CD = 'FOOTER_ROOT' THEN '푸터 메뉴 루트'
+				        END AS ROOT_MENU_CD_NM
+				     , A.WORKPLACE_UID
+			 		 , URL
+			 		 , DEPTH
+			 		 , REPLACE(REPLACE(array_to_string(PATH_NM, ','), ',', '<![CDATA[<]]>'), 'root <![CDATA[<]]>', '') AS MENU_PATH
+			 		 , CASE WHEN EXISTS(SELECT 1
+			 		 					  FROM CETUS_MENU_INFO
+					 					 WHERE UPPER_MENU_NO = A.MENU_NO
+										   AND DELETE_AT = 'N') THEN 'N' ELSE 'Y'
+					 		 END AS IS_LEAF
+		  		 FROM MENU_LIST A
+		  		 LEFT JOIN CETUS_USER CU_REG ON CU_REG.UID = A.REG_UID
+		  		 LEFT JOIN CETUS_USER CU_UPDT ON CU_UPDT.UID = A.UPDT_UID
+ 		 		ORDER BY PATH
+	</select>
+
+
+	<select id="getRootMenuNo" parameterType="MenuRootSearch" resultType="Long">
+		/* cetusMenuInfo.getRootMenuNo */
+		SELECT CMI.MENU_NO
+		  FROM CETUS_MENU_INFO CMI
+		 WHERE CMI.AUTHOR_CD = #{authorCd}
+		   AND CMI.ROOT_MENU_CD = #{rootMenuCd}
+		   AND CMI.WORKPLACE_UID = #{workplaceUid}::bigint
+		   AND CMI.UPPER_MENU_NO is null
+	</select>
+
+	<insert id="insert" parameterType="CetusMenuInfo">
+		/* cetusMenuInfo.insert */
+		INSERT INTO cetus_menu_info (
+			 MENU_NM
+			,UPPER_MENU_NO
+			,SORT_NO
+			,AUTHOR_CD
+			,WORKPLACE_UID
+			,USE_AT
+			,DELETE_AT
+			,REG_UID
+			,REG_DT
+			,UPDT_UID
+			,UPDT_DT
+		<if test="@Ognl@isNotEmpty(programUid)">
+			,PROGRAM_UID
+		</if>
+		<if test="@Ognl@isNotEmpty(menuIcon)">
+			,MENU_ICON
+		</if>
+		<if test="@Ognl@isNotEmpty(menuDc)">
+			,MENU_DC
+		</if>
+		<if test="@Ognl@isNotEmpty(menuStyle)">
+			,MENU_STYLE
+		</if>
+		<if test="@Ognl@isNotEmpty(menuStyle1)">
+			,MENU_STYLE1
+		</if>
+		<if test="@Ognl@isNotEmpty(menuStyle2)">
+			,MENU_STYLE2
+		</if>
+		<if test="@Ognl@isNotEmpty(rootMenuCd)">
+			,ROOT_MENU_CD
+		</if>
+		) VALUES (
+			 #{menuNm}
+			,#{upperMenuNo}
+			,#{sortNo}
+			,#{authorCd}
+			,#{workplaceUid}::bigint
+			,'Y'
+			,'N'
+			,#{regUid}
+			,NOW()
+			,#{updtUid}
+			,NOW()
+		<if test="@Ognl@isNotEmpty(programUid)">
+			,#{programUid}
+		</if>
+		<if test="@Ognl@isNotEmpty(menuIcon)">
+			,#{menuIcon}
+		</if>
+		<if test="@Ognl@isNotEmpty(menuDc)">
+			,#{menuDc}
+		</if>
+		<if test="@Ognl@isNotEmpty(menuStyle)">
+			,#{menuStyle}
+		</if>
+		<if test="@Ognl@isNotEmpty(menuStyle1)">
+			,#{menuStyle1}
+		</if>
+		<if test="@Ognl@isNotEmpty(menuStyle2)">
+			,#{menuStyle2}
+		</if>
+		<if test="@Ognl@isNotEmpty(rootMenuCd)">
+			,#{rootMenuCd}
+		</if>
+		)
+	</insert>
+
+	<select id="view" resultType="CetusMenuInfo" parameterType="Long">
+		/* cetusMenuInfo.view */
+		SELECT MENU_NO
+			  ,PROGRAM_UID
+			  ,UPPER_MENU_NO
+			  ,MENU_NM
+			  ,MENU_ICON
+			  ,SORT_NO
+			  ,MENU_DC
+			  ,USE_AT
+			  ,AUTHOR_CD
+			  ,MENU_STYLE
+			  ,MENU_STYLE1
+			  ,MENU_STYLE2
+			  ,ROOT_MENU_CD
+			  ,WORKPLACE_UID
+		  FROM CETUS_MENU_INFO
+		 WHERE MENU_NO = #{menuNo}
+	</select>
+
+	<update id="update" parameterType="CetusMenuInfo">
+		/* cetusMenuInfo.update */
+		UPDATE CETUS_MENU_INFO
+		   SET PROGRAM_UID = #{programUid}::bigint
+			  ,MENU_NM = #{menuNm}
+			  ,MENU_ICON = #{menuIcon}
+			  ,SORT_NO = #{sortNo}
+			  ,MENU_DC = #{menuDc}
+			  ,USE_AT = #{useAt}
+			  ,MENU_STYLE = #{menuStyle}
+			  ,MENU_STYLE1 = #{menuStyle1}
+			  ,MENU_STYLE2 = #{menuStyle2}
+		 WHERE MENU_NO = #{menuNo}
+	</update>
+
+	<delete id="delete" parameterType="Long">
+		/* cetusMenuInfo.delete */
+		UPDATE CETUS_MENU_INFO
+		   SET DELETE_AT = 'Y'
+		 WHERE MENU_NO = #{menuNo}
+	</delete>
+
+	<select id="getMenuByProgramUid" parameterType="Long" resultType="CetusMenuInfo">
+		/* cetusMenuInfo.getMenuByProgramUid */
+		SELECT MENU_NO
+			  ,PROGRAM_UID
+			  ,UPPER_MENU_NO
+			  ,MENU_NM
+			  ,MENU_ICON
+			  ,SORT_NO
+			  ,MENU_DC
+			  ,USE_AT
+			  ,DELETE_AT
+			  ,AUTHOR_CD
+			  ,MENU_STYLE1
+			  ,MENU_STYLE2
+			  ,ROOT_MENU_CD
+			  ,WORKPLACE_UID
+			  ,MENU_STYLE
+		  FROM CETUS_MENU_INFO
+		 WHERE PROGRAM_UID = #{programUid}
+	</select>
+
+	<select id="getRootMenuInfo" resultType="SessionMenuList" parameterType="Long">
+		/* cetusMenuInfo.getRootMenuInfo */
+		SELECT CMI.MENU_NO
+			  ,CMI.PROGRAM_UID
+			  ,CMI.UPPER_MENU_NO
+			  ,CMI.MENU_NM
+			  ,CMI.MENU_ICON
+			  ,CMI.SORT_NO
+			  ,CMI.MENU_DC
+			  ,CMI.USE_AT
+			  ,CMI.DELETE_AT
+			  ,CMI.REG_UID
+			  ,CMI.REG_DT
+			  ,CMI.UPDT_UID
+			  ,CMI.UPDT_DT
+			  ,CMI.AUTHOR_CD
+			  ,CMI.MENU_STYLE
+			  ,CMI.MENU_STYLE1
+			  ,CMI.MENU_STYLE2
+			  ,CMI.ROOT_MENU_CD
+			  ,CMI.WORKPLACE_UID
+		      ,CF_LEFT.FILE_ID AS LEFT_SLIDE_IMG_ID
+		      ,CF_RIGHT.FILE_ID AS RIGHT_SLIDE_IMG_ID
+		      ,CF_LOGO.FILE_ID AS LOGO_IMG_ID
+		      ,CF_COMPANY.FILE_ID AS COMPANY_LOGO_IMG_ID
+			  ,CPI.TITLE1 AS TITLE1
+			  ,CPI.TITLE2 AS TITLE2
+			  ,CPI.TITLE3 AS TITLE3
+		  FROM CETUS_MENU_INFO CMI
+		  LEFT JOIN CETUS_PROGRM_INFO CPI ON CPI.UID = CMI.PROGRAM_UID
+		  LEFT JOIN CETUS_FILE CF_LEFT ON CF_LEFT.FILE_UID = CPI.LEFT_SLIDE_IMG AND CF_LEFT.USE_AT = 'Y' AND CF_LEFT.SAVED = 'Y'
+		  LEFT JOIN CETUS_FILE CF_RIGHT ON CF_RIGHT.FILE_UID = CPI.RIGHT_SLIDE_IMG AND CF_RIGHT.USE_AT = 'Y' AND CF_RIGHT.SAVED = 'Y'
+		  LEFT JOIN CETUS_FILE CF_LOGO ON CF_LOGO.FILE_UID = CPI.LOGO_IMG AND CF_LOGO.USE_AT = 'Y' AND CF_LOGO.SAVED = 'Y'
+		  LEFT JOIN CETUS_FILE CF_COMPANY ON CF_COMPANY.FILE_UID = CPI.COMPANY_LOGO_IMG AND CF_COMPANY.USE_AT = 'Y' AND CF_COMPANY.SAVED = 'Y'
+		 WHERE CMI.MENU_NO = #{rootMenuNo}
+	</select>
+</mapper>

@@ -1,0 +1,1282 @@
+{
+  "type": "force",
+  "categories": [
+    {
+      "name": "루트"
+    },
+    {
+      "name": "분류"
+    },
+    {
+      "name": "속성"
+    },
+    {
+      "name": "작품"
+    }
+  ],
+  "nodes": [
+    {
+      "name": "컨텐츠",
+      "category": 0,
+      "symbolSize": 80
+    },
+    {
+      "name": "출연진",
+      "category": 1,
+      "symbolSize": 40
+    },
+    {
+      "name": "유형",
+      "category": 1,
+      "symbolSize": 40
+    },
+    {
+      "name": "지역",
+      "category": 1,
+      "symbolSize": 40
+    },
+    {
+      "name": "방송사",
+      "category": 1,
+      "symbolSize": 40
+    },
+    {
+      "name": "카테고리",
+      "category": 1,
+      "symbolSize": 40
+    },
+    {
+      "name": "언어",
+      "category": 1,
+      "symbolSize": 40
+    },
+    {
+      "name": "편성 형식",
+      "category": 1,
+      "symbolSize": 40
+    },
+    {
+      "name": "시청 등급",
+      "category": 1,
+      "symbolSize": 40
+    },
+    {
+      "name": "지옥에서 온 판사",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "박신혜",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "영상",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "대한민국",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "SBS",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "드라마",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "한국어",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "정규편성",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "15세 이상",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "상속자들",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "이민호",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "MBC",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "다큐멘터리",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "미니시리즈",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "19세 이상",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "시지프스: the myth",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "전체 이용가",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "꽃보다 남자",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "단막극",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "더 킹: 영원의 군주",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "KBS",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "예능",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "별에서 온 그대",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "김수현",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "전지현",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "프로듀사",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "어느 날",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "킹덤: 아신전",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "tvN",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "지리산",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "시그널",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "김혜수",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "하이에나",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "소년심판",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "비밀의 숲",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "조승우",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "배두나",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "라이프",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "신의 선물",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "킹덤",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "고요의 바다",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "사랑의 불시착",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "손예진",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "현빈",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "서른, 아홉",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "알함브라 궁전의 추억",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "무한도전",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "유재석",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "놀면 뭐하니?",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "1박 2일",
+      "category": 3,
+      "symbolSize": 60
+    },
+    {
+      "name": "강호동",
+      "category": 2,
+      "symbolSize": 30
+    },
+    {
+      "name": "신서유기",
+      "category": 3,
+      "symbolSize": 60
+    }
+  ],
+  "links": [
+    {
+      "source": "컨텐츠",
+      "target": "출연진"
+    },
+    {
+      "source": "컨텐츠",
+      "target": "유형"
+    },
+    {
+      "source": "컨텐츠",
+      "target": "지역"
+    },
+    {
+      "source": "컨텐츠",
+      "target": "방송사"
+    },
+    {
+      "source": "컨텐츠",
+      "target": "카테고리"
+    },
+    {
+      "source": "컨텐츠",
+      "target": "언어"
+    },
+    {
+      "source": "컨텐츠",
+      "target": "편성 형식"
+    },
+    {
+      "source": "컨텐츠",
+      "target": "시청 등급"
+    },
+    {
+      "source": "출연진",
+      "target": "박신혜"
+    },
+    {
+      "source": "박신혜",
+      "target": "지옥에서 온 판사"
+    },
+    {
+      "source": "유형",
+      "target": "영상"
+    },
+    {
+      "source": "영상",
+      "target": "지옥에서 온 판사"
+    },
+    {
+      "source": "지역",
+      "target": "대한민국"
+    },
+    {
+      "source": "대한민국",
+      "target": "지옥에서 온 판사"
+    },
+    {
+      "source": "방송사",
+      "target": "SBS"
+    },
+    {
+      "source": "SBS",
+      "target": "지옥에서 온 판사"
+    },
+    {
+      "source": "카테고리",
+      "target": "드라마"
+    },
+    {
+      "source": "드라마",
+      "target": "지옥에서 온 판사"
+    },
+    {
+      "source": "언어",
+      "target": "한국어"
+    },
+    {
+      "source": "한국어",
+      "target": "지옥에서 온 판사"
+    },
+    {
+      "source": "편성 형식",
+      "target": "정규편성"
+    },
+    {
+      "source": "정규편성",
+      "target": "지옥에서 온 판사"
+    },
+    {
+      "source": "시청 등급",
+      "target": "15세 이상"
+    },
+    {
+      "source": "15세 이상",
+      "target": "지옥에서 온 판사"
+    },
+    {
+      "source": "박신혜",
+      "target": "상속자들"
+    },
+    {
+      "source": "출연진",
+      "target": "이민호"
+    },
+    {
+      "source": "이민호",
+      "target": "상속자들"
+    },
+    {
+      "source": "영상",
+      "target": "상속자들"
+    },
+    {
+      "source": "대한민국",
+      "target": "상속자들"
+    },
+    {
+      "source": "방송사",
+      "target": "MBC"
+    },
+    {
+      "source": "MBC",
+      "target": "상속자들"
+    },
+    {
+      "source": "카테고리",
+      "target": "다큐멘터리"
+    },
+    {
+      "source": "다큐멘터리",
+      "target": "상속자들"
+    },
+    {
+      "source": "한국어",
+      "target": "상속자들"
+    },
+    {
+      "source": "편성 형식",
+      "target": "미니시리즈"
+    },
+    {
+      "source": "미니시리즈",
+      "target": "상속자들"
+    },
+    {
+      "source": "시청 등급",
+      "target": "19세 이상"
+    },
+    {
+      "source": "19세 이상",
+      "target": "상속자들"
+    },
+    {
+      "source": "박신혜",
+      "target": "시지프스: the myth"
+    },
+    {
+      "source": "영상",
+      "target": "시지프스: the myth"
+    },
+    {
+      "source": "대한민국",
+      "target": "시지프스: the myth"
+    },
+    {
+      "source": "MBC",
+      "target": "시지프스: the myth"
+    },
+    {
+      "source": "다큐멘터리",
+      "target": "시지프스: the myth"
+    },
+    {
+      "source": "한국어",
+      "target": "시지프스: the myth"
+    },
+    {
+      "source": "정규편성",
+      "target": "시지프스: the myth"
+    },
+    {
+      "source": "시청 등급",
+      "target": "전체 이용가"
+    },
+    {
+      "source": "전체 이용가",
+      "target": "시지프스: the myth"
+    },
+    {
+      "source": "이민호",
+      "target": "꽃보다 남자"
+    },
+    {
+      "source": "영상",
+      "target": "꽃보다 남자"
+    },
+    {
+      "source": "대한민국",
+      "target": "꽃보다 남자"
+    },
+    {
+      "source": "SBS",
+      "target": "꽃보다 남자"
+    },
+    {
+      "source": "드라마",
+      "target": "꽃보다 남자"
+    },
+    {
+      "source": "한국어",
+      "target": "꽃보다 남자"
+    },
+    {
+      "source": "편성 형식",
+      "target": "단막극"
+    },
+    {
+      "source": "단막극",
+      "target": "꽃보다 남자"
+    },
+    {
+      "source": "19세 이상",
+      "target": "꽃보다 남자"
+    },
+    {
+      "source": "이민호",
+      "target": "더 킹: 영원의 군주"
+    },
+    {
+      "source": "영상",
+      "target": "더 킹: 영원의 군주"
+    },
+    {
+      "source": "대한민국",
+      "target": "더 킹: 영원의 군주"
+    },
+    {
+      "source": "방송사",
+      "target": "KBS"
+    },
+    {
+      "source": "KBS",
+      "target": "더 킹: 영원의 군주"
+    },
+    {
+      "source": "카테고리",
+      "target": "예능"
+    },
+    {
+      "source": "예능",
+      "target": "더 킹: 영원의 군주"
+    },
+    {
+      "source": "한국어",
+      "target": "더 킹: 영원의 군주"
+    },
+    {
+      "source": "미니시리즈",
+      "target": "더 킹: 영원의 군주"
+    },
+    {
+      "source": "15세 이상",
+      "target": "더 킹: 영원의 군주"
+    },
+    {
+      "source": "출연진",
+      "target": "김수현"
+    },
+    {
+      "source": "김수현",
+      "target": "별에서 온 그대"
+    },
+    {
+      "source": "출연진",
+      "target": "전지현"
+    },
+    {
+      "source": "전지현",
+      "target": "별에서 온 그대"
+    },
+    {
+      "source": "영상",
+      "target": "별에서 온 그대"
+    },
+    {
+      "source": "대한민국",
+      "target": "별에서 온 그대"
+    },
+    {
+      "source": "SBS",
+      "target": "별에서 온 그대"
+    },
+    {
+      "source": "드라마",
+      "target": "별에서 온 그대"
+    },
+    {
+      "source": "한국어",
+      "target": "별에서 온 그대"
+    },
+    {
+      "source": "정규편성",
+      "target": "별에서 온 그대"
+    },
+    {
+      "source": "15세 이상",
+      "target": "별에서 온 그대"
+    },
+    {
+      "source": "김수현",
+      "target": "프로듀사"
+    },
+    {
+      "source": "영상",
+      "target": "프로듀사"
+    },
+    {
+      "source": "대한민국",
+      "target": "프로듀사"
+    },
+    {
+      "source": "SBS",
+      "target": "프로듀사"
+    },
+    {
+      "source": "예능",
+      "target": "프로듀사"
+    },
+    {
+      "source": "한국어",
+      "target": "프로듀사"
+    },
+    {
+      "source": "단막극",
+      "target": "프로듀사"
+    },
+    {
+      "source": "전체 이용가",
+      "target": "프로듀사"
+    },
+    {
+      "source": "김수현",
+      "target": "어느 날"
+    },
+    {
+      "source": "영상",
+      "target": "어느 날"
+    },
+    {
+      "source": "대한민국",
+      "target": "어느 날"
+    },
+    {
+      "source": "KBS",
+      "target": "어느 날"
+    },
+    {
+      "source": "드라마",
+      "target": "어느 날"
+    },
+    {
+      "source": "한국어",
+      "target": "어느 날"
+    },
+    {
+      "source": "정규편성",
+      "target": "어느 날"
+    },
+    {
+      "source": "전체 이용가",
+      "target": "어느 날"
+    },
+    {
+      "source": "전지현",
+      "target": "킹덤: 아신전"
+    },
+    {
+      "source": "영상",
+      "target": "킹덤: 아신전"
+    },
+    {
+      "source": "대한민국",
+      "target": "킹덤: 아신전"
+    },
+    {
+      "source": "방송사",
+      "target": "tvN"
+    },
+    {
+      "source": "tvN",
+      "target": "킹덤: 아신전"
+    },
+    {
+      "source": "다큐멘터리",
+      "target": "킹덤: 아신전"
+    },
+    {
+      "source": "한국어",
+      "target": "킹덤: 아신전"
+    },
+    {
+      "source": "정규편성",
+      "target": "킹덤: 아신전"
+    },
+    {
+      "source": "전체 이용가",
+      "target": "킹덤: 아신전"
+    },
+    {
+      "source": "전지현",
+      "target": "지리산"
+    },
+    {
+      "source": "영상",
+      "target": "지리산"
+    },
+    {
+      "source": "대한민국",
+      "target": "지리산"
+    },
+    {
+      "source": "tvN",
+      "target": "지리산"
+    },
+    {
+      "source": "예능",
+      "target": "지리산"
+    },
+    {
+      "source": "한국어",
+      "target": "지리산"
+    },
+    {
+      "source": "미니시리즈",
+      "target": "지리산"
+    },
+    {
+      "source": "15세 이상",
+      "target": "지리산"
+    },
+    {
+      "source": "출연진",
+      "target": "김혜수"
+    },
+    {
+      "source": "김혜수",
+      "target": "시그널"
+    },
+    {
+      "source": "영상",
+      "target": "시그널"
+    },
+    {
+      "source": "대한민국",
+      "target": "시그널"
+    },
+    {
+      "source": "SBS",
+      "target": "시그널"
+    },
+    {
+      "source": "드라마",
+      "target": "시그널"
+    },
+    {
+      "source": "한국어",
+      "target": "시그널"
+    },
+    {
+      "source": "정규편성",
+      "target": "시그널"
+    },
+    {
+      "source": "19세 이상",
+      "target": "시그널"
+    },
+    {
+      "source": "김혜수",
+      "target": "하이에나"
+    },
+    {
+      "source": "영상",
+      "target": "하이에나"
+    },
+    {
+      "source": "대한민국",
+      "target": "하이에나"
+    },
+    {
+      "source": "tvN",
+      "target": "하이에나"
+    },
+    {
+      "source": "드라마",
+      "target": "하이에나"
+    },
+    {
+      "source": "한국어",
+      "target": "하이에나"
+    },
+    {
+      "source": "미니시리즈",
+      "target": "하이에나"
+    },
+    {
+      "source": "19세 이상",
+      "target": "하이에나"
+    },
+    {
+      "source": "김혜수",
+      "target": "소년심판"
+    },
+    {
+      "source": "영상",
+      "target": "소년심판"
+    },
+    {
+      "source": "대한민국",
+      "target": "소년심판"
+    },
+    {
+      "source": "MBC",
+      "target": "소년심판"
+    },
+    {
+      "source": "다큐멘터리",
+      "target": "소년심판"
+    },
+    {
+      "source": "한국어",
+      "target": "소년심판"
+    },
+    {
+      "source": "단막극",
+      "target": "소년심판"
+    },
+    {
+      "source": "15세 이상",
+      "target": "소년심판"
+    },
+    {
+      "source": "출연진",
+      "target": "조승우"
+    },
+    {
+      "source": "조승우",
+      "target": "비밀의 숲"
+    },
+    {
+      "source": "출연진",
+      "target": "배두나"
+    },
+    {
+      "source": "배두나",
+      "target": "비밀의 숲"
+    },
+    {
+      "source": "영상",
+      "target": "비밀의 숲"
+    },
+    {
+      "source": "대한민국",
+      "target": "비밀의 숲"
+    },
+    {
+      "source": "tvN",
+      "target": "비밀의 숲"
+    },
+    {
+      "source": "드라마",
+      "target": "비밀의 숲"
+    },
+    {
+      "source": "한국어",
+      "target": "비밀의 숲"
+    },
+    {
+      "source": "정규편성",
+      "target": "비밀의 숲"
+    },
+    {
+      "source": "전체 이용가",
+      "target": "비밀의 숲"
+    },
+    {
+      "source": "조승우",
+      "target": "라이프"
+    },
+    {
+      "source": "영상",
+      "target": "라이프"
+    },
+    {
+      "source": "대한민국",
+      "target": "라이프"
+    },
+    {
+      "source": "MBC",
+      "target": "라이프"
+    },
+    {
+      "source": "예능",
+      "target": "라이프"
+    },
+    {
+      "source": "한국어",
+      "target": "라이프"
+    },
+    {
+      "source": "정규편성",
+      "target": "라이프"
+    },
+    {
+      "source": "19세 이상",
+      "target": "라이프"
+    },
+    {
+      "source": "조승우",
+      "target": "신의 선물"
+    },
+    {
+      "source": "영상",
+      "target": "신의 선물"
+    },
+    {
+      "source": "대한민국",
+      "target": "신의 선물"
+    },
+    {
+      "source": "SBS",
+      "target": "신의 선물"
+    },
+    {
+      "source": "다큐멘터리",
+      "target": "신의 선물"
+    },
+    {
+      "source": "한국어",
+      "target": "신의 선물"
+    },
+    {
+      "source": "단막극",
+      "target": "신의 선물"
+    },
+    {
+      "source": "전체 이용가",
+      "target": "신의 선물"
+    },
+    {
+      "source": "배두나",
+      "target": "킹덤"
+    },
+    {
+      "source": "영상",
+      "target": "킹덤"
+    },
+    {
+      "source": "대한민국",
+      "target": "킹덤"
+    },
+    {
+      "source": "MBC",
+      "target": "킹덤"
+    },
+    {
+      "source": "예능",
+      "target": "킹덤"
+    },
+    {
+      "source": "한국어",
+      "target": "킹덤"
+    },
+    {
+      "source": "단막극",
+      "target": "킹덤"
+    },
+    {
+      "source": "전체 이용가",
+      "target": "킹덤"
+    },
+    {
+      "source": "배두나",
+      "target": "고요의 바다"
+    },
+    {
+      "source": "영상",
+      "target": "고요의 바다"
+    },
+    {
+      "source": "대한민국",
+      "target": "고요의 바다"
+    },
+    {
+      "source": "MBC",
+      "target": "고요의 바다"
+    },
+    {
+      "source": "예능",
+      "target": "고요의 바다"
+    },
+    {
+      "source": "한국어",
+      "target": "고요의 바다"
+    },
+    {
+      "source": "정규편성",
+      "target": "고요의 바다"
+    },
+    {
+      "source": "전체 이용가",
+      "target": "고요의 바다"
+    },
+    {
+      "source": "출연진",
+      "target": "손예진"
+    },
+    {
+      "source": "손예진",
+      "target": "사랑의 불시착"
+    },
+    {
+      "source": "출연진",
+      "target": "현빈"
+    },
+    {
+      "source": "현빈",
+      "target": "사랑의 불시착"
+    },
+    {
+      "source": "영상",
+      "target": "사랑의 불시착"
+    },
+    {
+      "source": "대한민국",
+      "target": "사랑의 불시착"
+    },
+    {
+      "source": "tvN",
+      "target": "사랑의 불시착"
+    },
+    {
+      "source": "다큐멘터리",
+      "target": "사랑의 불시착"
+    },
+    {
+      "source": "한국어",
+      "target": "사랑의 불시착"
+    },
+    {
+      "source": "미니시리즈",
+      "target": "사랑의 불시착"
+    },
+    {
+      "source": "15세 이상",
+      "target": "사랑의 불시착"
+    },
+    {
+      "source": "손예진",
+      "target": "서른, 아홉"
+    },
+    {
+      "source": "영상",
+      "target": "서른, 아홉"
+    },
+    {
+      "source": "대한민국",
+      "target": "서른, 아홉"
+    },
+    {
+      "source": "MBC",
+      "target": "서른, 아홉"
+    },
+    {
+      "source": "드라마",
+      "target": "서른, 아홉"
+    },
+    {
+      "source": "한국어",
+      "target": "서른, 아홉"
+    },
+    {
+      "source": "정규편성",
+      "target": "서른, 아홉"
+    },
+    {
+      "source": "19세 이상",
+      "target": "서른, 아홉"
+    },
+    {
+      "source": "현빈",
+      "target": "알함브라 궁전의 추억"
+    },
+    {
+      "source": "영상",
+      "target": "알함브라 궁전의 추억"
+    },
+    {
+      "source": "대한민국",
+      "target": "알함브라 궁전의 추억"
+    },
+    {
+      "source": "SBS",
+      "target": "알함브라 궁전의 추억"
+    },
+    {
+      "source": "다큐멘터리",
+      "target": "알함브라 궁전의 추억"
+    },
+    {
+      "source": "한국어",
+      "target": "알함브라 궁전의 추억"
+    },
+    {
+      "source": "정규편성",
+      "target": "알함브라 궁전의 추억"
+    },
+    {
+      "source": "15세 이상",
+      "target": "알함브라 궁전의 추억"
+    },
+    {
+      "source": "출연진",
+      "target": "유재석"
+    },
+    {
+      "source": "유재석",
+      "target": "무한도전"
+    },
+    {
+      "source": "영상",
+      "target": "무한도전"
+    },
+    {
+      "source": "대한민국",
+      "target": "무한도전"
+    },
+    {
+      "source": "MBC",
+      "target": "무한도전"
+    },
+    {
+      "source": "예능",
+      "target": "무한도전"
+    },
+    {
+      "source": "한국어",
+      "target": "무한도전"
+    },
+    {
+      "source": "미니시리즈",
+      "target": "무한도전"
+    },
+    {
+      "source": "15세 이상",
+      "target": "무한도전"
+    },
+    {
+      "source": "유재석",
+      "target": "놀면 뭐하니?"
+    },
+    {
+      "source": "영상",
+      "target": "놀면 뭐하니?"
+    },
+    {
+      "source": "대한민국",
+      "target": "놀면 뭐하니?"
+    },
+    {
+      "source": "KBS",
+      "target": "놀면 뭐하니?"
+    },
+    {
+      "source": "예능",
+      "target": "놀면 뭐하니?"
+    },
+    {
+      "source": "한국어",
+      "target": "놀면 뭐하니?"
+    },
+    {
+      "source": "미니시리즈",
+      "target": "놀면 뭐하니?"
+    },
+    {
+      "source": "19세 이상",
+      "target": "놀면 뭐하니?"
+    },
+    {
+      "source": "출연진",
+      "target": "강호동"
+    },
+    {
+      "source": "강호동",
+      "target": "1박 2일"
+    },
+    {
+      "source": "영상",
+      "target": "1박 2일"
+    },
+    {
+      "source": "대한민국",
+      "target": "1박 2일"
+    },
+    {
+      "source": "tvN",
+      "target": "1박 2일"
+    },
+    {
+      "source": "드라마",
+      "target": "1박 2일"
+    },
+    {
+      "source": "한국어",
+      "target": "1박 2일"
+    },
+    {
+      "source": "미니시리즈",
+      "target": "1박 2일"
+    },
+    {
+      "source": "15세 이상",
+      "target": "1박 2일"
+    },
+    {
+      "source": "강호동",
+      "target": "신서유기"
+    },
+    {
+      "source": "영상",
+      "target": "신서유기"
+    },
+    {
+      "source": "대한민국",
+      "target": "신서유기"
+    },
+    {
+      "source": "SBS",
+      "target": "신서유기"
+    },
+    {
+      "source": "드라마",
+      "target": "신서유기"
+    },
+    {
+      "source": "한국어",
+      "target": "신서유기"
+    },
+    {
+      "source": "단막극",
+      "target": "신서유기"
+    },
+    {
+      "source": "전체 이용가",
+      "target": "신서유기"
+    }
+  ]
+}

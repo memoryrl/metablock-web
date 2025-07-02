@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: html}">
+<head>
+    <title th:text="${title}">홈</title>
+</head>
+<body>
+    <main th:fragment="content" class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron bg-primary text-white p-5 rounded">
+                    <h1 class="display-4" th:text="${title}">Metablock 웹 애플리케이션</h1>
+                    <p class="lead" th:text="${message}">환영합니다!</p>
+                    <hr class="my-4">
+                    <p>Spring Boot와 Thymeleaf를 사용한 현대적인 웹 애플리케이션입니다.</p>
+                    <a class="btn btn-light btn-lg" th:href="@{/about}" role="button">더 알아보기</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Spring Boot</h5>
+                        <p class="card-text">강력하고 유연한 Java 기반 프레임워크로 빠른 개발을 지원합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thymeleaf</h5>
+                        <p class="card-text">자연스러운 템플릿 엔진으로 서버사이드 렌더링을 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Bootstrap</h5>
+                        <p class="card-text">반응형 디자인과 모던한 UI 컴포넌트를 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

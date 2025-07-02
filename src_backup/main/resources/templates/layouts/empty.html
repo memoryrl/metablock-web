@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>3Xmeta</title>
+  <meta name="robots" content="noindex, follow" />
+  <meta name="description" content="Urdan Minimal eCommerce Bootstrap 5 Template is a stunning eCommerce website template that is the best choice for any online store.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <th:block th:replace="fragments/head"></th:block>
+  <link rel="stylesheet" th:href="@{'/assets/css/style_v2.css'}" />
+  <link rel="stylesheet" th:href="@{'/assets/css/page/page-common.css'}" />
+  <th:block layout:fragment="head"></th:block>
+</head>
+
+<th:block th:replace="fragments/header :: header(show = 'N')"></th:block>
+<body data-aos-easing="ease" data-aos-duration="1000" data-aos-delay="0">
+<div class="main-wrapper main-wrapper-2">
+
+  <!-- S: main image -->
+  <th:block layout:fragment="center-image"></th:block>
+  <!-- E: main image -->
+
+  <th:block layout:fragment="content"></th:block>
+  <th:block th:replace="fragments/footer :: footer(show = 'N')"></th:block>
+  <th:block th:replace="fragments/sidebar-menu :: sidebar-menu(show = 'N')"></th:block>
+  <th:block th:replace="fragments/script :: script"></th:block>
+  <th:block layout:fragment="script"></th:block>
+</div>
+</body>
+
+</html>

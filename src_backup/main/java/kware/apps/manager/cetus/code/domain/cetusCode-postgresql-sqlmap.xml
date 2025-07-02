@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cetusCode">
+
+	<insert id="insert" parameterType="cetusCode">
+		/* cetusCode.insert */
+		INSERT INTO CETUS_SYS_CODE (
+			  CODE
+			, UPPER_CODE
+			, CODE_NM
+			, CODE_DC
+			, USE_AT
+			, RM_DC
+			, ITEM1_VAL
+			, ITEM2_VAL
+			, SORT_NO
+			, REG_UID
+			, REG_DT
+			, UPDT_UID
+			, UPDT_DT
+			, WORKPLACE_UID
+		) VALUES (
+			 #{code}
+			,#{upperCode}
+			,#{codeNm}
+			,#{codeDc}
+			,#{useAt}
+			,#{rmDc}
+			,#{item1Val}
+			,#{item2Val}
+			,#{sortNo}::BIGINT
+			,#{regUid}
+			,NOW()
+			,#{updtUid}
+			,#{workplaceUid}
+			,NOW()
+		)
+	</insert>
+
+	<update id="update" parameterType="cetusCode">
+		/* cetusCode.update */
+		UPDATE CETUS_SYS_CODE
+		   SET UPPER_CODE = #{upperCode}
+			  ,CODE_NM = #{codeNm}
+			  ,CODE_DC = #{codeDc}
+			  ,USE_AT = #{useAt}
+			  ,RM_DC = #{rmDc}
+			  ,ITEM1_VAL = #{item1Val}
+			  ,ITEM2_VAL = #{item2Val}
+			  ,SORT_NO = #{sortNo}::BIGINT
+			  ,UPDT_UID = #{updtUid}
+			  ,UPDT_DT = NOW()
+		 WHERE UID = #{uid}
+	</update>
+
+	<select id="findPagingAll" resultType="CodePage" parameterType="CodePageSearch">
+		/* cetusCode.findPagingAll */
+		SELECT c.UID
+			  ,c.CODE
+			  ,c.UPPER_CODE
+			  ,c.CODE_NM
+			  ,c.CODE_DC
+			  ,c.USE_AT
+			  ,c.REG_UID
+			  ,to_char(c.REG_DT, 'YYYY-MM-DD') as REG_DT
+			  ,c.UPDT_UID
+			  ,c.UPDT_DT
+			  ,u.USER_NM AS REG_NM
+			  ,( SELECT COUNT(*) FROM CETUS_SYS_CODE WHERE UPPER_CODE = c.CODE ) AS CHECK_CHILD
+		  FROM CETUS_SYS_CODE c
+		  LEFT JOIN CETUS_USER u on u.UID = c.REG_UID
+		 WHERE c.UPPER_CODE IS NULL
+		<if test="@Ognl@isNotEmpty(browseText)">
+		   AND (c.CODE_NM LIKE '%' || #{browseText} || '%' OR c.CODE LIKE '%' || #{browseText} || '%' )
+		</if>
+		<if test="@Ognl@isNotEmpty(useAt)">
+		   AND c.USE_AT = #{useAt}
+		</if>
+		 ORDER BY c.REG_DT DESC
+		<if test="@Ognl@isNotEmpty(startNumber) and  @Ognl@isNotEmpty(endNumber)">
+		OFFSET ${startNumber} LIMIT ${endNumber}
+		</if>
+	</select>
+
+	<select id="findAllCount" resultType="int" parameterType="CodePageSearch">
+		/* cetusCode.findAllCount */
+		SELECT COUNT(*)
+		  FROM CETUS_SYS_CODE c
+		 WHERE c.UPPER_CODE IS NULL
+		<if test="@Ognl@isNotEmpty(browseText)">
+		   AND (c.CODE_NM LIKE '%' || #{browseText} || '%' OR c.CODE LIKE '%' || #{browseText} || '%' )
+		</if>
+		<if test="@Ognl@isNotEmpty(useAt)">
+		   AND c.USE_AT = #{useAt}
+		</if>
+	</select>
+
+	<select id="findByUid" resultType="cetusCode">
+		/* cetusCode.findByUid */
+		SELECT UID
+			  ,CODE
+			  ,UPPER_CODE
+			  ,CODE_NM
+			  ,CODE_DC
+			  ,USE_AT
+			  ,RM_DC
+			  ,ITEM1_VAL
+			  ,ITEM2_VAL
+			  ,SORT_NO
+			  ,REG_UID
+			  ,REG_DT
+			  ,UPDT_UID
+			  ,UPDT_DT
+		 FROM CETUS_SYS_CODE
+		WHERE UID = #{uid}
+		ORDER BY SORT_NO
+	</select>
+
+	<select id="findByUpperCode" resultType="CodeView" parameterType="String">
+		/* cetusCode.findByUpperCode */
+		SELECT UID
+			  ,CODE
+			  ,UPPER_CODE
+			  ,CODE_NM
+			  ,CODE_DC
+			  ,USE_AT
+			  ,RM_DC
+			  ,ITEM1_VAL
+			  ,ITEM2_VAL
+			  ,SORT_NO
+			  ,REG_UID
+			  ,REG_DT
+			  ,UPDT_UID
+			  ,UPDT_DT
+		  FROM CETUS_SYS_CODE
+		 WHERE USE_AT = 'Y'
+		   AND UPPER_CODE = #{upperCode}
+		 ORDER BY SORT_NO
+	</select>
+
+	<select id="findByAllChildren" resultType="CodeView" parameterType="map">
+		/* cetusCode.findByAllChildren */
+		WITH RECURSIVE TB_RESULT(LV, UID, CODE, UPPER_CODE, CODE_NM, CODE_DC, RM_DC, ITEM1_VAL, ITEM2_VAL, SORT_NO, REG_UID, REG_DT, UPDT_UID, UPDT_DT, USE_AT) AS (
+		SELECT 0
+		      ,UID
+		      ,CODE
+		      ,UPPER_CODE
+		      ,CODE_NM
+		      ,CODE_DC
+		      ,RM_DC
+		      ,ITEM1_VAL
+		      ,ITEM2_VAL
+		      ,SORT_NO
+		      ,REG_UID
+		      ,REG_DT
+		      ,UPDT_UID
+		      ,UPDT_DT
+		      ,USE_AT
+		  FROM CETUS_SYS_CODE
+		 WHERE CODE = #{code}
+		 UNION ALL
+		SELECT B.LV+1
+		      ,A.UID
+		      ,A.CODE
+		      ,A.UPPER_CODE
+		      ,A.CODE_NM
+		      ,A.CODE_DC
+		      ,A.RM_DC
+		      ,A.ITEM1_VAL
+		      ,A.ITEM2_VAL
+		      ,A.SORT_NO
+		      ,A.REG_UID
+		      ,A.REG_DT
+		      ,A.UPDT_UID
+		      ,A.UPDT_DT
+		      ,A.USE_AT
+		  FROM CETUS_SYS_CODE A,TB_RESULT B
+		 WHERE A.UPPER_CODE = B.CODE
+		<if test="@Ognl@isNotEmpty(useAt)">
+		   AND A.USE_AT = #{useAt}
+		</if>
+		   AND 1 > B.LV
+		)
+		SELECT TR.LV 			"lv"
+		      ,TR.UID           "uid"
+		      ,TR.CODE 			"code"
+		      ,TR.UPPER_CODE 	"upperCode"
+		      ,(SELECT csc.CODE_NM FROM cetus_sys_code csc WHERE csc.CODE = TR.UPPER_CODE AND csc.USE_AT = 'Y') "upperCodeNm"
+		      ,TR.CODE_NM 		"codeNm"
+		      ,TR.CODE_DC 		"codeDc"
+		      ,TR.RM_DC 		"rmDc"
+		      ,TR.ITEM1_VAL 	"item1Val"
+		      ,TR.ITEM2_VAL 	"item2Val"
+		      ,TR.SORT_NO 		"sortNo"
+		      ,TR.REG_UID 		"regUid"
+		      ,TR.REG_DT 		"regDt"
+		      ,TR.UPDT_UID 		"updtUId"
+		      ,TR.UPDT_DT 		"updtDt"
+		      ,TR.USE_AT        "useAt"
+		  FROM TB_RESULT TR
+		 WHERE TR.CODE !=  #{code}
+		 ORDER BY TR.SORT_NO, TR.UID
+	</select>
+
+	<select id="isExistByCode" resultType="int">
+		/* cetusCode.isExistByCode */
+		SELECT COUNT(*)
+		  FROM CETUS_SYS_CODE
+		 WHERE CODE = #{code}
+		   AND USE_AT = 'Y'
+	</select>
+
+	<update id="updateCodeUseAt" parameterType="CetusCode">
+		/* cetusCode.updateCodeUseAt */
+		UPDATE CETUS_SYS_CODE
+		   SET USE_AT = #{useAt}
+			  ,UPDT_UID = #{updtUid}
+			  ,UPDT_DT = NOW()
+		 WHERE UID =#{uid}
+	</update>
+
+</mapper>

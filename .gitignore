@@ -1,0 +1,27 @@
+# Java / Maven
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ / VSCode / Eclipse
+.idea/
+.classpath
+.project
+.settings/
+.vscode/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node modules backup
+node_modules.backup/
+
+# Gradle
+.gradle/
+build/
+
+# Environment files
+.env 

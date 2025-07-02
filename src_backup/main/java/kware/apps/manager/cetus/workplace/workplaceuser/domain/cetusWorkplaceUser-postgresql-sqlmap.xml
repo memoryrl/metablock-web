@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cetusWorkplaceUser">
+
+    <insert id="insertWorkplaceUser" parameterType="CetusWorkplaceUser">
+        /* cetusWorkplaceUser.insertWorkplaceUser */
+        INSERT INTO CETUS_WORKPLACE_USER (
+                                      WORKPLACE_UID
+                                    ,USER_UID
+                                    <if test="regUid != null">, REG_UID</if>
+                                    ,REG_DT
+        ) VALUES (
+                   #{workplaceUid}
+                 ,#{userUid}
+                    <if test="regUid != null">, #{regUid}</if>
+                 ,NOW()
+                 )
+    </insert>
+
+</mapper>

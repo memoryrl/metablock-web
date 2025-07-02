@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">포스트</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+        .post-content h1, .post-content h2, .post-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+        .content-area {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .back-button {
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/cms">
+                <i class="fas fa-cube"></i> MetaBlock CMS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cms/home">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cms/posts">포스트</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:3001/admin" target="_blank">관리자</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- 브레드크럼 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/cms}">홈</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/cms/home}">포스트</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" th:text="${post.title}">포스트</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- 포스트 헤더 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <span class="badge bg-primary fs-6">포스트 #<span th:text="${post.id}">ID</span></span>
+                        </div>
+                        <div class="text-muted" th:if="${post.createdAt}">
+                            <small>
+                                <i class="fas fa-calendar-alt"></i>
+                                <span th:text="${#strings.substring(post.createdAt, 0, 10)}">작성일</span>
+                            </small>
+                        </div>
+                    </div>
+                    <h1 class="display-5 mb-3" th:text="${post.title}">포스트 제목</h1>
+                    <div class="text-muted small" th:if="${post.updatedAt != null && post.updatedAt != post.createdAt}">
+                        <i class="fas fa-edit"></i>
+                        <span>최종 수정: </span>
+                        <span th:text="${#strings.substring(post.updatedAt, 0, 10)}">수정일</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 포스트 내용 -->
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="bg-white rounded shadow-sm">
+                    <article class="p-4">
+                        <div class="post-content">
+                            <div th:if="${htmlBody}" class="content-area">
+                                <div th:utext="${htmlBody}">
+                                    포스트 내용이 여기에 표시됩니다.
+                                </div>
+                            </div>
+                            <div th:unless="${htmlBody}" class="content-area">
+                                <p class="text-muted">포스트 내용이 없습니다.</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 메타데이터 -->
+        <div class="row mt-4">
+            <div class="col-lg-10 mx-auto">
+                <div class="bg-white p-3 rounded shadow-sm">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="p-2">
+                                <i class="fas fa-hashtag text-primary"></i>
+                                <h6 class="mt-2 mb-0">포스트 ID</h6>
+                                <small class="text-muted" th:text="${post.id}">ID</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-2">
+                                <i class="fas fa-plus-circle text-success"></i>
+                                <h6 class="mt-2 mb-0">작성일</h6>
+                                <small class="text-muted" th:text="${post.createdAt != null ? #strings.substring(post.createdAt, 0, 16).replace('T', ' ') : 'N/A'}">작성일</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-2">
+                                <i class="fas fa-edit text-info"></i>
+                                <h6 class="mt-2 mb-0">수정일</h6>
+                                <small class="text-muted" th:text="${post.updatedAt != null ? #strings.substring(post.updatedAt, 0, 16).replace('T', ' ') : 'N/A'}">수정일</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 하단 네비게이션 -->
+        <div class="row mt-5 mb-5">
+            <div class="col-12">
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a th:href="@{/cms/home}" class="btn btn-outline-primary back-button">
+                            <i class="fas fa-arrow-left"></i> 홈으로 돌아가기
+                        </a>
+                        <div class="d-flex gap-2">
+                            <a th:href="@{/cms/home}" class="btn btn-outline-secondary">
+                                <i class="fas fa-list"></i> 목록 보기
+                            </a>
+                            <a href="http://localhost:3001/admin" target="_blank" class="btn btn-outline-success">
+                                <i class="fas fa-edit"></i> 편집하기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-cube"></i> MetaBlock CMS</h5>
+                    <p class="text-muted mb-0">Payload CMS 3.40.0 + PostgreSQL + Spring Boot</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small class="text-muted">
+                        <i class="fas fa-database"></i> PostgreSQL 연동
+                        <span class="ms-3">
+                            <i class="fas fa-server"></i> 포트 3001
+                        </span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

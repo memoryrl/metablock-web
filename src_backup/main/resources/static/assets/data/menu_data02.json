@@ -1,0 +1,92 @@
+[
+
+  {
+    "name": "Template",
+    "menuStyle" : "mega-menu-style",
+    "uid": 1,
+    "upperUid": null,
+    "subMenu": [
+      {"name": "Home", "link": "/asp/home", "uid": 2, "upperUid":  1},
+      {"name": "List", "link": "/asp/list", "uid": 3, "upperUid":  1},
+      {"name": "상세 페이지", "link": "/asp/detail", "uid": 4, "upperUid":  1},
+      {"name": "ECHART", "link": "/asp/chart", "uid": 52, "upperUid":  1},
+      {"name": "sample", "link": "/sample", "uid": 152, "upperUid":  1},
+      {"name": "css-sample", "link": "/css-sample", "uid": 252, "upperUid":  1}
+    ]
+  },
+  {
+    "name": "시스템 관리",
+    "menuStyle" : "mega-menu-style",
+    "uid": 2,
+    "upperUid": null,
+    "subMenu": [
+      {"name": "폼 관리", "link": "/asp/cetus/form", "uid": 1, "upperUid":  2},
+      {"name": "게시판 관리", "link": "/manager/cetus/bbs", "uid": 111, "upperUid":  3},
+      {"name": "사용자 관리", "link": "/manager/cetus/user", "uid": 42, "upperUid":  1},
+      {"name": "컨텐츠 관리", "link": "/manager/cetus/contents", "uid": 62, "upperUid":  2},
+      {"name": "홈 관리", "link": "/manager/cetus/contents", "uid": 72, "upperUid":  2}
+    ]
+  },
+  {
+    "name": "빅데이터",
+    "menuStyle" : "mega-menu-style",
+    "uid": 5,
+    "upperUid": null,
+    "subMenu": [
+      {"name": "해양공간종합지도", "link": "#", "uid": 6, "upperUid": 5},
+      {"name": "공간정보", "link": "#", "uid": 7, "upperUid": 5}
+    ]
+  },
+  {
+    "name": "해양수산 공간분석",
+    "menuStyle" : "mega-menu-style",
+    "uid": 8,
+    "upperUid": null,
+    "subMenu": [
+      {
+        "name": "공간분석 모델 갤러리",
+        "upperUid": 8,
+        "uid": 9,
+        "menuStyle" : "sub-dropdown-title",
+        "subMenu": [
+          {"name": "해양환경", "link": "#", "uid": 10, "upperUid":  9}				]
+      },
+      {
+        "name": "해양환경",
+        "upperUid": 8,
+        "uid": 11,
+        "menuStyle" : "sub-dropdown-title",
+        "subMenu": [
+          {"name": "수치모델 활용 해양정보", "link": "/asp/tab1", "uid": 12, "upperUid":  11},
+          {"name": "미래예측 시나리오 정보", "link": "/asp/tab2", "uid": 13, "upperUid":  11},
+          {"name": "인공지능 활용 해양정보", "link": "/asp/gallery", "uid": 14, "upperUid":  11},
+          {"name": "인공지능 활용 에측 정보", "link": "/asp/affiliate", "uid": 15, "upperUid":  11}
+        ]
+      }
+    ]
+  },
+  {
+    "name": "자료실",
+    "menuStyle" : "mega-menu-style",
+    "uid": 16,
+    "upperUid": null,
+    "subMenu": [
+      {"name": "행정", "link": "/asp/about", "uid": 17, "upperUid":  16},
+      {"name": "교육", "link": "/asp/cart", "uid": 18, "upperUid":  16},
+      {"name": "홍보", "link": "/asp/checkout", "uid": 19, "upperUid":  16},
+      {"name": "연구", "link": "/asp/account", "uid": 20, "upperUid":  16}
+    ]
+  },
+  {
+    "name": "통계자료",
+    "menuStyle" : "mega-menu-style",
+    "uid": 23,
+    "upperUid": null,
+    "subMenu": [
+      {"name": "국가승인통계", "link": "/asp/standard", "uid": 24, "upperUid":  23},
+      {"name": "일반행정통계", "link": "/asp/sidebar", "uid": 25, "upperUid":  23},
+      {"name": "blog details", "link": "/asp/details", "uid": 26, "upperUid":  23}
+    ]
+  }
+
+]

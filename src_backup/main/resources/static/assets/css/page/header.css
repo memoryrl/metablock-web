@@ -1,0 +1,111 @@
+/*  =*=*=*=*=*=*=*=*=*=*=*=*=*=* [S] header =*=*=*=*=*=*=*=*=*=*=*=*=*=* */
+.main-menu .megamenu-title-wrap .megamenu-top-title{
+    position: relative;
+    padding-left: 12px;
+    margin: 0;
+    line-height: 1;
+}
+.main-menu .megamenu-title-wrap .megamenu-top-title:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: #e97730;
+}
+.main-menu > nav > ul.megamenu-title-wrap > li{
+    position: static !important;
+}
+.main-menu > nav > ul.megamenu-title-wrap > li > ul.mega-menu-style.mega-menu-mrg-1 {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 28px 20%;
+    gap: 10px;
+}
+/* .main-menu > nav > ul.megamenu-title-wrap > li > ul li {
+    flex: 1 1 calc(33.33% - 10px);
+} */
+.main-menu > nav > ul.megamenu-title-wrap > li > ul li:last-child {
+    padding-bottom: 25px;
+}
+.main-menu > nav > ul.megamenu-title-wrap > li > ul.mega-menu-style {
+    width: calc(100vw - 18px);
+    left: 0px;
+}
+.logo a img {
+    max-width: 160px;
+}
+.main-menu > nav > ul > li > ul.mega-menu-style > li > ul {
+    display: block;
+}
+.main-menu > nav > ul.megamenu-title-wrap > li > ul li {
+    flex: 1 1 calc(25% - 10px);
+}
+.main-menu > nav > ul > li > ul.mega-menu-style > li > ul > li {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 1;
+    -ms-flex: 0 0 1;
+    flex: 0 0 1;
+    max-width: 100%;
+}
+.main-menu > nav > ul > li > ul.mega-menu-style > li > ul > li:hover {
+    color: #e97730;
+}
+/*  =*=*=*=*=*=*=*=*=*=*=*=*=*=* [E] header =*=*=*=*=*=*=*=*=*=*=*=*=*=* */
+
+/*  =*=*=*=*=*=*=*=*=*=*=*=*=*=* [S] header user =*=*=*=*=*=*=*=*=*=*=*=*=*=* */
+/* [.dropdown-toggle]를 호버했을 때 dropdown-menu 표시 */
+.header-action-style:hover .dropdown-menu {
+    display: block !important;
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.dropdown-menu {
+    width: 190px !important;
+    text-align: left !important;
+    position: absolute !important;
+    padding: 23px 23px 23px !important;
+   /* display: none; !* 기본 상태에서 숨김 *!*/
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 옵션 */
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        right: 5px !important;
+        left: auto !important;
+        width: auto !important;
+        min-width: 130px;
+        /* max-width: calc(100vw - 50px); */ /* 좌우 여백 확보 */
+        padding: 15px !important;
+    }
+}
+
+.dropdown-menu a {
+    display: block !important;
+    color: #000000 !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    text-transform: capitalize !important;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* 마지막 a 링크의 margin-bottom 제거 */
+.dropdown-menu a:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* hover 스타일 */
+.dropdown-menu a:hover {
+    color: #E97730FF !important;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+/*  =*=*=*=*=*=*=*=*=*=*=*=*=*=* [E] header user =*=*=*=*=*=*=*=*=*=*=*=*=*=* */

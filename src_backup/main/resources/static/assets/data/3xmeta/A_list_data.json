@@ -1,0 +1,84 @@
+[
+  {
+    "category": "카테고리1",
+    "title": "데이터1",
+    "description": "실시간 수온 및 염도 데이터를 통해 생산성 향상을 도모할 수 있습니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  },
+  {
+    "category": "카테고리1",
+    "title": "데이터2",
+    "description": "실시간 수온 및 염도 데이터를 통해 생산성 향상을 도모할 수 있습니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  },
+  {
+    "category": "카테고리1",
+    "title": "데이터3",
+    "description": "실시간 수온 및 염도 데이터를 통해 생산성 향상을 도모할 수 있습니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  },
+  {
+    "category": "카테고리1",
+    "title": "데이터4",
+    "description": "데이터 기반으로 위험을 사전에 예측하고 대비할 수 있습니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  },
+    {
+    "category": "카테고리2",
+    "title": "데이터5",
+    "description": "조기 경보 시스템의 개발이 시작되었습니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  },
+  {
+    "category": "카테고리2",
+    "title": "데이터6",
+    "description": "조기 경보 시스템의 테스트가 완료되었습니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  },
+  {
+    "category": "카테고리3",
+    "title": "데이터7",
+    "description": "고수온 및 저염도 상황에 대한 대응 매뉴얼이 작성되었습니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  },
+  {
+    "category": "카테고리3",
+    "title": "데이터8",
+    "description": "수집된 피드백을 바탕으로 대응 매뉴얼을 개선 중입니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  },
+  {
+    "category": "카테고리4",
+    "title": "데이터9",
+    "description": "비상 상황에 대비한 대응 매뉴얼이 완료되었습니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  },
+  {
+    "category": "카테고리4",
+    "title": "데이터10",
+    "description": "데이터 공유를 통해 지역 사회와 어민, 기관, 사업자 간 협력을 강화합니다.",
+    "image": "/assets/images/page/thumbnail_default.png",
+    "label": "바로가기",
+    "url": "/asp/detail/12"
+  }
+
+
+]

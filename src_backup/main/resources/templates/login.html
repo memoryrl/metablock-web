@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/empty}">
+
+<th:block layout:fragment="center-image">
+    <th:block th:with="title='로그인', leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+        <th:block th:replace="fragments/center-image :: center-image(${title}, ${leftImg}, ${rightImg})"></th:block>
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+    <style>
+        .error-message {
+            color: #e97730; /* 텍스트 색상 */
+            text-align: right; /* 텍스트를 오른쪽 정렬 */
+            display: block; /* 라벨을 블록 요소로 설정하여 한 줄로 표현 */
+            margin-top: 5px; /* 입력 필드와의 간격 조정 */
+        }
+    </style>
+</th:block>
+<th:block layout:fragment="content">
+
+    <div class="login-register-area pb-100 pt-95" data-aos="fade-up" data-aos-delay="200">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 offset-lg-2">
+                    <div class="login-register-wrapper">
+
+                        <div class="login-register-tab-list nav">
+                            <a class="active" data-bs-toggle="tab" href="#lg1">
+                                <h4> 로그인 </h4>
+                            </a>
+                        </div>
+
+                        <div class="tab-content">
+
+                            <!-- 폼 로그인 영역-->
+                            <div id="lg1" class="tab-pane active">
+                                <div class="login-form-container">
+                                    <div class="login-register-form">
+                                        <form id="post-form" method="post" action="/loginProc">
+                                            <input type="text" name="userId" id="userId" placeholder="userId">
+                                            <input type="password" name="password" id="password" placeholder="password" style="margin-bottom: 10px !important;">
+                                            <div th:if="${param.error}">
+                                                <p style="margin-top: 5px; color: red;" class="error-message" id="errorMessage"></p>
+                                            </div>
+                                            <div th:if="${param.before}">
+                                                <p style="margin-top: 5px; color: red;" class="error-message" id="beforeMessage"></p>
+                                            </div>
+                                            <div class="login-toggle-btn">
+                                                <input type="checkbox" id="rememberId">
+                                                <label for="rememberId">아이디 기억하기</label>
+                                                <a href="javascript:void(0);" class="register-login">
+                                                    아직 회원이 아니신가요?<br> 회원 가입하기
+                                                </a>
+                                            </div>
+                                            <div class="button-box btn-hover">
+                                                <button id="loginBtn">로그인</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <form action="/login/force.json" method="post" id="force"></form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+        $(function () {
+            const storeType = [[${storeType}]]
+            const params = new URLSearchParams(location.search);
+            if (params.has("error")) {
+
+                const errorMessage = decodeURIComponent(params.get("error"));
+                $("#errorMessage").html(errorMessage.replace("\n", "<br>"));
+                history.replaceState({}, null, '/login');
+
+            } else if (params.has("session")) {
+
+                const force = document.getElementById("force")
+                Util.confirm("이미 접속 중인 아이디입니다. 다시 로그인하시겠습니까?").then((isOk) => {
+                    if(isOk) force.submit();
+                })
+
+            } else if (params.has("expired")) {
+
+                Util.alert("세션이 만료되었습니다. 다시 로그인 해주세요.")
+
+            } else if(params.has("before")) {
+
+                const userId = decodeURIComponent(params.get("userId"));
+                const errorMessage = decodeURIComponent(params.get("before"));
+                $("#beforeMessage").html(errorMessage.replace("\n", "<br>"));
+                history.replaceState({}, null, '/login');
+                console.log("errorMessage : ", errorMessage)
+
+            }
+
+
+            /* [Login] 아이디 기억하기 */
+            const $userId = $("#userId")
+            const idItemKey = "3X_META_ID"
+            document.getElementById('post-form').addEventListener('submit', () => {
+                Switch.isChecked('rememberId') && localStorage.setItem(idItemKey, $userId.val())
+                return true
+            })
+            const rememberId = localStorage.getItem(idItemKey)
+            if(rememberId) {
+                Switch.check('rememberId')
+                $userId.val(rememberId)
+            }
+
+            $(".register-login").on('click', function(e) {
+                window.location.href = '/asp/signup'
+            })
+        })
+    </script>
+</th:block>
+</html>

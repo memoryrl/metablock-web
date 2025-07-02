@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">CMS 상태</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/cms">
+                <i class="fas fa-cube"></i> MetaBlock CMS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cms/home">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cms/posts">포스트</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/cms/status">상태</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:3001/admin" target="_blank">관리자</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- 페이지 헤더 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/cms}">홈</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">CMS 상태</li>
+                    </ol>
+                </nav>
+                <h1 class="display-6" th:text="${title}">CMS 상태 및 연결 정보</h1>
+            </div>
+        </div>
+
+        <!-- CMS 연결 상태 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="alert" th:class="${cmsAvailable} ? 'alert-success' : 'alert-danger'">
+                    <h4 class="alert-heading">
+                        <i th:class="${cmsAvailable} ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle'"></i>
+                        CMS 연결 상태
+                    </h4>
+                    <p th:if="${cmsAvailable}">
+                        ✅ Payload CMS 3.40.0이 정상적으로 연결되었습니다.
+                    </p>
+                    <p th:unless="${cmsAvailable}">
+                        ❌ Payload CMS에 연결할 수 없습니다. CMS 서버가 실행 중인지 확인해주세요.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 시스템 통계 -->
+        <div class="row mb-4" th:if="${cmsAvailable}">
+            <div class="col-md-3">
+                <div class="card bg-primary text-white text-center">
+                    <div class="card-body">
+                        <i class="fas fa-file-alt fa-2x mb-2"></i>
+                        <h3 th:text="${postsCount}">0</h3>
+                        <p class="mb-0">총 포스트</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white text-center">
+                    <div class="card-body">
+                        <i class="fas fa-users fa-2x mb-2"></i>
+                        <h3 th:text="${usersCount}">0</h3>
+                        <p class="mb-0">등록 사용자</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white text-center">
+                    <div class="card-body">
+                        <i class="fas fa-database fa-2x mb-2"></i>
+                        <h3>PostgreSQL</h3>
+                        <p class="mb-0">데이터베이스</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning text-white text-center">
+                    <div class="card-body">
+                        <i class="fas fa-cog fa-2x mb-2"></i>
+                        <h3>3.40.0</h3>
+                        <p class="mb-0">Payload CMS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 서버 정보 -->
+        <div class="row mb-4" th:if="${serverInfo}">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-server"></i> 서버 정보</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre class="bg-light p-3 rounded" th:text="${serverInfo}">서버 정보</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API 엔드포인트 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-link"></i> API 엔드포인트</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>CMS API</h6>
+                                <ul class="list-unstyled">
+                                    <li><a href="http://localhost:3001/api/posts" target="_blank">/api/posts</a></li>
+                                    <li><a href="http://localhost:3001/api/users" target="_blank">/api/users</a></li>
+                                    <li><a href="http://localhost:3001/admin" target="_blank">/admin</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Spring Boot API</h6>
+                                <ul class="list-unstyled">
+                                    <li><a href="/api/posts" target="_blank">/api/posts</a></li>
+                                    <li><a href="/api/users" target="_blank">/api/users</a></li>
+                                    <li><a href="/api/server-info" target="_blank">/api/server-info</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 액션 버튼 -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5>빠른 액션</h5>
+                        <div class="btn-group" role="group">
+                            <a th:href="@{/cms/home}" class="btn btn-primary">
+                                <i class="fas fa-home"></i> 홈으로
+                            </a>
+                            <a href="http://localhost:3001/admin" target="_blank" class="btn btn-success">
+                                <i class="fas fa-cog"></i> CMS 관리자
+                            </a>
+                            <a href="http://localhost:3001/api" target="_blank" class="btn btn-info">
+                                <i class="fas fa-code"></i> API 문서
+                            </a>
+                            <button onclick="location.reload()" class="btn btn-secondary">
+                                <i class="fas fa-refresh"></i> 새로고침
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-cube"></i> MetaBlock CMS</h5>
+                    <p class="text-muted mb-0">Payload CMS 3.40.0 + PostgreSQL + Spring Boot</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small class="text-muted">
+                        시스템 상태 모니터링
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default2}">
+
+<th:block layout:fragment="center-image">
+    <th:block th:with="title1=${currentPageName}, title2=${navigation}, leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+        <th:block th:replace="fragments/center-image :: main-image-title(${title1}, ${title2}, ${leftImg}, ${rightImg})"></th:block>
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+    <link rel="stylesheet" th:href="@{'/assets/css/page/list.css'}" />
+    <style>
+        .page-list-content .tag-content {
+            cursor: pointer;
+        }
+
+        .tag-content .close-btn {
+            cursor: pointer;
+            margin-left: 6px;
+            font-weight: bold;
+        }
+
+
+        .select2-selection__rendered > li.select2-selection__choice {
+            display: none !important;
+        }
+    </style>
+</th:block>
+<th:block layout:fragment="content">
+
+  <div class="page-area page-responsive pt-80 pb-100" data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+      <div class="row flex-row-reverse">
+        <div class="col-lg-9">
+          <div class="page-topbar-wrapper mb-40">
+            <div class="page-topbar-left">
+              <div class="showing-item">
+                <span id="showing-card">
+                    <!-- Showing 1–12 of 60 results -->
+                </span>
+                <span id="showing-list">
+                    <!-- Showing 1–12 of 60 results -->
+                </span>
+              </div>
+            </div>
+            <div class="page-topbar-right">
+                <div class="page-sorting-area">
+                    <select class="nice-select nice-select-style-1">
+                        <option value="title">이름순</option>
+                        <option value="update">업데이트순</option>
+                        <option value="rating">별점순</option>
+                    </select>
+                </div>
+              <div class="page-view-mode nav" role="tablist">
+                <a class="active" href="#shop-1" data-bs-toggle="tab" aria-selected="true" tabindex="-1" role="tab" onclick="list.fnTab('card')"><i class=" ti-layout-grid3 "></i> </a>
+                <a href="#shop-2" data-bs-toggle="tab" aria-selected="false" role="tab" onclick="list.fnTab('list')"><i class=" ti-view-list-alt "></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="page-bottom-area">
+            <div class="tab-content jump">
+              <div id="shop-1" class="tab-pane active" role="tabpanel">
+                <div class="row">
+                  <!-- card view -->
+                </div>
+                <div id="card-pagination" class="pagination-style-1">
+                    <!-- card pagination -->
+                </div>
+              </div>
+              <div id="shop-2" class="tab-pane" role="tabpanel">
+                <!-- list view -->
+                <!-- list pagination -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="sidebar-widget mb-40 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                <div class="search-wrap-2">
+                <form class="search-2-form" id="searchForm" action="#">
+                    <input id="keyword" placeholder="검색어를 입력하세요" type="text">
+                    <button class="button-search"><i class=" ti-search "></i></button>
+                </form>
+                </div>
+            </div>
+
+            <div class="sidebar-wrapper" id="sidebar-widgets-container">
+                <div>
+                    <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
+                    <div class="sidebar-widget-title mb-25">
+                        <h3>카테고리</h3>
+                    </div>
+                    <div id="categories" class="sidebar-widget-color sidebar-list-style">
+                    </div>
+                </div>
+                <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
+                    <div class="sidebar-widget-title mb-25">
+                        <h3>제공기관</h3>
+                    </div>
+                    <div  id="provider" class="sidebar-widget-color sidebar-list-style">
+                    </div>
+                </div>
+                <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
+                    <div class="sidebar-widget-title mb-25">
+                        <h3>데이터 타입</h3>
+                    </div>
+                    <div id="dataType" class="sidebar-widget-color sidebar-list-style">
+                    </div>
+                </div>
+                
+                </div>
+          </div>
+
+          <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="600">
+                    <div class="sidebar-widget-title mb-30">
+                        <h3>Date</h3>
+                    </div>
+                    <div class="page-filter">
+                        <div id="slider-range"></div>
+                        <div class="page-slider-amount">
+                            <div class="label-input">
+                                <input type="text" id="amount1" name="price" style="width: 100%; text-align: center;" />
+                            </div>
+                            -
+                            <div class="label-input">
+                                <input type="text" id="amount2" name="price" style="width: 100%; text-align: center;" />
+                            </div>
+                            <button type="button" id="date-btn">적용</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="700">
+                    <div class="sidebar-widget-title mb-25">
+                        <h3>Tags</h3>
+                    </div>
+                    <div class="sidebar-widget-tag">
+                        <select class="select2 form-select round border_line" id="tags" name="tags" multiple>
+                            <!-- <option th:each="position : ${userPosition}" th:value="${position?.uid}" th:text="${position?.name}"></option> -->
+                        </select>
+                        <div id="badgeContainer" style="margin-top:10px;"></div>
+                    </div>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</th:block>
+
+<th:block layout:fragment="script">
+  <script th:src="@{'/assets/js/page/list.js'}"></script>
+  <script th:inline="javascript">
+    $(async function() {
+        const userUid = /*[[${userUid}]]*/ "";
+        if(userUid) list.userUid = userUid
+
+        
+        const searchParams = window.location.search.substring(1);
+        const params = new URLSearchParams(searchParams);
+        const keyword = params.get('keyword');
+        if (keyword) {
+            $('#keyword').val(keyword);
+            list.setKeyword(keyword);
+        }
+
+        
+
+        const filterList = await Http.get('/cetus/api/contents/categories');
+        list.filterList = filterList;
+        
+        $('#showing-list').hide();
+
+        list.pageList();
+
+
+        $("#tags").select2({
+            tags: true,
+            placeholder: "태그 검색",
+            selectOnClose: false,
+            
+            language: {
+                noResults: function(term) {
+                    return "검색 결과가 없습니다.";
+                }
+            }
+        });
+
+        $('#tags').on('change', function() {
+            const selectedValues = $(this).val() || [];
+            selectedValues.forEach(val => {
+                if (!list.param['tags'].includes(val)) {
+                    list.param['tags'].push(val);
+                }
+            });
+
+            renderBadges();
+            list.fnPage(1);
+        });
+
+        $('#tags').on('select2:select', function(e) {
+            $('#tags').val('');
+            $(this).select2('close'); 
+        });
+
+        $(document).on('click', '.page-list-content .tag-content', function () {
+            const selectedValues = $(this).text()
+            if (!list.param['tags'].includes(selectedValues)) {
+                list.param['tags'].push(selectedValues);
+            }
+            
+            renderBadges();
+            list.fnPage(1);
+        });
+
+        // 등록일 slider
+        $('#slider-range').slider({
+            range: true,
+            min: 0,
+            max: parseDate(),
+            values: [0, parseDate()],
+            slide: function(event, ui) {
+                $('#amount1').val(list.dateFormat(ui.values[0]))
+                $('#amount2').val(list.dateFormat(ui.values[1]))
+            }
+        });
+        $('#amount1').val( list.dateFormat($('#slider-range').slider("values", 0)))
+        $('#amount2').val( list.dateFormat($('#slider-range').slider("values", 1)))
+
+        $('#amount1, #amount2').on('blur', function() {
+            const val1 = new Date($('#amount1').val())
+            const val2 = new Date($('#amount2').val())
+
+            // 값이 유효한 경우에만 슬라이더 업데이트
+            if (!isNaN(val1) && !isNaN(val2) && val1 <= val2) {
+                $('#slider-range').slider('values', [parseDate(val1), parseDate(val2)]);
+            }
+        });
+
+
+        // 정렬순서 변경
+        $('.nice-select').change(function() {
+            let sort = $(this).val();
+            list.setSort(sort);
+            list.fnPage(1);
+        });
+
+        // 검색어 검색
+        $('#searchForm').on('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // 기본 동작(폼 제출) 막기
+                
+                let keyword = $('#keyword').val()
+                list.setKeyword(keyword);
+                list.fnPage(1);
+            }
+        });
+
+        // 검색조건 검색
+        $(document).on('change', 'input[type="checkbox"]', function() {
+
+            const type = $(this).attr('id').split('_')[0];
+            const value = $(this).attr('value');
+
+            if ($(this).is(':checked')) {
+                list.param[type]?.push(value);
+            } else {
+                list.param[type] = list.param[type].filter(item => item !== value);
+            }
+            
+            list.fnPage(1);
+        });
+        
+        // 등록일 검색
+        $("#date-btn").click(function() {
+
+            list.param['date'][0] = list.dateFormat($('#slider-range').slider("values", 0));
+            list.param['date'][1] = list.dateFormat($('#slider-range').slider("values", 1));
+
+            list.fnPage(1);
+        });
+
+
+        // 뷰 버튼 클릭
+        $(document).on('click', '.detail-btn', function() {
+            const uid = $(this).data('uid');
+            window.location.href = '/asp/detail/' + uid;
+            // window.location.href = '/asp/detail/12'
+        });
+
+        // 좋아요 버튼 클릭
+        $(document).on('click', '.like-content-btn', function(e) {
+            list.likeClickEvent(this);
+        })
+
+    })
+
+    function parseDate(date) {
+        let dateString = "1900-01-01";
+        let baseDate = new Date(dateString);
+        
+        date = date || new Date();
+
+        // 밀리초 차이
+        let diffInMs = date - baseDate;
+
+        // 일수 차이 (밀리초 -> 일수)
+        return amount = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    }
+
+     function renderBadges() {
+        const container = $('#badgeContainer');
+        container.empty();
+
+        list.param['tags'].forEach(val => {
+            const text = $('#tags option[value="'+val+'"]').text() || val; // 옵션에 없으면 입력한 값 그대로
+
+            const badge = $('<span>').addClass('tag-content').text(text);
+
+            const closeBtn = $('<span>').addClass('close-btn').html('&times;');
+
+            closeBtn.on('click', function(e) {
+                e.stopPropagation();
+                // 선택값에서 제거 후 select2 갱신
+                // const selected = $('#tags').val() || [];
+                list.param['tags'] = list.param['tags'].filter(v => v !== val);
+                badge.remove();
+                list.fnPage(1);
+            });
+
+            badge.append(closeBtn);
+            container.append(badge);
+        });
+    }
+        
+  </script>
+</th:block>
+</html>

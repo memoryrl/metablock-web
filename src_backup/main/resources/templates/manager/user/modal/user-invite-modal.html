@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<div class="modal modal-primary fade text-start" id="userInviteModal" tabindex="-1" aria-labelledby="userInviteModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="userInviteModalTitle">사용자 초대</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="invite-email">이메일 주소</label>
+                <input type="email" id="invite-email" class="form-control"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="custom-button" data-bs-dismiss="modal" id="invite-cancel-btn" >취소</button>
+                <button type="button" class="custom-button" id="invite-select-btn" >적용</button>
+            </div>
+            <div id="invite-loading" class="invite-spinner-overlay">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,217 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="divTabDetailData"> 
+  <div class="row" style="margin-bottom: 25px;" data-aos="fade-up" data-aos-delay="200">
+    <div class="col-lg-12">
+      <div class="specification-wrap table-responsive">
+        <table class="table" id="tab1-table">
+            <tbody>
+                <tr>
+                    <td class="width1">데이터 제목</td>
+                    <td id="dataTitle" th:text="${content.metadata}"></td>
+                </tr>
+                <tr>
+                    <td class="width1">고유식별자</td>
+                    <td id="uniqueIdentifier"></td>
+                </tr>
+                <tr>
+                    <td class="width1">버전 정보</td>
+                    <td id="version"></td>
+                </tr>
+                <tr>
+                  <td class="width1">등록일</td>
+                  <td id="registDate"></td>
+                </tr>
+                <tr>
+                    <td class="width1">수정일</td>
+                    <td id="modifiDate"></td>
+                </tr>
+                <tr>
+                    <td class="width1">데이터 출처</td>
+                    <td id="dataSource"></td>
+                </tr>
+                <tr>
+                    <td class="width1">수집방법</td>
+                    <td id="callMethod"></td>
+                </tr>
+                <tr>
+                    <td class="width1">업데이트 주기</td>
+                    <td id="updatePeriod"></td>
+                </tr>
+                <tr>
+                    <td class="width1">관리부서</td>
+                    <td id="manageDepart"></td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- <div class="col-lg-6">
+      <div class="specification-wrap table-responsive">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="width1">주제 분류</td>
+                    <td id="subject"></td>
+                </tr>
+                <tr>
+                    <td class="width1">키워드</td>
+                    <td id="keyword"></td>
+                </tr>
+                <tr>
+                    <td class="width1">분류코드</td>
+                    <td id="classCode"></td>
+                </tr>
+                <tr>
+                  <td class="width1">데이터 형식</td>
+                  <td id="dataType"></td>
+              </tr>
+              <tr>
+                  <td class="width1">파일 포맷</td>
+                  <td id="fileFormat"></td>
+              </tr>
+              <tr>
+                  <td class="width1">레코드 수</td>
+                  <td id="recordCount"></td>
+              </tr>
+              <tr>
+                <td class="width1">데이터 용량</td>
+                <td id="dataCapacity"></td>
+              </tr>
+              <tr>
+                <td class="width1">메타데이터 업데이트</td>
+                <td id="metadataUpdate"></td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="row" style="margin-bottom: 25px;" data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+      <div class="description-review-topbar sub-tab-bar nav" data-aos="fade-up" data-aos-delay="200">
+        <a class="active" data-bs-toggle="tab" href="#des-details1-1"> 데이터 미리보기 </a>
+        <a data-bs-toggle="tab" href="#des-details1-2" class=""> 샘플 시각화 </a>
+      </div>
+      <div class="tab-content">
+        <div id="des-details1-1" class="tab-pane active">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-submit" style="display: flex; justify-content: end;">
+                <div class="page-more-update-wrapper btn-control-wrapper">
+                  <div class="page-more-update btn-hover">
+                    <a th:href="|/api/tus/file/download/${content.filePath}/${content.fileName}|" id="">
+                      <i class="ti-cloud-down"></i>&nbsp;
+                      <span>파일 다운로드</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wishlist-table-content">
+            <div class="video-container">
+                <div style="width: 100%;">
+                    <!-- 비디오 파일인 경우 -->
+                    <th:block th:if="${#strings.startsWith(content.fileType, 'video/')}">
+                        <video th:src="|/cetus/files/download?fileId=${content.fileId}|" controls 
+                            style="width: 100%; object-fit: contain;"></video>
+                    </th:block>
+                    
+                    <!-- 이미지 파일인 경우 -->
+                    <th:block th:if="${#strings.startsWith(content.fileType, 'image/')}">
+                        <img th:src="|/cetus/files/download?fileId=${content.fileId}|" 
+                            style="width: 100%; object-fit: contain;" />
+                    </th:block>
+                    
+                    <!-- 기타 파일인 경우 -->
+                    <th:block th:unless="${#strings.startsWith(content.fileType, 'video/') || #strings.startsWith(content.fileType, 'image/')}">
+                        <a th:href="|/cetus/files/download?fileId=${content.fileId}|" class="btn btn-primary">
+                            <i class="fas fa-download"></i> 파일 다운로드
+                        </a>
+                    </th:block>
+                </div>
+            </div>
+            <!-- <div class="table-content table-responsive">
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Title01</th>
+                          <th>Title02</th>
+                          <th>Title03</th>
+                          <th>Title04</th>
+                          <th>Title05</th>
+                          <th>Title06</th>
+                          <th>Title07</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>data01</td>
+                          <td>data02</td>
+                          <td>data03</td>
+                          <td><span class="amount">$120.00</span></td>
+                          <td class="stock-status">
+                              <span><i class="las la-check"></i> data05</span>
+                          </td>
+                          <td class="wishlist-cart btn-hover"><a href="#">data06</a></td>
+                          <td>data07</td>
+                      </tr>
+                      <tr>
+                        <td>data01</td>
+                        <td>data02</td>
+                        <td>data03</td>
+                        <td><span class="amount">$120.00</span></td>
+                        <td class="stock-status">
+                            <span><i class="las la-check"></i> data05</span>
+                        </td>
+                        <td class="wishlist-cart btn-hover"><a href="#">data06</a></td>
+                        <td>data07</td>
+                      </tr>
+                      <tr>
+                        <td>data01</td>
+                        <td>data02</td>
+                        <td>data03</td>
+                        <td><span class="amount">$120.00</span></td>
+                        <td class="stock-status">
+                            <span><i class="las la-check"></i> data05</span>
+                        </td>
+                        <td class="wishlist-cart btn-hover"><a href="#">data06</a></td>
+                        <td>data07</td>
+                      </tr>
+                  </tbody>
+              </table>
+            </div> -->
+          </div>
+        </div>
+        <div id="des-details1-2" class="tab-pane">
+          <div class="row">
+            <div class="col-lg-12" style="padding-bottom: 25px;">
+              <div>
+                <div class="gr_wrap justify-content-center" style="display: flex;">
+                  <div class="echart-container" id="searchTrendTimeZoneBoard" style="width: 1000px; height: 200px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+
+<style>
+.video-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+  max-height: 450px;
+  object-fit: contain;
+}
+</style>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cetusBookmark">
+
+    <select id="findListByUserUid" resultType="CetusBookmark">
+        /* cetusBookmark.list */
+        SELECT
+            user_uid,
+            contents_uid,
+            reg_uid,
+            reg_dt,
+            updt_uid,
+            updt_dt
+        FROM
+            cetus_bookmark
+        WHERE USER_UID = #{userUid}
+        ORDER BY reg_dt DESC
+    </select>
+
+    <select id="isBookmarkExists" parameterType="CetusBookmark" resultType="boolean">
+        SELECT EXISTS (
+            SELECT 1
+            FROM cetus_bookmark
+            WHERE user_uid = #{userUid}
+              AND contents_uid = #{contentsUid}
+        ) AS is_wish_exists
+    </select>
+
+    <insert id="insert" parameterType="CetusBookmark">
+        INSERT INTO cetus_bookmark (
+              USER_UID
+            , contents_uid
+            , REG_UID
+            , REG_DT
+            , UPDT_UID
+            , UPDT_DT
+        ) VALUES (
+              #{userUid}
+            , #{contentsUid}
+            , #{regUid}
+            , NOW()
+            , #{updtUid}
+            , NOW()
+        )
+    </insert>
+
+    <delete id="delete" parameterType="CetusBookmark">
+        /* cetusBookmark.delete */
+        DELETE FROM cetus_bookmark
+        WHERE USER_UID = #{userUid}
+          AND contents_uid = #{contentsUid}
+    </delete>
+
+</mapper>

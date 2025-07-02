@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cetusBbscttAnswer">
+
+    <insert id="insert" parameterType="CetusBbscttAnswer">
+        /* cetusBbscttAnswer.insert */
+        INSERT INTO CETUS_BBSCTT_ANSWER (
+             BBSCTT_UID
+            ,ANSWER_CNT
+            ,REG_UID
+            ,REG_DT
+            ,UPDT_UID
+            ,UPDT_DT
+            ,DELETE_AT
+        ) VALUES (
+             #{bbscttUid}
+            ,#{answerCnt}
+            ,#{regUid}
+            ,NOW()
+            ,#{updtUid}
+            ,NOW()
+            ,'N'
+        )
+    </insert>
+
+    <select id="getAllAnswerList" parameterType="Long" resultType="AnswerList">
+        /* cetusBbscttAnswer.getAllAnswerList */
+        SELECT CBA.ANSWER_UID
+              ,CBA.BBSCTT_UID
+              ,CBA.ANSWER_CNT
+              ,CBA.REG_UID
+              ,CU.USER_NM AS REG_NM
+              ,CU.USER_ID AS REG_ID
+              ,TO_CHAR(CBA.REG_DT, 'YYYY-MM-DD HH:MM') AS REG_DT
+          FROM CETUS_BBSCTT_ANSWER CBA
+          LEFT JOIN CETUS_USER CU ON CU.UID = CBA.REG_UID
+         WHERE CBA.BBSCTT_UID = #{bbscttUid}
+           AND CBA.DELETE_AT = 'N'
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        /* cetusBbscttAnswer.delete */
+        UPDATE CETUS_BBSCTT_ANSWER
+           SET DELETE_AT = 'Y'
+         WHERE ANSWER_UID = #{answerUid}
+    </delete>
+
+    <select id="answerBbsRegPageList" parameterType="AnswerSearch" resultType="AnswerList">
+        /* cetusBbscttAnswer.answerBbsRegPageList */
+        SELECT CBA.ANSWER_UID
+              ,CBA.BBSCTT_UID
+              ,CBBSCTT.BBSCTT_NM AS BBSCTT_NM
+              ,CBA.ANSWER_CNT
+              ,CBA.REG_UID
+              ,CU.USER_NM AS REG_NM
+              ,CU.USER_ID AS REG_ID
+              ,TO_CHAR(CBA.REG_DT, 'YYYY-MM-DD HH:MM') AS REG_DT
+        FROM CETUS_BBSCTT_ANSWER CBA
+        LEFT JOIN CETUS_USER CU ON CU.UID = CBA.REG_UID
+       INNER JOIN CETUS_BBSCTT CBBSCTT ON CBBSCTT.BBSCTT_UID = CBA.BBSCTT_UID
+       INNER JOIN CETUS_BBS CBBS ON CBBS.BBS_UID = CBBSCTT.BBS_UID
+       WHERE CBBS.BBS_UID = #{bbsUid}
+         AND CBA.DELETE_AT = 'N'
+         AND CBBSCTT.DELETE_AT = 'N'
+      <if test="@Ognl@isNotEmpty(regUid)">
+         AND CBA.REG_UID = #{regUid}
+      </if>
+       ORDER BY CBBSCTT.REG_DT DESC
+      <if test="@Ognl@isNotEmpty(startNumber) and  @Ognl@isNotEmpty(endNumber)">
+      OFFSET ${startNumber} LIMIT ${endNumber}
+      </if>
+    </select>
+
+    <select id="answerBbsRegPageListCount" parameterType="AnswerSearch" resultType="int">
+        /* cetusBbscttAnswer.answerBbsRegPageListCount */
+        SELECT COUNT(*)
+          FROM CETUS_BBSCTT_ANSWER CBA
+          LEFT JOIN CETUS_USER CU ON CU.UID = CBA.REG_UID
+         INNER JOIN CETUS_BBSCTT CBBSCTT ON CBBSCTT.BBSCTT_UID = CBA.BBSCTT_UID
+         INNER JOIN CETUS_BBS CBBS ON CBBS.BBS_UID = CBBSCTT.BBS_UID
+         WHERE CBBS.BBS_UID = #{bbsUid}
+           AND CBA.DELETE_AT = 'N'
+           AND CBBSCTT.DELETE_AT = 'N'
+      <if test="@Ognl@isNotEmpty(regUid)">
+           AND CBA.REG_UID = #{regUid}
+      </if>
+    </select>
+
+    <select id="answerExcelPageList" parameterType="AnswerExcelSearch" resultType="AnswerExcelList">
+        /* cetusBbscttAnswer.answerExcelPageList */
+        SELECT CBBS.BBS_NM AS BBS_NM
+              ,CASE WHEN CBBS.BBS_TP_CD = 'NOTICE' THEN '공지사항'
+                    WHEN CBBS.BBS_TP_CD = 'BOARD' THEN '자유 게시판'
+                    WHEN CBBS.BBS_TP_CD = 'FAQ' THEN 'FAQ'
+                    WHEN CBBS.BBS_TP_CD = 'QNA' THEN '1:1문의'
+                END AS BBS_TP_CD_NM
+              ,CBBSCTT.BBSCTT_NM AS BBSCTT_NM
+              ,CBA.ANSWER_CNT
+              ,TO_CHAR(CBA.REG_DT, 'YYYY-MM-DD HH:MM') AS REG_DT
+              ,CU.USER_ID || ' (' || CU.USER_NM || ')' AS REG_INFO
+              ,#{bbscttUrlPrefix} || CBBSCTT.BBSCTT_UID AS BBSCTT_URL
+          FROM CETUS_BBSCTT_ANSWER CBA
+          LEFT JOIN CETUS_USER CU ON CU.UID = CBA.REG_UID
+         INNER JOIN CETUS_BBSCTT CBBSCTT ON CBBSCTT.BBSCTT_UID = CBA.BBSCTT_UID
+         INNER JOIN CETUS_BBS CBBS ON CBBS.BBS_UID = CBBSCTT.BBS_UID
+         WHERE CBBS.BBS_UID = #{bbsUid}
+           AND CBA.DELETE_AT = 'N'
+           AND CBBSCTT.DELETE_AT = 'N'
+      <if test="@Ognl@isNotEmpty(regUid)">
+           AND CBA.REG_UID = #{regUid}
+      </if>
+         ORDER BY CBBSCTT.REG_DT DESC
+      <if test="@Ognl@isNotEmpty(startNumber) and  @Ognl@isNotEmpty(endNumber)">
+        OFFSET ${startNumber} LIMIT ${endNumber}
+      </if>
+    </select>
+
+    <select id="answerExcelPageListCount" parameterType="AnswerExcelSearch" resultType="int">
+        /* cetusBbscttAnswer.answerExcelPageListCount */
+        SELECT COUNT(*)
+          FROM CETUS_BBSCTT_ANSWER CBA
+          LEFT JOIN CETUS_USER CU ON CU.UID = CBA.REG_UID
+         INNER JOIN CETUS_BBSCTT CBBSCTT ON CBBSCTT.BBSCTT_UID = CBA.BBSCTT_UID
+         INNER JOIN CETUS_BBS CBBS ON CBBS.BBS_UID = CBBSCTT.BBS_UID
+         WHERE CBBS.BBS_UID = #{bbsUid}
+           AND CBA.DELETE_AT = 'N'
+           AND CBBSCTT.DELETE_AT = 'N'
+      <if test="@Ognl@isNotEmpty(regUid)">
+           AND CBA.REG_UID = #{regUid}
+      </if>
+    </select>
+
+    <update id="update" parameterType="CetusBbscttAnswer">
+        /* cetusBbscttAnswer.update */
+        UPDATE CETUS_BBSCTT_ANSWER
+           SET ANSWER_CNT = #{answerCnt}
+              ,UPDT_UID = #{updtUid}
+              ,UPDT_DT = NOW()
+         WHERE ANSWER_UID = #{answerUid}
+    </update>
+
+</mapper>

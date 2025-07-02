@@ -1,0 +1,219 @@
+/* =*=*=*=*=*=*=*=*=*=*=*= [S] 모달 팝업창 커스터마이징 =*=*=*=*=*=*=*=*=*=*=*= */
+.popupContainer {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.popupContainer.hidden {
+    display: none;
+}
+
+.popupContent {
+    /*position: absolute;
+    background-color: #ffffff;
+    width: 550px;
+    min-height: 400px; !* 기본 높이를 설정 *!
+    padding: 20px;
+    height: auto; !* 내용에 따라 높이가 늘어나도록 설정 *!*/
+
+    position: absolute;
+    background-color: #ffffff;
+
+    min-width: 320px;     /* 모바일 최소 너비 제한 */
+    max-width: 90vw;      /* 화면 너비의 90%까지 허용 */
+    width: 550px;         /* 기본 너비 (가로 사이즈 고정하고 싶다면 이거만 유지해도 OK) */
+
+    min-height: 810px;       /* ✅ 최소 높이 810px */
+    max-height: 90vh;         /* ✅ 뷰포트 기준 최대 높이 제한 (필요시 조정 가능) */
+    padding: 20px;
+    overflow-y: auto;         /* ✅ y스크롤 추가 */
+}
+
+.popupContent.popup-textarea {
+    min-height: 400px; /* 기본 최소 높이 설정 */
+    height: auto; /* 내부 요소의 크기에 따라 늘어나도록 설정 */
+}
+
+.popupContent.popup-only-uploader {
+    min-height: 400px; /* 기본 최소 높이 설정 */
+    height: auto; /* 내부 요소의 크기에 따라 늘어나도록 설정 */
+}
+
+.popupContent.popup-text {
+    min-height: 100px;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.main-popup-title {
+    height: 100%;
+    border: none;
+    padding: 20px 20px 0px 0px;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+}
+
+.main-popup-title h3 {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.main-popup-title h3::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: -12px;
+    background-color: #e97730;
+    width: 50px;
+    height: 2px;
+}
+
+.main-popup-body,
+.main-popup-footer {
+    padding: 10px; /* 동일한 패딩 적용 */
+    box-sizing: border-box; /* 패딩 포함 크기 조정 */
+}
+
+.main-popup-body{
+    padding-left: 15px;
+}
+
+/* 팝업 본문 */
+.main-popup-body.popup-textarea {
+    min-height: 280px; /* 기본 최소 높이 설정 */
+    height: auto; /* 내부 내용에 따라 늘어나도록 설정 */
+}
+
+.main-popup-body.popup-text {
+    min-height: 80px;
+}
+
+/* 텍스트영역 */
+.main-popup-textarea {
+    height: auto; /* textarea 높이가 늘어나면 컨테이너도 늘어나도록 설정 */
+    padding-top: 30px;
+}
+
+.main-popup-textarea label {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.main-popup-textarea textarea {
+    border: 1px solid #d6cbcb;
+    background-color: #ffffff;
+    color: #4a4a4a;
+    font-weight: 300;
+    height: 150px;
+    margin-bottom: 20px;
+}
+
+/* 팝업 하단 버튼 */
+.main-popup-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-popup-footer .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-popup-left-btn {
+    display: flex !important;
+    padding: 8px 16px !important;
+    margin-right: 10px;
+    width: 150px;
+    height: 35px;
+    border: 1px solid transparent !important;
+    color: #ffffff !important;
+}
+
+.main-popup-left-btn:focus {
+    outline: none;
+}
+
+.main-popup-right-btn {
+    display: flex !important;
+    padding: 8px 16px !important;
+    margin-left: 10px;
+    border: 1px solid transparent !important;
+    width: 280px;
+    height: 35px;
+    color: #ffffff !important;
+}
+
+.main-popup-right-btn:focus {
+    outline: none;
+}
+
+.btn-black {
+    background: #171717EC !important;
+}
+
+.btn-black:hover {
+    border: 1px solid transparent !important;
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+.btn-red {
+    background: #ea7a35 !important;
+}
+
+.btn-red:hover {
+    border: 1px solid transparent !important;
+    background: #f68e50 !important;
+    color: #ffffff !important;
+}
+
+/* 추가된 스타일 */
+
+/* 팝업 본문 크기 증가시 부모도 늘어나도록 설정 */
+.popupContent.popup-uploader {
+    height: auto; /* 내용에 따라 높이가 늘어나도록 설정 */
+}
+
+.main-popup-body.popup-uploader {
+    min-height: 300px; /* 기본 최소 높이 설정 */
+    height: auto; /* 내용에 따라 부모가 늘어나도록 설정 */
+}
+
+.main-popup-body.popup-form {
+    min-height: 300px; /* 기본 최소 높이 설정 */
+    height: auto; /* 내용에 따라 부모가 늘어나도록 설정 */
+}
+
+/* 이미지 업로더 */
+#thumbmail-modal-uploader {
+    height: auto; /* 이미지 업로더 크기 증가에 맞게 컨테이너 크기도 늘어나도록 설정 */
+}
+
+/* 업로더 및 삭제 버튼 스타일 */
+#modal-image-upload-btn, #modal-image-delete-btn {
+    height: 35px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 텍스트 입력 크기 자동 조정 */
+textarea, .form-control {
+    height: auto; /* 내용에 맞게 높이가 자동으로 늘어남 */
+}
+
+/* =*=*=*=*=*=*=*=*=*=*=*= [E] 모달 팝업창 커스터마이징 =*=*=*=*=*=*=*=*=*=*=*= */

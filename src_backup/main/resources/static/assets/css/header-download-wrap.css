@@ -1,0 +1,316 @@
+/* =========================== [헤더 다운로드 버튼 영역] =========================== */
+.header-action-wrap .header-action-download {
+    margin-right: 17px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .header-action-wrap .header-action-download {
+        margin-right: 7px !important;
+    }
+}
+
+.header-action-wrap .header-action-download a {
+    position: relative;
+}
+
+.header-action-wrap .header-action-download a span.product-count {
+    position: absolute;
+    top: -4px;
+    right: -10px;
+    width: 21px;
+    height: 21px;
+    line-height: 21px;
+    border-radius: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-block;
+    text-align: center;
+    color: #ffffff;
+    /*font-family: "Poppins", sans-serif;*/
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .header-action-wrap .header-action-download a span.product-count {
+        top: -4px;
+        right: -6px;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        font-size: 11px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .header-action-wrap .header-action-download a span.product-count {
+        top: -4px;
+        right: -6px;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        font-size: 11px;
+    }
+}
+
+.header-action-wrap .header-action-download a span.product-count.bg-black {
+    background-color: #000000;
+}
+/* =========================== [헤더 다운로드 버튼 영역] =========================== */
+
+
+/* =========================== [헤더 다운로드 버튼 클릭시 우측 사이드바] =========================== */
+.sidebar-download-active {
+    position: fixed;
+    top: 0;
+    width: 420px;
+    padding: 104px 50px 50px;
+    min-height: 100vh;
+    bottom: 0;
+    z-index: 9999;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: all 250ms ease-in;
+    -o-transition: all 250ms ease-in;
+    transition: all 250ms ease-in;
+    -webkit-transform: translate(200px, 0);
+    -ms-transform: translate(200px, 0);
+    transform: translate(200px, 0);
+    -webkit-box-shadow: 0 0 87px 0 rgba(0, 0, 0, 0.09);
+    box-shadow: 0 0 87px 0 rgba(0, 0, 0, 0.09);
+    background-color: #fff;
+}
+
+.sidebar-download-active.inside {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .sidebar-download-active {
+        width: 350px;
+        padding: 70px 30px 50px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .sidebar-download-active {
+        padding: 60px 15px 50px;
+        width: 300px;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .sidebar-download-active {
+        padding: 60px 30px 50px;
+        width: 340px;
+    }
+}
+
+.sidebar-download-active .sidebar-cart-all .download-cart-close {
+    position: absolute;
+    top: 37px;
+    right: 50px;
+    font-size: 50px;
+    line-height: 30px;
+    color: #6D6D6D;
+    -webkit-transition: all 250ms ease-out;
+    -o-transition: all 250ms ease-out;
+    transition: all 250ms ease-out;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .sidebar-download-active .sidebar-cart-all .download-cart-close {
+        font-size: 40px;
+        right: 19px;
+        top: 25px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .sidebar-download-active .sidebar-cart-all .download-cart-close {
+        top: 27px;
+        right: 17px;
+        font-size: 30px;
+    }
+}
+
+.sidebar-download-active .sidebar-cart-all .download-cart-close:hover {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: #e97730;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content > h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 35px;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul {
+    margin: 0 -30px 0 0;
+    padding: 0 30px 0 0;
+    max-height: 310px;
+    max-height: calc(100vh - 280px);
+    min-height: calc(100vh - 280px);
+    overflow: auto;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .sidebar-download-active .sidebar-cart-all .cart-content ul {
+        max-height: calc(100vh - 365px);
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .sidebar-download-active .sidebar-cart-all .cart-content ul {
+        max-height: calc(100vh - 360px);
+    }
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-index {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 10px;
+    -ms-flex: 0 0 10px;
+    flex: 0 0 10px;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-info {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-info h4 {
+    font-size: 15px;
+    margin: 0 0 8px;
+    font-weight: 500;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-info h4 a {
+    color: #000000;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-info h4 a:hover {
+    color: #e97730;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-info .download-spans {
+
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-info .download-spans span {
+    font-size: 15px;
+    color: #000000;
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-delete {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 100;
+    -webkit-flex-grow: 100;
+    -ms-flex-positive: 100;
+    flex-grow: 100;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-delete a {
+    display: block;
+    font-size: 20px;
+    height: 20px;
+    line-height: 17px;
+    overflow: hidden;
+    width: 20px;
+    text-align: right;
+    color: #000000;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content ul li .download-delete a:hover {
+    color: #e97730;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content .cart-total {
+    display: block;
+    width: 100%;
+    margin: 16px 0 26px;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content .cart-total h4 {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+    color: #000000;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .sidebar-download-active .sidebar-cart-all .cart-content .cart-total h4 {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .sidebar-download-active .sidebar-cart-all .cart-content .cart-total h4 {
+        font-size: 15px;
+    }
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content .cart-total h4 span {
+    font-size: 15px;
+    color: #000000;
+    float: right;
+    font-weight: 500;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content .cart-btn,
+.sidebar-download-active .sidebar-cart-all .cart-content .checkout-btn {
+    display: block;
+    width: 100%;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content .cart-btn a,
+.sidebar-download-active .sidebar-cart-all .cart-content .checkout-btn a {
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 18px 20px 17px;
+    background-color: #000000;
+    color: #fff;
+    text-transform: capitalize;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 500;
+    z-index: 1;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content .cart-btn a:first-child,
+.sidebar-download-active .sidebar-cart-all .cart-content .checkout-btn a:first-child {
+    margin-top: 0;
+}
+
+.sidebar-download-active .sidebar-cart-all .cart-content .cart-btn {
+    margin-bottom: 10px;
+}
+
+.bg-red {
+    background-color: red;
+}
+/* =========================== [헤더 다운로드 버튼 클릭시 우측 사이드바] =========================== */

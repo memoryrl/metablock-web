@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default2}">
+
+<th:block layout:fragment="center-image">
+    <th:block th:with="title1=${currentPageName}, title2=${navigation}, leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+        <th:block th:replace="fragments/center-image :: main-image-title(${title1}, ${title2}, ${leftImg}, ${rightImg})"></th:block>
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+    <link rel="stylesheet" th:href="@{'/assets/css/page/detail.css'}" />
+    <link rel="stylesheet" th:href="@{'/assets/css/page/detail-template03.css'}" />
+    <link rel="stylesheet" th:href="@{'/assets/css/page/detail-template04.css'}" />
+    <style>
+        .input-group input {
+            border: 1px solid #e8e8e8;
+            height: 50px;
+            background-color: transparent;
+            padding: 2px 20px;
+            color: #1f2226;
+            font-size: 13px;
+        }
+
+        .input-group .btn {
+            border: 1px solid #e8e8e8; /* input과 동일한 border */
+            height: 50px; /* input과 동일한 높이 */
+            background-color: transparent; /* 배경 투명 */
+            color: white; /* 텍스트 색상 */
+            font-size: 15px; /* 폰트 크기 맞추기 */
+            padding: 0 20px; /* 좌우 여백 */
+            border-top-right-radius: .375rem;
+            border-bottom-right-radius: .375rem;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content">
+<div class="ratting-edit-area pb-95">
+  <div class="container">
+    <div id="detailRating" class="ratting-form-wrapper" data-aos="fade-up" data-aos-delay="200">
+      <div class="section-title-2 st-border-center text-center mb-75">
+        <h2>컨텐츠 관리</h2>
+      </div>
+      <hr>
+      <form id="search-form-id">
+                    <div class="topbar-container">
+                        <div class="topbar-left">
+                            <span id="total-num"></span>
+                            <div class="btn-wrapper">
+                                <div class="col-12 col-xl-4 mb-1 mb-lg-0">
+                                    <select class="form-select round select_line custom-input" id="useAt" name="useAt"
+                                            onchange="searchTable()">
+                                        <option value="">사용 전체</option>
+                                        <option value="Y">사용</option>
+                                        <option value="N">미사용</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-xl-7 mb-1 mb-lg-0">
+                                    <div class="search_wrap">
+                                        <input
+                                                type="text"
+                                                id="search_txt1"
+                                                class="form-control round border_line custom-input"
+                                                name="browseText"
+                                                placeholder="그룹코드명, 그룹코드ID 검색"
+                                        />
+                                        <i class="btn_del" id="search_txt1-del-icon" style="display: none; cursor: pointer"></i>
+                                        <i class="icon_search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="topbar-right">
+                            <div class="btn-wrapper">
+                                <button type="button" class="custom-button m-2" onclick="location.href='/manager/cetus/contents/save'">새로 등록</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+      <div class="table-responsive mt-3 text-center">
+        <table class="table table-bordered" id="contents-table">
+            <thead class="table-light">
+            <tr>
+                <th>번호</th>
+                <th>타이틀</th>
+                <th>워크플레이스</th>
+                <th>등록자</th>
+                <th>등록일</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+</th:block>
+
+<th:block layout:fragment="script">
+
+  <script th:inline="javascript">
+    $(function() {
+        const table = new Table('contents-table')
+            .switchDiv()
+            .get(`/cetus/api/contents?workplaceUid=${1}`)
+            .add(new Column("uid").center())
+            .add(new Column("title").center())
+            .add(new Column("workplaceUid").center())
+            .add(new Column("regUid").center())
+            .add(new Column("regDt").center())
+            .selectable()
+            .select(function (data) {
+                location.href = `/manager/cetus/contents/${data.uid}`
+            })
+            .init();
+
+    });
+
+  </script>
+</th:block>
+</html>

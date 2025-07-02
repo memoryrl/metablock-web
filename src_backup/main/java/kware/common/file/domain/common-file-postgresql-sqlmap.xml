@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="file">
+
+    <select id="key" resultType="long" flushCache="true">
+        /* file.key */
+        SELECT NEXTVAL('k_3xmeta.cetus_file_uid_seq')
+    </select>
+
+    <select id="list" resultType="CommonFile">
+        /* file.list */
+        SELECT FILE_UID
+             , FILE_ID
+             , SAVED
+             , FILE_NM
+             , ORG_FILE_NM
+             , FILE_PATH
+             , FILE_URL
+             , FILE_TYPE
+             , EXTENSION
+             , FILE_SIZE
+             , REG_DT
+          FROM CETUS_FILE
+         WHERE USE_AT = 'Y'
+           AND FILE_UID = #{fileUid}
+           AND SAVED != 'P'
+           <if test="@Ognl@isNotEmpty(saved)">
+           AND SAVED = #{saved}
+           </if>
+         ORDER BY REG_DT DESC
+    </select>
+    
+    <select id="view" resultType="CommonFile">
+        /* file.view */
+        SELECT FILE_UID
+             , FILE_ID
+             , SAVED
+             , FILE_NM
+             , ORG_FILE_NM
+             , FILE_PATH
+             , FILE_URL
+             , FILE_TYPE
+             , EXTENSION
+             , FILE_SIZE
+             , REG_DT
+          FROM CETUS_FILE
+         WHERE USE_AT = 'Y'
+           AND FILE_ID = #{fileId}
+    </select>
+
+    <insert id="insert" parameterType="CommonFile">
+        /* file.insert */
+          insert into cetus_file (
+			  file_uid
+			, file_id
+			, org_file_nm
+			, file_path
+			, file_url
+			, file_size
+			, file_type
+			, extension
+			, reg_dt
+			, saved
+			, reg_id
+		  ) values (
+              #{fileUid}
+            , #{fileId}
+            , #{orgFileNm}
+            , #{filePath}
+            , #{fileUrl}
+            , #{fileSize}
+            , #{fileType}
+            , #{extension}
+            , now()
+            , #{saved}
+            , #{regId}
+          )
+    </insert>
+
+    <update id="delete" parameterType="CommonFile">
+        /* file.delete */
+        UPDATE CETUS_FILE
+           SET USE_AT = 'N'
+		      , UPDT_DT = now()
+         WHERE FILE_ID = #{fileId}
+    </update>
+
+    <delete id="deleteReal" parameterType="CommonFile">
+        /* file.deleteReal */
+        DELETE FROM CETUS_FILE
+         WHERE FILE_ID = #{fileId}
+           <if test="@Ognl@isNotEmpty(saved)">
+           AND SAVED = #{saved}
+           </if>
+    </delete>
+
+    <insert id="insertLog" parameterType="CommonFileLog">
+        /* fileLog.insertLog */
+        INSERT INTO CETUS_FILE_LOG
+            (
+                FILE_UID
+              , FILE_ID
+              , WORKER_UID
+              , WORKER_NM
+              , REG_DT
+              , DOWNLOAD_URL
+            )
+        VALUES
+            (
+                #{fileUid}
+              , #{fileId}
+              , #{workerUid}
+              , #{workerNm}
+              , NOW()
+              , #{downloadUrl}
+            )
+    </insert>
+
+    <select id="selectLog" resultType="CommonFileLog">
+        /* fileLog.selectLog */
+        SELECT FILE_UID
+             , FILE_URL
+             , WORKER_UID
+             , WORKER_NM
+             , REG_DT
+          FROM CETUS_FILE_LOG
+         WHERE FILE_URL = #{fileUrl}
+         ORDER BY REG_DT DESC
+    </select>
+
+    <select id="isRegister" resultType="boolean">
+        /* booleam.isRegister */
+        SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
+          FROM CETUS_FILE
+         WHERE FILE_UID = #{fileUid}
+    </select>
+
+    <select id="findFileInfo" resultType="CommonFile">
+        /* file.findFileInfo */
+        SELECT FILE_UID
+              ,FILE_ID
+              ,FILE_PATH
+              ,ORG_FILE_NM
+          FROM CETUS_FILE
+         WHERE FILE_ID = #{fileId}
+    </select>
+
+    <update id="increaseDownCnt" parameterType="CommonFile">
+        /* file.increaseDownCnt */
+        UPDATE CETUS_FILE
+           SET DOWN_CNT = DOWN_CNT + 1
+         WHERE FILE_UID = #{fileUid}
+           AND FILE_ID = #{fileId}
+    </update>
+</mapper>

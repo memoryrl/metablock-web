@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<th:block layout:fragment="center-image">
+    <th:block th:with="title1=${currentPageName}, title2=${navigation}, leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+        <th:block th:replace="fragments/center-image :: main-image-title(${title1}, ${title2}, ${leftImg}, ${rightImg})"></th:block>
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+    <link rel="stylesheet" th:href="@{'/assets/css/page/list.css'}" />
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
+    <style>
+        .filter-bar {
+            margin-bottom: 10px;
+        }
+        #mindmap-chart {
+            width: 100%;
+            height: 600px;
+            overflow: auto;
+        }
+        #force-chart {
+            width: 100%;
+            height: 600px;
+        }
+        .chart-toggle {
+            margin-bottom: 10px;
+        }
+        .chart-toggle select {
+            font-size: 14px;
+            padding: 6px 10px;
+        }
+        .chart-toggle button {
+            padding: 5px 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="my-account-wrapper pb-100 pt-80" data-aos="fade-up" data-aos-delay="200">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="sidebar-wrapper" id="sidebar-widgets-container">
+                        <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
+                            <div class="sidebar-widget-title mb-25">
+                                <h3>검색</h3>
+                            </div>
+                            <div class="sidebar-widget-color sidebar-list-style">
+                                <div class="filter-section">
+                                    <div class="filter-body">
+                                        <input type="text" class="form-control custom-input" id="nodeSearchInput" placeholder="노드 이름 입력 후 엔터" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="d-flex justify-content-between align-items-center chart-toggle mb-2">
+                        <div>
+                            <select class="nice-select nice-select-style-1 custom-select" id="chart-selector" onchange="onChartSelectChange()">
+                                <option value="tree">트리 차트</option>
+                                <option value="force">포스 차트</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button onclick="goBack()">이전노드</button>
+                            <button onclick="goHome()">처음으로</button>
+                        </div>
+                    </div>
+                    <div id="treeNodePathDisplay"></div>
+                    <div id="forceNodePathDisplay" style="display:none;"></div>
+
+                    <div id="tree-chart-container" style="display: block;">
+                        <div id="mindmap-chart"></div>
+                    </div>
+
+                    <div id="force-chart-container" style="display: none;">
+                        <div id="force-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{'/assets/js/page/chart-tree-data.js'}"></script>
+    <script th:src="@{'/assets/js/page/chart-force-data.js'}"></script>
+    <script th:inline="javascript">
+        let forceChartInitialized = false;
+        let currentTab = "tree";
+
+        function showTab(tab) {
+            document.getElementById("tree-chart-container").style.display = "none";
+            document.getElementById("force-chart-container").style.display = "none";
+            currentTab = tab;
+            switchChartMode(tab);
+
+            $("#sidebar-widgets-container input[type='checkbox']").prop("checked", false);
+
+            if (tab === "tree") {
+                document.getElementById("tree-chart-container").style.display = "block";
+                chartTreeData.chart && chartTreeData.chart.resize();
+                chartTreeData.filterValues = [];
+                chartTreeData.generateFilter(chartTreeData.currentNode);
+                chartTreeData.render(chartTreeData.currentNode);
+                chartTreeData.updatePathDisplay();
+            } else if (tab === "force") {
+                document.getElementById("force-chart-container").style.display = "block";
+                if (!forceChartInitialized) {
+                    chartForceData.init();
+                    forceChartInitialized = true;
+                } else {
+                    chartForceData.chart && chartForceData.chart.resize();
+                    chartForceData.filterValues = [];
+                    chartForceData.generateFilter(chartForceData.currentNode);
+                    chartForceData.render(chartForceData.currentNode);
+                    chartForceData.updatePathDisplay();
+                }
+            }
+        }
+
+        function onChartSelectChange() {
+            const selected = document.getElementById("chart-selector").value;
+            showTab(selected);
+        }
+
+        function goBack() {
+            if (currentTab === "tree") {
+                chartTreeData.goBack();
+            } else if (currentTab === "force") {
+                chartForceData.goBack();
+            }
+        }
+
+        function goHome() {
+            document.getElementById("nodeSearchInput").value = "";
+            $("#sidebar-widgets-container input[type='checkbox']").prop("checked", false);
+
+            if (currentTab === "tree") {
+                chartTreeData.historyStack = [];
+                chartTreeData.filterValues = [];
+                chartTreeData.generateFilter("컨텐츠");
+                chartTreeData.render("컨텐츠");
+            } else if (currentTab === "force") {
+                chartForceData.historyStack = [];
+                chartForceData.filterValues = [];
+                chartForceData.generateFilter("컨텐츠");
+                chartForceData.render("컨텐츠");
+            }
+        }
+
+        function switchChartMode(mode) {
+            if (mode === 'tree') {
+                document.getElementById("treeNodePathDisplay").style.display = 'block';
+                document.getElementById("forceNodePathDisplay").style.display = 'none';
+            } else {
+                document.getElementById("treeNodePathDisplay").style.display = 'none';
+                document.getElementById("forceNodePathDisplay").style.display = 'block';
+            }
+        }
+
+        document.getElementById("nodeSearchInput").addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                const keyword = this.value.trim();
+                if (!keyword) return;
+
+                $("#sidebar-widgets-container input[type='checkbox']").prop("checked", false);
+
+                if (currentTab === "tree") {
+                    const match =
+                        chartTreeData.fullData?.works?.find(w => w.title === keyword) ||
+                        chartTreeData.findNodeByName(keyword);
+
+                    if (match) {
+                        chartTreeData.historyStack.push(chartTreeData.currentNode);
+                        chartTreeData.filterValues = [];
+                        chartTreeData.generateFilter(keyword);
+                        chartTreeData.render(keyword);
+                    } else {
+                        Util?.alert?.("트리 차트에서 노드를 찾을 수 없습니다.") || alert("트리 차트에서 노드를 찾을 수 없습니다.");
+                    }
+
+                } else if (currentTab === "force") {
+                    const match = chartForceData.fullData?.nodes?.find(n => n.name === keyword);
+                    if (match) {
+                        chartForceData.historyStack.push(chartForceData.currentNode);
+                        chartForceData.filterValues = [];
+                        chartForceData.generateFilter(keyword);
+                        chartForceData.render(keyword);
+                    } else {
+                        Util?.alert?.("포스 차트에서 노드를 찾을 수 없습니다.") || alert("포스 차트에서 노드를 찾을 수 없습니다.");
+                    }
+                }
+            }
+        });
+        chartTreeData.init();
+    </script>
+</th:block>
+</html>

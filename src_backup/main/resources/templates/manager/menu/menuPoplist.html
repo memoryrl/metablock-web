@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<div class="modal modal-primary fade text-start" id="menuProgramModal" tabindex="-1"
+         aria-labelledby="menuProgramModalTitle" data-bs-keyboard="false" aria-hidden="true" data-bs-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="menuProgramModalTitle">프로그램 팝업</h4>
+        </div>
+        <div class="modal-body">
+          <div class="input-group mb-2">
+            <input type="text" class="form-control custom-input" id="browseText" placeholder="검색어를 입력해주세요."/>
+            <button class="custom-button" type="button" id="search-btn">검색</button>
+          </div>
+          <!-- s:table -->
+          <div class="table-responsive text-nowrap row">
+            <table id="program-datatable" class="table table-bordered text-center table-hover">
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>프로그램명</th>
+                  <th>URL</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <!-- e:table -->
+        </div>
+        <div class="modal-footer">
+          <div class="custom-btn-wrap" style="justify-content: right; margin-top: 0px;">
+            <button type="button" class="custom-button" id="cancel-btn">취소</button>
+            <button type="button" class="custom-button" id="select-btn">선택</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

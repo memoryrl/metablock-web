@@ -1,0 +1,50 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script th:inline="javascript">
+
+    $(function () {
+
+        detailtpl04.setContentUid(contentUid);
+        detailtpl04.tabHeaderLoading();
+
+        // 평점 클릭 이벤트 적용
+        Common.setRattingStarOnClick($("#detailRating .your-rating .ti-star"));
+
+        // 평점 등록하기
+        $("#detailRating #btnRatingSubmit").click(function(e){
+            let obj = {
+                rating : Common.getRattingStar($("#detailRating .your-rating")),
+                ratingType : $("#detailRating [name=detail-ratting-group]:checked").val(),
+                detailContents : $("#detailRating .rating-form-style input[type=text]").val()
+            };
+            if(obj.detailContents.length === 0) {
+                Util.alert("평점 내용을 입력해주세요.")
+                return;
+            }
+            detailtpl04.ratingSave(obj)
+        });
+
+        $(document).on('click', '.tab-title', function () {
+            // 1. active 클래스 제어
+            $('.tab-title').removeClass('active');
+            $(this).addClass('active');
+
+            // 2. 탭 종류 파악 (전체, 의견, 문의, 오류신고 중 뭐 클릭했는지)
+            const tabText = $(this).text();
+            let type = '';
+
+            if (tabText.includes('의견')) type = 'OPINION';
+            else if (tabText.includes('문의')) type = 'QUESTION';
+            else if (tabText.includes('오류신고')) type = 'REPORT';
+
+            // 3. 선택한 탭 기준으로 데이터 로드
+            detailtpl04.pageNumber = 1;
+            detailtpl04.type = type;
+
+            $("#ratingList .blog-comment-wrapper").children().remove();
+            detailtpl04.tabLoading();
+        });
+
+    });
+
+</script>
+</html>

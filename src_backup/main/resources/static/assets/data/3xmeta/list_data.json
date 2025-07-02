@@ -1,0 +1,52 @@
+[
+  {
+    "uid" : 12,
+    "title": "펜트하우스 시즌3 - 1화",
+    "category": ["drama"],
+    "sources": "sbsDrama",
+    "dataType": ["video"],
+    "date": "2021-06-04",
+    "tags": ["범죄", "가정사", "복수", "비극", "정규방송"],
+    "description": "구치소에 나란히 입소하게 된 헤라클럽 멤버들!펼쳐지는 그들의 파란만장 감빵생활.그리고 서서히 밝혀지는 로건을 죽인 범인의 정체는?대망의 펜트하우스 시즌3! 6월 4일 첫방송."
+  },
+  {
+    "uid" : 15,
+    "title": "SBS 8 뉴스",
+    "category": ["news"],
+    "sources": "sbsNews",
+    "dataType": ["video", "subtitle"],
+    "date": "2025-05-31",
+    "tags": ["뉴스", "종합 뉴스", "시사", "국내 뉴스", "국제 뉴스"],
+    "description": "대한민국의 주요 이슈와 뉴스를 신속하고 정확하게 전달하는 SBS 대표 뉴스 프로그램입니다."
+  },
+  {
+    "uid" : 13,
+    "title": "런닝맨",
+    "category": ["entertainment"],
+    "sources": "sbsEnter",
+    "dataType": ["video", "subtitle"],
+    "date": "2025-05-26",
+    "tags": ["예능", "리얼버라이어티", "코미디", "게임", "정규방송"],
+    "description": "다양한 게임과 미션을 통해 웃음을 전하는 인기 예능 프로그램입니다."
+  },
+  {
+    "uid" : 16,
+    "title": "SBS 월드 스포츠 하이라이트",
+    "category": ["sports"],
+    "sources": "sbsSports",
+    "dataType": ["video"],
+    "date": "2025-05-30",
+    "tags": ["해외", "클립영상", "스포츠", "하이라이트"],
+    "description": "전 세계 스포츠 주요 경기의 하이라이트 장면을 영어로 전해드립니다."
+  },
+  {
+    "uid" : 14,
+    "title": "한일 경제 다큐: 무역전쟁의 진실",
+    "category": ["documentary"],
+    "sources": "external",
+    "dataType": ["video", "jsonXml"],
+    "date": "2023-09-15",
+    "tags": ["경제", "특집방송", "무역", "무역갈등", "국제경제"],
+    "description": "한일 간 무역 분쟁의 배경과 경제적 영향을 심층 분석한 다큐멘터리입니다."
+  }
+]

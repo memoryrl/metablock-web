@@ -1,0 +1,13 @@
+input:disabled {
+    background-color: #efefef !important;
+}
+.error-message {
+    color: #e97730; /* 텍스트 색상 */
+    text-align: right; /* 텍스트를 오른쪽 정렬 */
+    display: block; /* 라벨을 블록 요소로 설정하여 한 줄로 표현 */
+    margin-top: 5px; /* 입력 필드와의 간격 조정 */
+}
+.btn-disabled {
+    opacity: 0.5; /* 비활성화된 것처럼 보이도록 투명도 변경 */
+    cursor: not-allowed; /* 비활성화 마우스 커서 표시 */
+}

@@ -1,0 +1,66 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script th:inline="javascript">
+
+  $(function () {
+
+    $("#thumb-cl").on('click', (e) => {
+      e.preventDefault();
+      const selectedThumbnail = document.querySelector('.thumbnail-item.selected img');
+      thumbnailModal.thumbNailImg = selectedThumbnail.getAttribute('src')
+      thumbnailModal.modal.modal('hide');
+    });
+
+  });
+
+  var thumbnailModal = {
+
+    thumbNailImg: ''
+    ,modal: $("#thumbNailModal")
+
+    ,chooseThumbNail: function () {
+      return new Promise((resolve) => {
+        let IMGLST = [];
+        const editorElement = document.querySelector('.ck-editor__main');
+        const images = editorElement.querySelectorAll('img');
+        images.forEach(img => {
+          const imgSrc=  img.getAttribute('src')
+          if (imgSrc && imgSrc.startsWith('/ckImage/')) IMGLST.push(img);
+        });
+
+        if (IMGLST.length > 1) {
+          const thumbnailContainer = document.getElementById('thumbnailContainer');
+          thumbnailContainer.innerHTML = '';
+
+          IMGLST.forEach((img, index) => {
+            const thumbSrc = img.getAttribute('src');
+            const thumbnailItem = document.createElement('div');
+            thumbnailItem.classList.add('thumbnail-item');
+            thumbnailItem.innerHTML = `<img src="${thumbSrc}" alt="Thumbnail">`;
+
+            if (index === 0) thumbnailItem.classList.add('selected')
+            thumbnailItem.addEventListener('click', function() {
+              const $this = this
+              document.querySelectorAll('.thumbnail-item').forEach(item => {
+                item.classList.remove('selected')
+              })
+              $this.classList.add('selected')
+            })
+            thumbnailContainer.appendChild(thumbnailItem)
+          })
+
+          thumbnailModal.modal.modal('show');
+          thumbnailModal.modal.on('hidden.bs.modal', () => { resolve() });
+
+        } else if (IMGLST.length === 1) {
+          const img = IMGLST[0];
+          thumbnailModal.thumbNailImg = img.getAttribute('src');
+          resolve();
+        } else {
+          resolve();
+        }
+      });
+    }
+
+  }
+
+</script>

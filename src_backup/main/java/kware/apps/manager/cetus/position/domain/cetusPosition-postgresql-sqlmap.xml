@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cetusPosition">
+
+    <select id="getPositionList" parameterType="Long" resultType="GroupList">
+        /* cetusPosition.getPositionList */
+        SELECT UID
+              ,NAME
+          FROM CETUS_POSITION
+         WHERE WORKPLACE_UID = #{workplaceUid}
+           AND USE_AT = 'Y'
+         ORDER BY SORT_ORDER
+    </select>
+</mapper>

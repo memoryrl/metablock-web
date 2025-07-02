@@ -1,0 +1,66 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="sidebar-download">
+  <div class="sidebar-download-active">
+    <div class="sidebar-cart-all">
+      <a class="download-cart-close" href="#"><i class="pe-7s-close"></i></a>
+      <div class="cart-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+          <h3>다운로드 항목</h3>
+        </div>
+
+        <ul id="download-list-ul">
+          <li>
+            <div class="download-index">
+              <span>1</span>
+            </div>
+            <div class="download-info">
+              <h4>
+                <a href="#">IoT 기반 어류 성장 추적 시스템</a>
+              </h4>
+              <div class="download-spans">
+                <span>* 다운로드 횟수 : 1</span>
+              </div>
+            </div>
+            <div class="download-delete">
+              <a href="#" class="delete-item" data-uid="10">×</a>
+            </div>
+          </li>
+          <li>
+            <div class="download-index">
+              <span>2</span>
+            </div>
+            <div class="download-info">
+              <h4>
+                <a href="#">수온 및 염분 변화 자동 경고 시스템</a>
+              </h4>
+              <div class="download-spans">
+                <span>* 다운로드 횟수 : 0</span>
+              </div>
+            </div>
+            <div class="download-delete">
+              <a href="#" class="delete-item" data-uid="11">×</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script th:inline="javascript">
+    $(function(e) {
+
+      $(document).on('click', '.download-link', function(e) {
+        e.preventDefault(); // 기본 이동 막기
+        const fileUrl = $(this).data('url');
+        sidebarDownload.downloadFile(fileUrl);
+      });
+
+      $(document).on('click', '.delete-item', function(e) {
+        e.preventDefault(); // 기본 이동 막기
+        const fileUid = $(this).data('uid');
+        sidebarDownload.deleteFile(fileUid);
+      });
+
+    });
+  </script>
+</th:block>
+</html>

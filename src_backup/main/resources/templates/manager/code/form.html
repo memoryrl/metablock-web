@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<th:block layout:fragment="center-image">
+    <th:block th:with="title1=${currentPageName}, title2=${navigation}, leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+        <th:block th:replace="fragments/center-image :: main-image-title(${title1}, ${title2}, ${leftImg}, ${rightImg})"></th:block>
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+    <style>
+        .form-control {
+            border: 1px solid #e8e8e8;
+            height: 40px;
+            background-color: transparent;
+            padding: 2px 20px;
+            color: #1f2226;
+            font-size: 13px;
+        }
+
+        .input-group .btn {
+            border: 1px solid #e8e8e8; /* input과 동일한 border */
+            height: 50px; /* input과 동일한 높이 */
+            background-color: transparent; /* 배경 투명 */
+            color: white; /* 텍스트 색상 */
+            font-size: 15px; /* 폰트 크기 맞추기 */
+            padding: 0 20px; /* 좌우 여백 */
+            border-top-right-radius: .375rem;
+            border-bottom-right-radius: .375rem;
+        }
+    </style>
+    <link rel="stylesheet" th:href="@{'/assets/css/page/manager/user-list.css'}"/>
+    <link rel="stylesheet" th:href="@{'/assets/css/page/manager/user-form.css'}"/>
+</th:block>
+<th:block layout:fragment="content">
+    <!-- BEGIN: Content-->
+    <div class="related-product-area pb-100 pt-80" data-aos="fade-up" data-aos-delay="200">
+        <div class="container">
+            <div class="section-title-2 st-border-center text-center mb-35">
+                <h2>코드 관리</h2>
+            </div>
+            <hr>
+
+            <div class="d-flex justify-content-end pe-4">
+                <div class="btn-container" style="margin-top: 0px !important;">
+                    <!-- 왼쪽 버튼 -->
+                    <!-- 오른쪽 버튼들 -->
+                    <div class="right-buttons mb-2">
+                        <button id="updt-btn" type="button" class="custom-button">
+                            <span>등록</span>
+                        </button>
+                        <button type="button" class="custom-button" onclick="location.href='/manager/code/list'">
+                            <span>목록</span>
+                        </button>
+                    </div>
+                    <div class="error-message" id="formGroup-error"></div>
+                </div>
+            </div>
+            <div>
+                <form id="updt-form-parent">
+                    <input type="hidden" name="uid" th:value="${view?.uid}">
+
+                    <div class="card">
+                        <div class="pb-3 border-bottom" style="padding: 15px;">
+                            <div class="row align-items-center">
+                                <h4 class="mb-0">기본 정보</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="custom-label" for="codeNm">그룹코드명<span
+                                            class="text-primary ms-50">*</span></label>
+                                    <input type="text" id="codeNm" class="form-control"
+                                           placeholder="그룹코드명 정보를 입력해주세요." th:value="${view.codeNm}" name="codeNm"/>
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="custom-label">그룹코드 사용여부<span
+                                            class="text-primary ms-50">*</span></label>
+                                    <div class="form-check form-switch align-items-center"
+                                         style="margin-bottom: 10px;">
+                                        <input class="form-check-input swtich-chk" type="checkbox" role="switch"
+                                               style="width: 3em; height: 1.5em"
+                                               id="useAt" name="useAt" th:checked="${view?.useAt == 'Y'}">
+                                    </div>
+                                    <span class="validation-error-message" id="useAt-error"></span>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <label class="custom-label" for="code">그룹코드ID</label>
+                                    <input type="text" id="code" class="form-control"
+                                           th:value="${view.code}" name="code" disabled/>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <label class="custom-label" for="codeDc">그룹코드설명 </label>
+                                    <input type="text" id="codeDc" class="form-control"
+                                                   placeholder="그룹코드설명 정보를 입력해주세요." th:value="${view.codeDc}"
+                                                   name="codeDc"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- e:등록 -->
+                </form>
+
+                <!-- s:list -->
+                <form id="updt-form-child">
+                    <div class="card mt-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="mb-0">코드 목록</h4>
+                            <button type="button" id="addRow-btn" onclick="add_tr()" class="custom-button">추가</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive text-nowrap">
+                                <table class="table table-bordered text-center">
+                                    <colgroup>
+                                        <col style="width: 5%"/>
+                                        <col style="width: 15%"/>
+                                        <col style="width: 15%"/>
+                                        <col style="width: 10%"/>
+                                        <col style="width: 10%"/>
+                                        <col style="width: 10%"/>
+                                        <col style="width: 10%"/>
+                                        <col style="width: 20%"/>
+                                        <col style="width: 10%"/>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">번호</th>
+                                        <th class="text-center">코드명</th>
+                                        <th class="text-center">코드ID</th>
+                                        <th class="text-center">서브코드1</th>
+                                        <th class="text-center">서브코드2</th>
+                                        <th class="text-center">정렬순서</th>
+                                        <th class="text-center">사용여부</th>
+                                        <th class="text-center">비고</th>
+                                        <th class="text-center">삭제</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="table_body">
+                                    <th:block th:if="${childList.size() == 0}">
+                                        <tr class="empty-tr">
+                                            <td colspan="9" class="text-center py-2">코드 목록이 없습니다.</td>
+                                        </tr>
+                                    </th:block>
+                                    <th:block th:unless="${childList.size() == 0}">
+                                        <tr th:each="child, idx : ${childList}" class="existing-row coding-tr">
+                                            <input type="hidden" id="uid" name="uid" th:value="${child.uid}"/>
+                                            <td th:text="${idx.count}" th:value="${child.uid}"></td>
+                                            <td><input type="text" class="form-control custom-input" name="codeNm"
+                                                       th:value="${child.codeNm}"/></td>
+                                            <td><input type="text" class="form-control custom-input" name="code"
+                                                       th:value="${child.code}" disabled/></td>
+                                            <td><input type="text" class="form-control custom-input" name="item1Val"
+                                                       th:value="${child.item1Val}"/></td>
+                                            <td><input type="text" class="form-control custom-input" name="item2Val"
+                                                       th:value="${child.item2Val}"/></td>
+                                            <td><input type="text" class="form-control custom-input" name="sortNo"
+                                                       th:value="${child.sortNo}"/></td>
+                                            <td>
+                                                <div class="form-check form-switch align-items-center d-flex justify-content-center">
+                                                    <input class="form-check-input swtich-chk" type="checkbox"
+                                                           role="switch" id="child-useAt" name="useAt"
+                                                           style="width: 3em; height: 1.5em"
+                                                           th:checked="${child?.useAt == 'Y'}">
+                                                </div>
+                                            </td>
+                                            <td><input type="text" id="rmDc" class="form-control" name="rmDc"
+                                                       th:value="${child.rmDc}"/></td>
+                                            <td>
+                                                <button type="button" class="custom-button" disabled readonly>삭제
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- e:list -->
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+    </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+        const uid = [[${uid}]]
+        const code = [[${code}]]
+
+        $(function () {
+
+            $("#updt-btn").on("click", async function (e) {
+                const $formC = $("#updt-form-child")
+
+                if (!$formC[0].checkValidity()) {
+                    $formC.addClass("was-validated");
+                } else {
+
+                    let obj = {}
+                    obj['parent'] = await FormDataToObj.getParameter("updt-form-parent")
+                    obj['parent']['useAt'] = $('#useAt').prop('checked') ? 'Y' : 'N'
+
+                    const childObj = getChildCodes();
+                    if ((childObj['addList'].length + childObj['updtList'].length) === 0) {
+                        Util.alert("최소 1개의 자식 코드가 필요합니다.")
+                        return false;
+                    }
+
+                    obj['code'] = code
+                    obj['addList'] = childObj['addList']
+                    obj['updtList'] = childObj['updtList']
+
+                    Util.confirm([[#{confirm.update}]]).then((isOk) => {
+                        if (isOk) {
+                            Http.post('/manager/api/code/all-process', obj, true).then((res) => {
+                                Util.alert([[#{alert.update('코드 정보')}]]).then(() => window.location.href = '/manager/code')
+                            }).fail((e) => {
+                                if (e.status === 400) {
+                                    if (e.hasOwnProperty('responseJSON')) {
+                                        const response = e['responseJSON'];
+                                        validationError.setValidationMssg('updt-form-parent', response, true)
+                                    }
+                                }
+                                if (e.status === 409) {
+                                    if (e.hasOwnProperty('responseJSON')) {
+                                        const response = e['responseJSON']
+                                        const keys = Object.keys(response).join(", ");
+                                        const message = Object.values(response)[0];
+                                        const result = `${keys}<br>${message}`;
+                                        Util.alert(result);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', '.remove-tr-btn', function () {
+                removeTr(this);
+            });
+        })
+
+        function add_tr() {
+            const $tbody = $("#table_body");
+            const $emptyRow = $tbody.find(".empty-tr");
+            const rowCount = $tbody.find("tr").not(".empty-tr").length;
+
+            if ($emptyRow.length > 0 && rowCount === 0) {
+                $emptyRow.remove();
+            }
+
+            const newRow =
+                `<tr class="new-row coding-tr">
+						<td>${rowCount + 1}</td>
+						<td><input type="text" id="child-codeNm" class="form-control" name="codeNm" required></td>
+						<td><input type="text" id="child-code" class="form-control" name="code" required></td>
+						<td><input type="text" id="child-item1Val" class="form-control" name="item1Val"></td>
+						<td><input type="text" id="child-item2Val" class="form-control" name="item2Val"></td>
+						<td><input type="number" id="child-sortNo" class="form-control" name="sortNo"></td>
+						<td>
+						  	<div class="form-check form-switch align-items-center d-flex justify-content-center">
+								<input class="form-check-input swtich-chk" type="checkbox" role="switch" id="child-useAt" name="useAt" checked="">
+							</div>
+						</td>
+						<td><input type="text" id="rmDc" class="form-control" name="rmDc"></td>
+						<td><button type="button" class="custom-button remove-tr-btn">삭제</button></td>
+					</tr>`
+            $tbody.append(newRow);
+        }
+
+        function getChildCodes() {
+            const obj = {
+                updtList: [],
+                addList: []
+            };
+
+            $('.existing-row').each(function () {
+                const $row = $(this);
+                const data = {
+                    uid: $row.find('[name="uid"]').val(),
+                    code: $row.find('[name="code"]').val(),
+                    codeNm: $row.find('[name="codeNm"]').val(),
+                    item1Val: $row.find('[name="item1Val"]').val(),
+                    item2Val: $row.find('[name="item2Val"]').val(),
+                    sortNo: $row.find('[name="sortNo"]').val(),
+                    useAt: $row.find('[name="useAt"]').prop('checked') ? "Y" : "N",
+                    rmDc: $row.find('[name="rmDc"]').val()
+                };
+                obj['updtList'].push(data);
+            });
+
+            $('.new-row').each(function () {
+                const $row = $(this);
+                const data = {
+                    code: $row.find('[name="code"]').val(),
+                    codeNm: $row.find('[name="codeNm"]').val(),
+                    item1Val: $row.find('[name="item1Val"]').val(),
+                    item2Val: $row.find('[name="item2Val"]').val(),
+                    sortNo: $row.find('[name="sortNo"]').val(),
+                    useAt: $row.find('[name="useAt"]').prop('checked') ? "Y" : "N",
+                    rmDc: $row.find('[name="rmDc"]').val()
+                };
+                obj['addList'].push(data);
+            });
+            return obj;
+        }
+
+        function removeTr(element) {
+            const $row = $(element).closest('tr');
+            const rowCount = $("#table_body tr").not(".empty-tr").length;
+            if (rowCount === 1) {
+                Util.alert("최소 1개의 자식 코드가 필요합니다.");
+                return false;
+            } else {
+                $row.remove();
+                const $tbody = $("#table_body");
+                $tbody.find("tr").not(".empty-tr").each(function (index) {
+                    $(this).find("td:first").text(index + 1); // 첫 번째 <td>에 인덱스 값 업데이트
+                });
+            }
+        }
+
+    </script>
+</th:block>
+</html>

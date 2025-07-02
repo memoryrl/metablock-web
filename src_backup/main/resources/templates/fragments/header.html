@@ -1,0 +1,211 @@
+<!--
+    # header 영역
+    [main logo] [menu section] [user section]
+-->
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!-- S: 로그인 이후에 메인로고+메뉴 있는 헤더 -->
+<th:block th:fragment="header(show)">
+    <link rel="stylesheet" th:href="@{'/assets/css/page/header.css'}" />
+    <header class="header-area header-responsive-padding header-height-1" th:data-show="${show}">
+        <div class="header-bottom sticky-bar">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="logo">
+                            <a href="/asp/home">
+                                <th:block th:if="${user == null}">
+                                    <img src="/assets/images/logo/logo.png" alt="logo">
+                                </th:block>
+                                <th:block th:unless="${user == null}">
+                                    <img th:src="|/cetus/files/download?fileId=${user.brandingInfo.rootLogo}|" onerror="this.src='/assets/images/logo/logo.png'" alt="logo">
+                                </th:block>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 d-none d-lg-block d-flex justify-content-center">
+                        <div class="main-menu text-center" style="min-height: 120px;">
+                            <nav style="display: flex; justify-content: center; flex-direction: column; min-height: 120px;">
+                                <ul th:attr="style=${show == 'Y'} ? 'visibility: visible;' : 'visibility: hidden;'"></ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-6" th:attr="style=${show == 'Y'} ? 'visibility: visible;' : 'visibility: hidden;'">
+                        <div class="header-action-wrap">
+                            <div class="header-action-style header-search-1">
+                                <a class="search-toggle" href="#">
+                                    <i class="pe-7s-search s-open"></i>
+                                    <i class="pe-7s-close s-close"></i>
+                                </a>
+                                <div class="search-wrap-1">
+                                    <form action="/asp/list" method="get">
+                                        <input placeholder="컨텐츠 검색…" type="text" name="keyword">
+                                        <button class="button-search"><i class="pe-7s-search"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="header-action-style">
+                                <a href="javascript:void(0);" class="dropdown-toggle">
+                                    <i class="pe-7s-user"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="/asp/myInfo">프로필</a>
+                                    <a href="#" onclick="logout()">로그아웃</a>
+                                </div>
+                            </div>
+                            <div class="header-action-style header-action-download" id="download-csv-div">
+                                <a class="download-cart-active" href="#" id="download-csv-a">
+                                    <i class="pe-7s-download"></i>
+                                    <div id="_BELL_ALARM_"></div>
+                                </a>
+                            </div>
+                            <div class="header-action-style header-action-cart">
+                                <a class="cart-active" href="#"><i class="pe-7s-like"></i>
+                                    <span class="product-count bg-black" id="total-content-shopbag">00</span>
+                                </a>
+                            </div>
+                            <div class="header-action-style d-block d-lg-none">
+                                <a class="mobile-menu-active-button" href="#"><i class="pe-7s-menu"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <script th:src="@{'/assets/js/vendor/jquery-3.6.0.min.js'}"></script>
+    <script th:inline="javascript">
+
+        const topMenu = [[${user?.menusTop}]]
+        const parentMenuUrl = [[${parentMenuUrl}]] ? [[${parentMenuUrl}]] : ""
+
+        // 새로운 메가메뉴 object
+        var megaMenuObj = {
+
+            createMenu: async function (targetEle) {
+
+                const commonMegaMenu = this.createCommonMegaMenu(); // 공통 메가 메뉴 생성
+
+                $.each(topMenu, (idx, val) => {
+
+                    const topMenuEle = $("<li/>").append($("<a/>").text(val.menuNm));
+                    topMenuEle.append(commonMegaMenu.clone()); // 공통 메가 메뉴를 복제하여 삽입
+                    targetEle.append(topMenuEle);
+                    targetEle.addClass("megamenu-title-wrap");
+
+                    // active 표시
+                    topMenuEle.find("ul.mega-menu-style.mega-menu-mrg-1 > li > a").eq(idx).css("color", "#e97730");
+                });
+                $("header.header-area").css("position", "relative");
+            },
+
+            createCommonMegaMenu: function () {
+
+                const ulEle = $("<ul/>").addClass("mega-menu-style mega-menu-mrg-1");
+
+                $.each(topMenu, (idx, val) => {
+
+                    if (val.children && Array.isArray(val.children)) {
+
+                        const categoryLi = $("<li/>");
+                        const categoryTitle = $("<a/>", {"class": "dropdown-title megamenu-top-title"})
+                            .text(val.menuNm)
+                            .css({
+                                "font-size": "16px",
+                                "font-weight": "600",
+                                "margin-bottom": "30px"
+                            });
+
+                        categoryLi.append(categoryTitle);
+                        const childrenUl = $("<ul/>");
+
+                        $.each(val.children, (subIdx, childrenObj) => {
+
+                            const childrenEle = this.createMenuElement(childrenObj);
+                            childrenUl.append(childrenEle);
+
+                        });
+
+                        categoryLi.append(childrenUl);
+                        ulEle.append(categoryLi);
+                    }
+                });
+
+                return ulEle;
+            },
+
+            createMenuElement: function (_menuObj) {
+
+                const liEle = $("<li/>");
+
+                // 메뉴항목 개행 처리
+                if(_menuObj.menuNm.indexOf("|") > -1){
+                    _menuObj.menuNm = _menuObj.menuNm.replace(/\|/g, "<br/>");
+                }
+
+                const aEle = $("<a/>").html(_menuObj.menuNm);
+
+                if (_menuObj.url) {
+
+                    aEle.attr("href", _menuObj.url)
+                        .addClass("menu-a-url")
+                        .attr("data-uid", _menuObj.uid);
+
+                    if (_menuObj.url === parentMenuUrl) aEle.addClass("active");
+                }
+                // 메인 타이틀
+                else if (_menuObj.menuStyle === "dropdown-title") {
+
+                    aEle.addClass("dropdown-title");
+                    liEle.addClass("dropdown-title");
+
+                }
+                // 서브 타이틀
+                else if (_menuObj.menuStyle === "sub-dropdown-title") {
+
+                    aEle.addClass("sub-dropdown-title");
+                    aEle.css({
+                        "font-size": "14px",
+                        "font-weight": "600",
+                        "margin-bottom": "20px"
+                    });
+                    liEle.addClass("sub-dropdown-title");
+
+                }
+
+                liEle.append(aEle);
+
+                if (_menuObj.children && Array.isArray(_menuObj.children)) {
+
+                    const ulEle = $("<ul/>");
+
+                    $.each(_menuObj.children, (idx, childrenObj) => {
+
+                        const subLiEle = this.createMenuElement(childrenObj);
+                        ulEle.append(subLiEle);
+                    });
+
+                    liEle.append(ulEle);
+                }
+
+                return liEle;
+            },
+        };
+
+        $(function () {
+            let mainMenuWrap = $(".main-menu nav ul");
+            megaMenuObj.createMenu(mainMenuWrap);
+        });
+
+        const logout = () => {
+            sessionStorage.clear();
+            location.href='/logout'
+        }
+
+    </script>
+</th:block>
+<!-- E: 로그인 이후에 메인로고+메뉴 있는 헤더 -->
+</html>

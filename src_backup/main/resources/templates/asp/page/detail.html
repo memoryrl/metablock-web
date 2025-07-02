@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default2}">
+
+<th:block layout:fragment="center-image">
+    <th:block th:with="title1=${currentPageName}, title2=${navigation}, leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+        <th:block th:replace="fragments/center-image :: main-image-title(${title1}, ${title2}, ${leftImg}, ${rightImg})"></th:block>
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+    <link rel="stylesheet" th:href="@{'/assets/css/page/detail.css'}" />
+    <link rel="stylesheet" th:href="@{'/assets/css/page/detail-template03.css'}" />
+    <link rel="stylesheet" th:href="@{'/assets/css/page/detail-template04.css'}" />
+</th:block>
+
+<th:block layout:fragment="content">
+  <div class="page-details-area pb-100 pt-80" style="padding: 30px 0px 50px 0px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="page-details-img-wrap" data-aos="fade-up" data-aos-delay="200">
+              <div class="easyzoom-style">
+                  <div class="easyzoom easyzoom--overlay">
+                      <a href="#">
+                        <img id="dataImgUrl" class="portal-img" th:src="@{'/assets/images/page/thumbnail_default.png'}" alt="" />
+                        <!-- <img id="dataImgUrl" class="portal-img"
+                        th:src="${content.thumbnailId} != null ?
+                                @{/cetus/files/download(fileId=${content.thumbnailId})} :
+                                @{'/assets/images/page/thumbnail_default.png'}"
+                        alt="" /> -->
+                      </a>
+                  </div>
+                  <!-- <a class="easyzoom-pop-up img-popup" href="#">
+                      <i class="pe-7s-search"></i>
+                  </a> -->
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="page-details-content" data-aos="fade-up" data-aos-delay="400">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <h2 id="contentTitle" th:text="${content.title}"></h2>
+                  </div>
+                  <div class="col-lg-4 justify-content-end" style="flex-direction: row; display: flex;">
+                    <div class="page-details-action-wrap">
+                      <div class="single-page-wishlist">
+                          <button class="justify-content-center btn-custom-control" id="btnPageBookmark" th:data-like="${content?.bookmark}" th:data-uid="${content?.uid}">
+                              <a class="justify-content-center" title="Wishlist" href="javascript:void(0);">
+                                  <i th:class="${content.bookmark == 'Y'} ? 'fa fa-heart' : 'pe-7s-like'"></i>
+                              </a>
+                              <span class="txt-label justify-content-center">북마크</span>
+                          </button>
+                      </div>
+                      <div class="single-page-compare">
+                          <button class="justify-content-center btn-custom-control" id="btnPageShare">
+                              <a class="justify-content-center" title="Wishlist" href="javascript:void(0);">
+                                  <i class="pe-7s-share"></i>
+                              </a>
+                              <span class="txt-label justify-content-center">공유</span>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="page-color page-color-active page-details-color">
+                  <span id="descriptTitle" th:text="${content.description}"></span>
+                </div>
+                <div class="page-details-meta data-description-area">
+                  <ul>
+                    <li id="description" th:text="${content.contents}"></li>
+                  </ul>
+                </div>
+                <div class="page-details-meta data-description-area list-tag-pnl">
+                  <ul>
+                      <li>
+                          <ul class="tag">
+                            <li th:each="tag : ${content.tags}" class="tag-content">
+                                <a href="#" th:text="${tag.tagName}"></a>
+                            </li>
+                          </ul>
+                      </li>
+                  </ul>
+                </div>
+                <div class="page-details-review">
+                    <div class="page-rating" id="page-content-avg-rating">
+                        <th:block th:each="i : ${#numbers.sequence(1, 5)}">
+                            <i class="ti-star" th:classappend="${i <= content.ratings} ? ' filled' : ''"></i>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="description-review-area pb-85">
+    <div class="container">
+        <div class="description-review-topbar nav" data-aos="fade-up" data-aos-delay="200">
+            <a class="active" data-bs-toggle="tab" href="#des-details1"> 데이터 </a>
+            <a data-bs-toggle="tab" href="#des-details2" class=""> API </a>
+            <a data-bs-toggle="tab" href="#des-details3" class=""> 관련 데이터 </a>
+            <a data-bs-toggle="tab" href="#des-details4" class=""> 문의/오류신고 </a>
+        </div>
+        <div class="tab-content">
+            <div id="des-details1" class="tab-pane active">
+              <div th:replace="asp/page/detail-template01::divTabDetailData"></div>
+            </div>
+            <div id="des-details2" class="tab-pane">
+                <div th:replace="asp/page/detail-template05::divTabSwaggerTest"></div>
+            </div>
+            <div id="des-details3" class="tab-pane">
+              <div th:replace="asp/page/detail-template03::divTabDetailRelactionData"></div>
+            </div>
+            <div id="des-details4" class="tab-pane">
+              <div th:replace="asp/page/detail-template04::divTabDetailReport"></div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+    <!-- <div class="related-page-area pb-95">
+        <div class="container">
+            <div class="section-title-2 st-border-center text-center mb-75" data-aos="fade-up" data-aos-delay="200">
+                <h2>관련 데이터</h2>
+            </div>
+            <div class="related-product-active swiper-container">
+              <div class="swiper-wrapper"></div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </div>
+            <div class="page-more-update-wrapper relation-wrap-pnl" data-aos="fade-up" data-aos-delay="200">
+              <div class="page-more-update btn-hover">
+                <a href="javascript:void(0);" id="btnPageMoveList">
+                  <i class="ti-angle-right"></i>
+                  <span>더보기</span>
+                </a>
+              </div>
+            </div>
+        </div>
+    </div> -->
+
+  <div class="bottom-navigation-area pb-95" data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">  
+          <div class="rating-form-style mb-15">
+            <div style="display: flex; justify-content: center;">
+              <div class="page-more-update-wrapper btn-control-wrapper">
+                <div class="single-page-cart btn-hover">
+                  <a href="javascript:void(0);" id="btnGoList" style="font-size: 16px;">
+                    <i class="pe-7s-back"></i>
+                    <span>목록 돌아가기</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</th:block>
+
+<th:block layout:fragment="script">
+  <script th:src="@{'https://cdn.jsdelivr.net/npm/echarts@latest/dist/echarts.min.js'}"></script>
+  <script th:src="@{'/assets/js/page/detail/detail.js'}"></script>
+  <th:block th:replace="asp/page/detail-template03-script::script"></th:block>
+  <th:block th:replace="asp/page/detail-template04-script::script"></th:block>
+  <script th:inline="javascript">
+
+    const contentUid = /*[[${content.uid}]]*/ 0;
+    const contentThumbnailId = /*[[${content.thumbnailId}]]*/ 0;
+    const jsonStr = /*[[${content.metadata}]]*/ '{}';
+
+    $(function() {
+        detail.fnPageSearch();
+        detail.setDataTable(jsonStr);
+
+        // const dataImgUrl = `/cetus/files/download?fileId=${contentThumbnailId}`;
+        const dataImgUrl = `/assets/images/page/thumbnail_default.png`;
+        detail.updateEasyZoom('.easyzoom', dataImgUrl, dataImgUrl);
+
+        // 북마크 버튼
+        $("#btnPageBookmark").click(function(e){
+            detail.likeClickEvent(this);
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+
+        // 공유 버튼
+        $("#btnPageShare").click(function(e) {
+            const pathStr = `/asp/detail/${contentUid}`;
+            const fullUrl = window.location.origin + pathStr;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(fullUrl)
+                    .then(() => {
+                        Util.alert('클립보드에 복사되었습니다.');
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        Util.alert('복사에 실패했습니다.');
+                    });
+            } else {
+                // fallback: execCommand를 이용한 클립보드 복사
+                const $tempInput = $("<input>");
+                $("body").append($tempInput);
+                $tempInput.val(fullUrl).select();
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        Util.alert('클립보드에 복사되었습니다.');
+                    } else {
+                        Util.alert('복사에 실패했습니다.');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    Util.alert('복사에 실패했습니다.');
+                }
+                $tempInput.remove();
+            }
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+
+        // { 관련 데이터 더보기 }, { 목록 돌아가기 } 버튼
+        $("#btnPageMoveList, #btnGoList").click(function(e){
+            detail.fnPageMove("/list");
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+    });
+
+  </script>
+</th:block>
+</html>

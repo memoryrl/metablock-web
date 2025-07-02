@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<th:block layout:fragment="center-image">
+  <th:block th:with="title1=${currentPageName}, title2=${navigation}, leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+    <th:block th:replace="fragments/center-image :: main-image-title(${title1}, ${title2}, ${leftImg}, ${rightImg})"></th:block>
+  </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+  <link rel="stylesheet" type="text/css" th:href="@{'/assets/css/plugins/datatables/select.dataTables.min.css'}" />
+  <style>
+    .match-height > [class*="col"] {
+      display: flex;
+      flex-flow: column;
+    }
+    .match-height > [class*="col"] > .card {
+      flex: 1 1 auto;
+    }
+  </style>
+</th:block>
+
+<th:block layout:fragment="content">
+  <div class="related-product-area pb-100 pt-80"  data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+      <div class="section-title-2 st-border-center text-center mb-35">
+        <h2>메뉴 관리</h2>
+      </div>
+      <hr>
+      <!-- s:list -->
+      <div class="row match-height">
+        <div class="col-12 col-md-4">
+          <div class="card">
+            <div class="pb-3 border-bottom" style="padding: 30px;">
+              <div class="row align-items-center">
+                <div class="col-auto">
+                  <h3 class="mb-0">메뉴목록</h3>
+                </div>
+                <div class="col">
+                  <select class="form-select" id="author-select">
+                    <option value="">권한을 선택하세요</option>
+                    <option th:each="author, authorStatus :${userAuthorCd}" th:text="${author?.name}" th:value="${author?.code}"></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="mt-2" id="menu-tree"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-8">
+          <div class="card">
+            <form id="menu-form" class="needs-validation" novalidate>
+
+              <div class="pb-3 border-bottom" style="padding: 20px;">
+                <div class="d-flex justify-content-end pe-4">
+                  <div class="btn-container" style="margin-top: 0px !important;">
+                    <!-- 왼쪽 버튼 -->
+                    <!-- 오른쪽 버튼들 -->
+                    <div class="right-buttons">
+                      <button type="submit" class="custom-button" id="update-btn"  style="visibility: hidden">수정</button>
+                      <button type="button" class="custom-button" id="delete-btn" style="visibility: hidden">삭제</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="row custom-row gap-3" style=" padding: 20px;">
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row custom-row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="menu-path">메뉴경로</label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <input type="text" id="menu-path" class="form-control custom-input" value="" name="menuPath" disabled />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="menu-no">메뉴코드 </label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <input type="text" id="menu-no" name="menuNo" class="form-control custom-input" readonly disabled />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="rootMenuCd">루트메뉴코드</label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <input type="text" id="rootMenuCd" class="form-control custom-input" value="" name="rootMenuCd" disabled />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="menu-nm">메뉴명<span class="text-primary ms-50">*</span></label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <input type="text" id="menu-nm" name="menuNm" class="form-control custom-input" required />
+                        <div class="invalid-feedback">메뉴명이 입력되지 않았습니다.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="url"> 메뉴유형 </label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <div class="input-group">
+                          <input type="text" id="url" name="url" class="form-control custom-input" required disabled readonly />
+                          <button class="custom-button" id="menuUrl-choose" type="button" data-bs-toggle="modal" data-bs-target="#menuProgramModal" disabled>선택</button>
+                        </div>
+                        <div class="invalid-feedback">메뉴유형이 입력되지 않았습니다.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="sort-no">순서<span class="text-primary ms-50">*</span></label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <input type="text" id="sort-no" name="sortNo" class="form-control custom-input" required />
+                        <div class="invalid-feedback">순서가 입력되지 않았습니다.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label"> 사용여부<span class="text-primary ms-50">*</span> </label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <div id="useAt-form" class="custom-check-form-flex">
+                          <div class="form-check">
+                            <input type="radio" id="use-at-Y" name="useAt" class="form-check-input" value="Y" >
+                            <label class="form-check-label" for="use-at-Y">사용</label>
+                          </div>
+                          <div class="form-check">
+                            <input type="radio" id="use-at-N" name="useAt" class="form-check-input" value="N" checked="" >
+                            <label class="form-check-label" for="use-at-N">미사용</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12" id="top-root-menu-style">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="menuStyle">상단메뉴 스타일<span class="text-primary ms-50">*</span></label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <select class="form-select round select_line custom-input" id="menuStyle" name="menuStyle">
+                          <option value="">선택 안함</option>
+                          <option value="mega-menu-style">mega menu</option>
+                          <option value="dropdown-title">dropdown</option>
+                          <option value="sub-dropdown-title">sub dropdown</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12" id="footer-root-menu-style-1">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="menuStyle1">푸터메뉴 스타일1<span class="text-primary ms-50">*</span><br>(col-width)</label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <input type="number" id="menuStyle1" name="menuStyle1" class="form-control custom-input" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12" id="footer-root-menu-style-2">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="sort-no">푸터메뉴 스타일2<span class="text-primary ms-50">*</span><br>(margin-left)</label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <input type="number" id="menuStyle2" name="menuStyle2" class="form-control custom-input" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label custom-label" for="menu-dc">설명</label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <input type="text" id="menu-dc" name="menuDc" class="form-control custom-input" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label">등록자</label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <span id="reg-nm" name="regNm"></span>
+                        <span id="reg-dt" name="regDt"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-12">
+                    <div class="mb-1 row">
+                      <div class="col-12 col-xl-3">
+                        <label class="form-label">수정자</label>
+                      </div>
+                      <div class="col-12 col-xl-9">
+                        <span id="updt-nm" name="updtNm"></span>
+                        <span id="updt-dt" name="updtDt"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- e:list -->
+    </div>
+  </div>
+
+  <th:block th:replace="manager/menu/menuPoplist"></th:block>
+
+
+</th:block>
+
+<th:block layout:fragment="script">
+  <script th:src="@{'/assets/js/page/manager/menu/menuPoplist.js'}"></script>
+  <script th:src="@{'/assets/js/page/manager/menu/menu.js'}"></script>
+  <script th:inline="javascript">
+
+    /** 모달 닫을때 생기는 warning 해결 **/
+    $(document).on('hide.bs.modal', function () {
+      if (document.activeElement) {
+        $(document.activeElement).blur();
+      }
+    });
+
+    $(function () {
+
+      menuJS.initMenuTree();
+
+      // 메뉴 폼 제출
+      $("#menu-form").on("submit", function (event) {
+        menuJS.formSubmit(this, event);
+      });
+
+      // 권한 변경
+      $("#author-select").change(function () {
+        menuJS.formReset();
+        menuJS.menuTree.treeRefresh();
+      });
+
+      // 메뉴 삭제
+      $("#delete-btn").on("click", (event) => {
+        menuJS.menuDeleteEvent();
+      });
+
+      // 프로그램 정보 찾는 모달 열기
+      $("#menuProgramModal").on("show.bs.modal", function () {
+        menuPoplist.makeTable();
+      });
+
+      // 프로그램 정보 찾는 모달 닫기
+      $("#menuProgramModal").on("hide.bs.modal", function () {
+        menuPoplist.hideTableModal();
+      });
+
+      // 프로그램 정보 찾는 모달 검색
+      $("#search-btn").on("click", (event) => {
+        event.preventDefault();
+        menuPoplist.programDatatable.submit();
+      });
+
+      // 프로그램 정보 엔터 검색
+      $('#browseText').keypress(function(e){
+        if(e.keyCode === 13 || e.keyCode === 10 || e.key === 'Enter') {
+          e.preventDefault();
+          menuPoplist.programDatatable.submit();
+        }
+      });
+
+      // 프로그램 정보 선택 버튼
+      $("#select-btn").on("click", () => {
+        menuPoplist.selectBtnClickEvent();
+      });
+
+      $("#cancel-btn").on('click', () => {
+        menuPoplist.programUid = null;
+        $("#menuProgramModal").modal("hide");
+      });
+    });
+
+  </script>
+</th:block>
+</html>

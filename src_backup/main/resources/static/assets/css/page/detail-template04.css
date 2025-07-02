@@ -1,0 +1,26 @@
+.sidebar-list-style-2 ul{
+    display: flex;
+    gap: 30px;
+}
+.sidebar-list-style-2 ul li a{
+    font-weight: 500 !important;
+}
+.blog-details-wrapper .blog-comment-wrapper .single-comment-wrapper .comment-info-reply-wrap .comment-reply a{
+    border-bottom: 0px;
+}
+.blog-details-wrapper .blog-comment-wrapper .single-comment-wrapper .comment-info-reply-wrap .comment-reply a:hover{
+    border-bottom: 0px;
+}
+.blog-details-wrapper .blog-comment-wrapper .single-comment-wrapper .blog-comment-content p {
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: clip;
+    max-height: 100vh;
+    transition: max-height 1s ease, white-space 1s ease;
+}
+.blog-details-wrapper .blog-comment-wrapper .single-comment-wrapper .blog-comment-content p.fold {
+    max-height: 1.5em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 90%;
+}

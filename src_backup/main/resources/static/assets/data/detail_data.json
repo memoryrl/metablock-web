@@ -1,0 +1,195 @@
+{
+	"contentData" : {
+		"dataTitle" : "Data(Content) Title",
+		"dataImgUrl" : "/assets/images/page/list/data_02.jpg",
+		"isCheckBookMark" : false,
+		"contentTitle" : "연안기본조사의 배경 및 추진경위",
+		"descriptTitle" : "연안의 효율적 관리를 위한 정보 수집",
+		"description" : "연안기본조사는 「연안관리법」제5조에 근거하여 5년마다 정기적으로 연안의 현황 및 실태를 조사하여 연안관리에 필요한 정보를 수집 * 연안관리법 제5조 : 해양수산부장관은 연안의 효율적인 관리를 위한 정보를 수집하기 위하여 5년마다 연안의 현황 및 실태에 관한 정기조사를 실시하여야 함",
+		"tagList" : [
+			{"title" : "Tag01", "link":"#Tag01"},
+			{"title" : "Tag02", "link":"#Tag02"},
+			{"title" : "Tag03", "link":"#Tag03"},
+			{"title" : "Tag04", "link":"#Tag04"}
+		],
+		"rating" : 4
+	},
+	"tab_data" : {
+		"title" : "데이터",
+		"detailData" : {
+			"dataTitle" : "데이터 공식 제목",
+			"uniqueIdentifier" : "DATA-CHNM-AA-9037",
+			"version" : "V1.2",
+			"registDate" : "2024-10-11",
+			"modifiDate" : "2024-10-25",
+			"dataSource" : "데이터 제공 기관명(Source)",
+			"callMethod" : "API",
+			"updatePeriod" : "연간",
+			"manageDepart" : "디지털플랫폼사업부",
+			"subject" : "환경분석",
+			"keyword" : "###, #####, #######",
+			"classCode" : "K-ECO",
+			"dataType" : "숫자, 텍스트",
+			"fileFormat" : "CSV, Excel",
+			"recordCount" : 5343216,
+			"dataCapacity" : "15MB",
+			"metadataUpdate" : "2024-10-25"
+		},
+		"dataPreview" : {
+			"title" : "데이터 미리보기",
+			"data" : {
+				"header" : ["head01", "head02", "head03", "head04", "head05", "head06", "head07"],
+				"body" : [
+					[
+					  { "name": "data1", "value": "A" },
+					  { "name": "data2", "value": "B" },
+					  { "name": "data3", "value": "C" },
+					  { "name": "data4", "value": "D" },
+					  { "name": "data5", "value": "E" },
+					  { "name": "data6", "value": "F" },
+					  { "name": "data7", "value": "G" }
+					],
+					[
+					  { "name": "data1", "value": "A" },
+					  { "name": "data2", "value": "B" },
+					  { "name": "data3", "value": "C" },
+					  { "name": "data4", "value": "D" },
+					  { "name": "data5", "value": "E" },
+					  { "name": "data6", "value": "F" },
+					  { "name": "data7", "value": "G" }
+					]
+				]	
+			}			
+		},
+		"sampleVisualization" : {
+			"title" : "샘플 시각화",
+			"data" : {
+				"dataList1" : [170.07, 164.74, 120.1, 105.83, 23.14, 24.84, 198.2, 85.34, 62.52, 114.19, 116.91, 75.84],
+				"dataList2" : [1.44, 97.92, 79.27, 105.65, 168.2, 108.48, 126.39, 130.05, 205.69, 179.64, 119.06, 155.43]
+			}
+		}
+	},
+	"tab_api" : {
+		"title" : "API",
+		"detailData" : {
+			"apiName" : "데이터 공식 API name",
+			"certification" : "인증필요",
+			"version" : "V1.2"
+		},
+		"callMethod" : "GET"
+
+	},
+	"tab_relatedData" : {
+		
+	},
+	"tab_report" : {
+		"totals" : {
+			"all" : 36,
+			"opinion" : 12,
+			"question" : 12,
+			"report" : 12
+		},
+		"listData" : [
+			{
+				"uid" : "1",
+				"section" : "의견",
+				"comment" : "데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.",
+				"userId" : "홍길동1",
+				"userImg" : "/assets/images/page/detail/profile_noimage.png",
+				"rating" : "4",
+				"createDate" : "2024-10-18"
+			},
+			{
+				"uid" : "2",
+				"section" : "의견",
+				"comment" : "데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.",
+				"userId" : "홍길동1",
+				"userImg" : "/assets/images/page/detail/profile_noimage.png",
+				"rating" : "3",
+				"createDate" : "2024-10-17"
+			},
+			{
+				"uid" : "3",
+				"section" : "문의",
+				"comment" : "데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.",
+				"userId" : "홍길동1",
+				"userImg" : "/assets/images/page/detail/profile_noimage.png",
+				"rating" : "2",
+				"createDate" : "2024-10-16"
+			},
+			{
+				"uid" : "4",
+				"section" : "오류신고",
+				"comment" : "데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.",
+				"userId" : "홍길동1",
+				"userImg" : "/assets/images/page/detail/profile_noimage.png",
+				"rating" : "1",
+				"createDate" : "2024-10-15"
+			},
+			{
+				"uid" : "5",
+				"section" : "문의",
+				"comment" : "데이터에 대한 사용자 피드백 내용이 일부 표시됩니다.",
+				"userId" : "홍길동1",
+				"userImg" : "/assets/images/page/detail/profile_noimage.png",
+				"rating" : "2",
+				"createDate" : "2024-10-14"
+			}
+		]
+	},
+	"registOpinion" : {
+		"rating" : "4",
+		"selected" : 1,
+		"comment" : ""
+	},
+	"relatedData" : [
+		{
+			"uid": 1,
+			"dataTitle" : "Data title",
+			"description" : "Description of This Content",
+			"dataImgUrl" : "/assets/images/page/list/data_01.jpg",
+			"interest": "Y",
+			"type" : "basic"
+		},
+		{
+			"uid": 2,
+			"dataTitle" : "New Modern Sofa Set",
+			"description" : "Description of This Content",
+			"dataImgUrl" : "/assets/images/page/list/data_02.jpg",
+			"interest": "N",
+			"type" : "basic"
+		},
+		{
+			"uid": 3,
+			"dataTitle" : "Easy Modern Chair",
+			"description" : "Description of This Content",
+			"dataImgUrl" : "/assets/images/page/list/data_03.jpg",
+			"interest": "Y",
+			"type" : "basic"
+		},
+		{
+			"uid": 4,
+			"dataTitle" : "New Modern Sofa Set",
+			"description" : "Description of This Content",
+			"dataImgUrl" : "/assets/images/page/list/data_02.jpg",
+			"interest": "N",
+			"type" : "basic"
+		},
+		{
+			"uid": 5,
+			"dataTitle" : "Easy Modern Chair",
+			"description" : "Description of This Content",
+			"dataImgUrl" : "/assets/images/page/list/data_03.jpg",
+			"interest": "Y",
+			"type" : "basic"
+		},
+		{
+			"uid": 6,
+			"dataTitle" : "Data title",
+			"description" : "Description of This Content",
+			"dataImgUrl" : "/assets/images/page/list/data_03.jpg",
+			"interest": "N",
+			"type" : "basic"
+		}
+	]
+}

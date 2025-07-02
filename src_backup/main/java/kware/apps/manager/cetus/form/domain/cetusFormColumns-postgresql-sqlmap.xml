@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cetusFormColumns">
+	<select id="list" resultType="ColumnsPage" parameterType="ColumnsSearch">
+		/* cetusFormColumns.list */
+		SELECT
+		  CU.UID
+		, CU.WORKPLACE_UID
+		, CU.TYPE
+		, CU.LABEL
+		, CU.REQUIRED
+		, CU.DESCRIPTION
+		, CU.USE_AT
+		, CU.NAME
+		, CU.REG_UID
+		, CTU.USER_NM
+		, TO_CHAR(CU.REG_DT, 'YYYY-MM-DD HH24:MI') AS REG_DT
+		, CU.UPDT_UID
+		, TO_CHAR(CU.UPDT_DT, 'YYYY-MM-DD HH24:MI') AS UPDT_DT
+		, CU.PLACEHOLDER
+		, CU.SORT_NUM
+		, CU.FORM_GROUP
+		FROM CETUS_FORM_COLUMNS CU
+		  LEFT JOIN CETUS_USER CTU
+		    ON CTU.uid = CU.reg_uid
+		WHERE 1 = 1
+		  AND WORKPLACE_UID = #{workplaceUid}
+		  AND CU.FORM_GROUP = #{formGroup}
+		  AND CU.USE_AT = 'Y'
+		<if test="@Ognl@isNotEmpty(type)">
+			AND CU.TYPE = #{type}
+		</if>
+		ORDER BY CU.SORT_NUM
+	</select>
+
+	<select id="findByTenanyAndFormGroup" resultType="ColumnsPage" parameterType="ColumnsSearch">
+		SELECT
+		  UID
+		, WORKPLACE_UID
+		, TYPE
+		, LABEL
+		, REQUIRED
+		, DESCRIPTION
+		, USE_AT
+		, NAME
+		, REG_UID
+		, TO_CHAR(CU.REG_DT, 'YYYY-MM-DD HH24:MI') AS REG_DT
+		, UPDT_UID
+		, TO_CHAR(CU.UPDT_DT, 'YYYY-MM-DD HH24:MI') AS UPDT_DT
+		, PLACEHOLDER
+		, SORT_NUM
+		, FORM_GROUP
+		FROM CETUS_FORM_COLUMNS CU
+		WHERE 1 = 1
+		  AND WORKPLACE_UID = #{workplaceUid}
+		  AND FORM_GROUP = #{formGroup}
+		  AND USE_AT = 'Y'
+		<if test="@Ognl@isNotEmpty(type)">
+			AND CU.TYPE = #{type}
+		</if>
+		ORDER BY CU.SORT_NUM
+	</select>
+
+	<select id="view" parameterType="long" resultType="CetusFormColumns">
+		SELECT UID
+			 , TYPE
+			 , LABEL
+			 , REQUIRED
+			 , DESCRIPTION
+			 , USE_AT
+			 , NAME
+			 , REG_UID
+			 , REG_DT
+			 , UPDT_UID
+			 , UPDT_DT
+			 , PLACEHOLDER
+			 , WORKPLACE_UID
+		     , SORT_NUM
+		     , FORM_GROUP
+		     , DEFAULT_VALUE
+		FROM CETUS_FORM_COLUMNS
+		WHERE uid = #{uid}
+	</select>
+
+	<select id="findByUid" parameterType="long" resultType="ColumnsView">
+		SELECT UID
+			 , TYPE
+			 , LABEL
+			 , REQUIRED
+			 , DESCRIPTION
+			 , USE_AT
+			 , NAME
+			 , REG_UID
+			 , REG_DT
+			 , UPDT_UID
+			 , UPDT_DT
+			 , PLACEHOLDER
+			 , WORKPLACE_UID
+		     , FORM_GROUP
+		     , SORT_NUM
+			 , DEFAULT_VALUE
+		FROM CETUS_FORM_COLUMNS
+		WHERE uid = #{uid}
+	</select>
+
+	<select id="existFieldName" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM CETUS_FORM_COLUMNS
+		WHERE WORKPLACE_UID = #{workplaceUid}
+		  AND FORM_GROUP = #{formGroup}
+		  AND NAME = #{name}
+	</select>
+
+	<select id="count" resultType="int" parameterType="ColumnsSearch">
+		/* cetusUser.userListCount */
+		SELECT COUNT(*)
+		FROM CETUS_FORM_COLUMNS CU
+		WHERE 1 = 1
+		AND WORKPLACE_UID = #{workplaceUid}
+		AND FORM_GROUP = #{formGroup}
+		<if test="@Ognl@isNotEmpty(type)">
+			AND CU.TYPE = #{type}
+		</if>
+	</select>
+
+	<insert id="insert" parameterType="ColumnsSave" useGeneratedKeys="true" keyProperty="uid">
+		INSERT INTO CETUS_FORM_COLUMNS (
+					  TYPE
+					, LABEL
+					, REQUIRED
+					, DESCRIPTION
+					, USE_AT
+					, NAME
+					, REG_UID
+					, REG_DT
+					, UPDT_UID
+					, UPDT_DT
+					, PLACEHOLDER
+					, WORKPLACE_UID
+					, FORM_GROUP
+					, SORT_NUM
+					<if test="@Ognl@isNotEmpty(defaultValue)">
+			        , DEFAULT_VALUE
+					</if>
+					) VALUES (
+				     #{type}
+				   , #{label}
+				   , #{required}
+				   , #{description}
+				   , 'Y'
+				   , #{name}
+				   , #{regUid}
+				   , now()
+				   , #{updtUid}
+				   , now()
+				   , #{placeholder}
+				   , #{workplaceUid}
+			       , #{formGroup}
+				   , #{sortNum}
+					<if test="@Ognl@isNotEmpty(defaultValue)">
+			       , #{defalutValue}
+					</if>
+				 )
+	</insert>
+
+	<select id="findNextSortNum" resultType="int">
+		SELECT COALESCE(MAX(SORT_NUM), 0) + 1
+		FROM CETUS_FORM_COLUMNS s
+		WHERE FORM_GROUP = #{formGroup}
+	</select>
+
+	<update id="update" parameterType="ColumnsChange">
+		UPDATE CETUS_FORM_COLUMNS
+		  SET
+		      LABEL         = #{label}
+		    , REQUIRED      = #{required}
+		    , DESCRIPTION   = #{description}
+		    , USE_AT        = #{useAt}
+		    , NAME          = #{name}
+		    , UPDT_UID      = #{updtUid}
+		    , UPDT_DT       = now()
+		    , PLACEHOLDER   = #{placeholder}
+		    , SORT_NUM = #{sortNum}
+			<if test="@Ognl@isNotEmpty(defaultValue)">
+		    , DEFAULT_VALUE = ${defaultValue}
+		  	</if>
+		WHERE uid = #{uid}
+	</update>
+
+	<update id="deleteColumns">
+		UPDATE CETUS_FORM_COLUMNS
+		SET
+		  USE_AT        = 'N'
+		, UPDT_DT       = now()
+		WHERE uid = #{uid}
+	</update>
+
+	<!-- 다음 항목 -->
+	<select id="selectNextByFormGroup" resultType="ColumnsView" parameterType="ColumnsOrder">
+		SELECT
+		       UID
+			 , TYPE
+			 , LABEL
+			 , REQUIRED
+			 , DESCRIPTION
+			 , USE_AT
+			 , NAME
+			 , REG_UID
+			 , REG_DT
+			 , UPDT_UID
+			 , UPDT_DT
+			 , PLACEHOLDER
+			 , WORKPLACE_UID
+			 , FORM_GROUP
+			 , SORT_NUM
+			 , DEFAULT_VALUE
+		FROM CETUS_FORM_COLUMNS
+		WHERE WORKPLACE_UID = #{workplaceUid}
+		  AND FORM_GROUP = #{formGroup}
+		  AND SORT_NUM <![CDATA[>]]> #{sortNum}
+		  AND USE_AT = 'Y'
+		ORDER BY SORT_NUM ASC
+			LIMIT 1
+	</select>
+
+	<!-- 이전 항목 -->
+	<select id="selectPrevByFormGroup" resultType="ColumnsView" parameterType="ColumnsOrder">
+		SELECT
+			UID
+			 , TYPE
+			 , LABEL
+			 , REQUIRED
+			 , DESCRIPTION
+			 , USE_AT
+			 , NAME
+			 , REG_UID
+			 , REG_DT
+			 , UPDT_UID
+			 , UPDT_DT
+			 , PLACEHOLDER
+			 , WORKPLACE_UID
+			 , FORM_GROUP
+			 , SORT_NUM
+			 , DEFAULT_VALUE
+		FROM CETUS_FORM_COLUMNS
+		WHERE WORKPLACE_UID = #{workplaceUid}
+		  AND FORM_GROUP = #{formGroup}
+		  AND SORT_NUM <![CDATA[<]]> #{sortNum}
+		  AND USE_AT = 'Y'
+		ORDER BY SORT_NUM DESC
+			LIMIT 1
+	</select>
+
+
+	<update id="updateOrder" parameterType="map">
+		UPDATE CETUS_FORM_COLUMNS
+		SET
+	      SORT_NUM = #{sortNum}
+		WHERE UID = #{uid}
+	</update>
+</mapper>

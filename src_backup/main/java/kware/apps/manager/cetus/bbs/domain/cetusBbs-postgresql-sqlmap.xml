@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cetusBbs">
+
+    <insert id="insert" parameterType="CetusBbs" useGeneratedKeys="true" keyProperty="bbsUid">
+        /* cetusBbs.insert */
+        INSERT INTO CETUS_BBS (
+             BBS_NM
+            ,BBS_TP_CD
+            ,USE_AT
+            ,WORKPLACE_UID
+            ,BBS_CL_USE_AT
+            ,ATCH_AT
+            ,ATCH_NUM
+            ,UPLOAD_CPCTY
+            ,ANSWER_USE_AT
+            ,REG_UID
+            ,REG_DT
+            ,UPDT_UID
+            ,UPDT_DT
+            ,DELETE_AT
+        ) VALUES (
+             #{bbsNm}
+            ,#{bbsTpCd}
+            ,#{useAt}
+            ,#{workplaceUid}
+            ,#{bbsClUseAt}
+            ,#{atchAt}
+            ,#{atchNum}::bigint
+            ,#{uploadCpcty}::bigint
+            ,#{answerUseAt}
+            ,#{regUid}
+            ,NOW()
+            ,#{updtUid}
+            ,NOW()
+            ,'N'
+        )
+    </insert>
+
+    <select id="bbsList" parameterType="BbsSearch" resultType="BbsList">
+        /* cetusBbs.bbsList */
+        SELECT CB.BBS_UID
+              ,CB.BBS_NM
+              ,CB.BBS_TP_CD
+              ,CASE WHEN CB.BBS_TP_CD = 'NOTICE' THEN '공지사항'
+                    WHEN CB.BBS_TP_CD = 'BOARD' THEN '자유 게시판'
+                    WHEN CB.BBS_TP_CD = 'FAQ' THEN 'FAQ'
+                    WHEN CB.BBS_TP_CD = 'QNA' THEN '1:1문의'
+                 END AS BBS_TP_CD_NM
+              ,CB.USE_AT
+              ,CB.REG_UID
+              ,TO_CHAR(CB.REG_DT, 'YYYY-MMM-DD') AS REG_DT
+              ,CU.USER_NM AS REG_NM
+              ,CB.WORKPLACE_UID
+              ,CW.NAME AS WORKPLACE_NM
+              ,CB.BBS_CL_USE_AT
+              ,CB.ATCH_AT
+              ,CB.ATCH_NUM
+              ,CB.UPLOAD_CPCTY
+              ,CB.ANSWER_USE_AT
+              ,( SELECT COUNT(*)
+                   FROM CETUS_BBSCTT CBBSCTT
+                  WHERE CBBSCTT.BBS_UID = CB.BBS_UID
+                    AND CBBSCTT.DELETE_AT = 'N' ) AS BBSCTT_CNT
+          FROM CETUS_BBS CB
+          LEFT JOIN CETUS_USER CU ON CU.UID = CB.REG_UID
+         INNER JOIN CETUS_WORKPLACE CW ON CW.UID = CB.WORKPLACE_UID
+         WHERE CB.DELETE_AT = 'N'
+           AND CB.WORKPLACE_UID = #{workplaceUid}
+        <if test="@Ognl@isNotEmpty(useAt)">
+           AND CB.USE_AT = #{useAt}
+        </if>
+        <if test="@Ognl@isNotEmpty(browseText)">
+           AND (CB.BBS_NM LIKE '%' || #{browseText} || '%' OR CU.USER_NM LIKE '%' || #{browseText} || '%' )
+        </if>
+         ORDER BY CB.REG_DT DESC
+        <if test="@Ognl@isNotEmpty(startNumber) and  @Ognl@isNotEmpty(endNumber)">
+        OFFSET ${startNumber} LIMIT ${endNumber}
+        </if>
+    </select>
+
+    <select id="bbsCount" parameterType="BbsSearch" resultType="int">
+        /* cetusBbs.bbsCount */
+        SELECT COUNT(*)
+          FROM CETUS_BBS CB
+          LEFT JOIN CETUS_USER CU ON CU.UID = CB.REG_UID
+         INNER JOIN CETUS_WORKPLACE CW ON CW.UID = CB.WORKPLACE_UID
+         WHERE CB.DELETE_AT = 'N'
+           AND CB.WORKPLACE_UID = #{workplaceUid}
+        <if test="@Ognl@isNotEmpty(useAt)">
+           AND CB.USE_AT = #{useAt}
+        </if>
+        <if test="@Ognl@isNotEmpty(browseText)">
+           AND (CB.BBS_NM LIKE '%' || #{browseText} || '%' OR CU.USER_NM LIKE '%' || #{browseText} || '%' )
+        </if>
+    </select>
+
+    <select id="view" resultType="CetusBbs" parameterType="Long">
+        /* cetusBbs.view */
+        SELECT BBS_UID
+              ,BBS_NM
+              ,BBS_TP_CD
+              ,USE_AT
+              ,BBS_CL_USE_AT
+              ,ATCH_AT
+              ,ATCH_NUM
+              ,UPLOAD_CPCTY
+              ,ANSWER_USE_AT
+          FROM CETUS_BBS
+         WHERE BBS_UID = #{bbsUid}
+    </select>
+
+    <update id="update" parameterType="CetusBbs">
+        /* cetusBbs.update */
+        UPDATE CETUS_BBS
+           SET BBS_NM = #{bbsNm}
+              ,USE_AT = #{useAt}
+              ,BBS_CL_USE_AT = #{bbsClUseAt}
+              ,ATCH_AT = #{atchAt}
+              ,ATCH_NUM = #{atchNum}::bigint
+              ,UPLOAD_CPCTY = #{uploadCpcty}::bigint
+              ,ANSWER_USE_AT = #{answerUseAt}
+              ,UPDT_UID = #{updtUid}
+              ,UPDT_DT = NOW()
+         WHERE BBS_UID = #{bbsUid}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        /* cetusBbs.delete */
+        UPDATE CETUS_BBS
+           SET DELETE_AT = 'Y'
+         WHERE BBS_UID = #{bbsUid}
+    </delete>
+
+    <select id="getAllWorkplaceBbs" parameterType="Long" resultType="BbsList">
+        /* cetusBbs.getAllWorkplaceBbs */
+        SELECT CB.BBS_UID
+              ,CB.BBS_NM
+              ,CB.BBS_TP_CD
+              ,CASE WHEN CB.BBS_TP_CD = 'NOTICE' THEN '공지사항'
+                    WHEN CB.BBS_TP_CD = 'BOARD' THEN '자유 게시판'
+                    WHEN CB.BBS_TP_CD = 'FAQ' THEN 'FAQ'
+                    WHEN CB.BBS_TP_CD = 'QNA' THEN '1:1문의'
+                END AS BBS_TP_CD_NM
+              ,CB.USE_AT
+              ,CB.REG_UID
+              ,TO_CHAR(CB.REG_DT, 'YYYY-MMM-DD') AS REG_DT
+              ,CU.USER_NM AS REG_NM
+              ,CB.WORKPLACE_UID
+              ,CW.NAME AS WORKPLACE_NM
+              ,CB.BBS_CL_USE_AT
+              ,CB.ATCH_AT
+              ,CB.ATCH_NUM
+              ,CB.UPLOAD_CPCTY
+              ,CB.ANSWER_USE_AT
+              ,( SELECT COUNT(*)
+                   FROM CETUS_BBSCTT CBBSCTT
+                  WHERE CBBSCTT.BBS_UID = CB.BBS_UID
+                    AND CBBSCTT.DELETE_AT = 'N' ) AS BBSCTT_CNT
+          FROM CETUS_BBS CB
+          LEFT JOIN CETUS_USER CU ON CU.UID = CB.REG_UID
+         INNER JOIN CETUS_WORKPLACE CW ON CW.UID = CB.WORKPLACE_UID
+         WHERE CB.DELETE_AT = 'N'
+           AND CB.WORKPLACE_UID = #{workplaceUid}
+    </select>
+
+    <select id="getBbscttCountByBbsUid" parameterType="Long" resultType="int">
+        /* cetusBbs.getBbscttCountByBbsUid */
+        SELECT COUNT(*)
+          FROM CETUS_BBSCTT CB
+         WHERE CB.BBS_UID = #{bbsUid}
+           AND CB.DELETE_AT = 'N'
+    </select>
+</mapper>

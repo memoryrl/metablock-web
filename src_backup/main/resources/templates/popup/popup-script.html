@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script th:inline="javascript">
+
+    var popup = {
+
+        /* ======= [1] 팝업 스타일 1 ======= */
+        textareaPopup: $("#textarea-modal"),
+        textareaPopupTitle: $("#textarea-modal-title"),
+        textareaPopupSpanDiv: $("#textarea-modal-span-div"),
+        textareaPopupLabel: $("#textarea-modal-label"),
+        textareaPopupForm: $("#textarea-modal-form"),
+        textareaPopupTextarea: $("#textarea-modal-textarea"),
+        textareaPopupLeftBtn: $("#textarea-modal-left-btn"),
+        textareaPopupRightBtn: $("#textarea-modal-right-btn"),
+        textareaPopupSubmit: false,
+        textareaPopupResolvePromise: null,
+        /* ======= [1] 팝업 스타일 1 ======= */
+
+
+        /* ======= [2] 팝업 스타일 2 ======= */
+        textPopup: $("#text-modal"),
+        textPopupTitle: $("#text-modal-title"),
+        textPopupSpanDiv: $("#text-modal-span-div"),
+        textPopupLeftBtn: $("#text-modal-left-btn"),
+        textPopupRightBtn: $("#text-modal-right-btn"),
+        textPopupSubmit: false,
+        textPopupResolvePromise: null,
+        /* ======= [2] 팝업 스타일 2 ======= */
+
+
+        /* ======= [3] 팝업 스타일 3 ======= */
+        thumbnailPopup: $("#thumbmail-modal"),
+        thumbnailPopupForm: $("#thumbmail-modal-form"),
+        thumbnailPopupInput: $("#thumbmail-modal-input"),
+        thumbnailPopupTextarea: $("#thumbmail-modal-textarea"),
+        thumbnailPopupSubmit: false,
+        thumbnailPopupResolvePromise: null,
+        thumbnailPopupLeftBtn: $("#thumbmail-modal-left-btn"),
+        thumbnailPopupRightBtn: $("#thumbmail-modal-right-btn"),
+        imageUploader: null,
+        /* ======= [3] 팝업 스타일 3 ======= */
+
+
+        /* ======= [4] 팝업 스타일 4 ======= */
+        thumbnail2Popup: $("#thumbnail2-modal"),
+        thumbnail2PopupForm: $("#thumbnail2-modal-form"),
+        thumbnail2PopupInput: $("#thumbnail2-modal-input"),
+        thumbnail2Ckeditor: null,
+        thumbnail2CkeditorId: "thumbnail2-modal-editor",
+        thumbnail2PopupSubmit: false,
+        thumbnail2PopupResolvePromise: null,
+        thumbnail2PopupLeftBtn: $("#thumbnail2-modal-left-btn"),
+        thumbnail2PopupRightBtn: $("#thumbnail2-modal-right-btn"),
+        imageUploader2: null,
+        /* ======= [4] 팝업 스타일 4 ======= */
+
+
+        /* ======= [1] 팝업 스타일 1 ======= */
+        openTextAreaPopup: function () {
+            return new Promise((resolve) => {
+                popup.textareaPopupResolvePromise = resolve;
+                popup.textareaPopupSubmit = false;
+                popup.textareaPopupTextarea.val('');
+                popup.textareaPopupForm.removeClass('was-validated');
+                popup.textareaPopup.removeClass('hidden');
+            });
+        }
+        ,closeTextAreaPopup: function () {
+            popup.textareaPopup.addClass('hidden');
+            if (popup.textareaPopupResolvePromise) {
+                popup.textareaPopupResolvePromise({
+                    submit: popup.textareaPopupSubmit,
+                    value: popup.textareaPopupTextarea.val()
+                });
+                popup.textareaPopupResolvePromise = null;
+            }
+        }
+        ,setTextAreaPopupTitle: function(title) {
+            popup.textareaPopupTitle.text(title)
+        }
+        ,setTextAreaPopupSpan: function (html) {
+            popup.textareaPopupSpanDiv.empty();
+            popup.textareaPopupSpanDiv.append(html);
+        }
+        ,setTextAreaPopupLabel: function(text) {
+            popup.textareaPopupLabel.empty();
+            popup.textareaPopupLabel.append(`${text}<span style="color: red">*</span>`);
+        }
+        ,setTextAreaPopupLeftBtn: function(color = 'btn-black', text = '취소', submit_ok = false) {
+            popup.textareaPopupLeftBtn.removeClass('btn-black').addClass(color);
+            popup.textareaPopupLeftBtn.text(text);
+            popup.textareaPopupLeftBtn.off("click");
+            if(submit_ok) {
+                popup.textareaPopupLeftBtn.on('click', () => popup.textAreaPopupSubmit())
+            } else {
+                popup.textareaPopupLeftBtn.on('click', () => {
+                    popup.textareaPopupSubmit = false;
+                    popup.closeTextAreaPopup()
+                })
+            }
+        }
+        ,setTextAreaPopupRightBtn: function(color = 'btn-red', text = '취소', submit_ok = false) {
+            popup.textareaPopupRightBtn.removeClass('btn-red').addClass(color);
+            popup.textareaPopupRightBtn.text(text);
+            popup.textareaPopupRightBtn.off("click");
+            if(submit_ok) {
+                popup.textareaPopupRightBtn.on('click', () => popup.textAreaPopupSubmit())
+            } else {
+                popup.textareaPopupRightBtn.on('click', () => {
+                    popup.textareaPopupSubmit = false;
+                    popup.closeTextAreaPopup()
+                })
+            }
+        }
+        ,textAreaPopupSubmit: function() {
+            const $form = popup.textareaPopupForm;
+            if (!$form[0].checkValidity()) $form.addClass("was-validated");
+            else {
+                popup.textareaPopupSubmit = true;
+                popup.closeTextAreaPopup();
+            }
+        }
+        /* ======= [1] 팝업 스타일 1 ======= */
+
+
+        /* ======= [2] 팝업 스타일 2 ======= */
+        ,openTextPopup: function () {
+            return new Promise((resolve) => {
+                popup.textPopupResolvePromise = resolve;
+                popup.textPopupSubmit = false;
+                popup.textPopup.removeClass('hidden');
+            });
+        }
+        ,closeTextPopup: function () {
+            popup.textPopup.addClass('hidden');
+            if (popup.textPopupResolvePromise) {
+                popup.textPopupResolvePromise(popup.textPopupSubmit);
+                popup.textPopupResolvePromise = null;
+            }
+        }
+        ,setTextPopupTitle: function(title) {
+            popup.textPopupTitle.text(title)
+        }
+        ,setTextPopupSpan: function (html) {
+            popup.textPopupSpanDiv.empty();
+            popup.textPopupSpanDiv.append(html);
+        }
+        ,setTextPopupLeftBtn: function(color = 'btn-black', text = '취소', submit_ok = false) {
+            popup.textPopupLeftBtn.removeClass('btn-black').addClass(color);
+            popup.textPopupLeftBtn.text(text);
+            popup.textPopupLeftBtn.off("click");
+            if(submit_ok) {
+                popup.textPopupLeftBtn.on('click', () => {
+                    popup.textPopupSubmit = true;
+                    popup.closeTextPopup();
+                })
+            } else {
+                popup.textPopupLeftBtn.on('click', () => {
+                    popup.textPopupSubmit = false;
+                    popup.closeTextPopup();
+                })
+            }
+        }
+        ,setTextPopupRightBtn: function(color = 'btn-red', text = '취소', submit_ok = true) {
+            popup.textPopupRightBtn.removeClass('btn-red').addClass(color);
+            popup.textPopupRightBtn.text(text);
+            popup.textPopupRightBtn.off("click");
+            if(submit_ok) {
+                popup.textPopupRightBtn.on('click', () => {
+                    popup.textPopupSubmit = true;
+                    popup.closeTextPopup();
+                })
+            } else {
+                popup.textPopupRightBtn.on('click', () => {
+                    popup.textPopupSubmit = false;
+                    popup.closeTextPopup();
+                })
+            }
+        }
+        /* ======= [2] 팝업 스타일 2 ======= */
+
+
+        /* ======= [3] 팝업 스타일 3 ======= */
+        ,openThumbnailPopup: function () {
+            return new Promise((resolve) => {
+                popup.thumbnailPopupResolvePromise = resolve;
+                popup.thumbnailPopupSubmit = false;
+                popup.thumbnailPopupInput.val('');
+
+                popup.thumbnailPopupInput.off("keydown");
+                popup.thumbnailPopupInput.on("keydown", function (event) {
+                    if(event.key === "Enter" || event.keyCode === 13 || event.keyCode === 10) {
+                        event.preventDefault();
+                    }
+                });
+
+                popup.thumbnailPopupTextarea.val('');
+                popup.thumbnailPopupForm.removeClass('was-validated');
+                popup.destroyUploader();
+                popup.thumbnailPopup.removeClass('hidden');
+                popup.initialUploader(new ThumbnailUpload("#thumbmail-modal-uploader"), false);
+            });
+        }
+        ,openThumbnailPopup_withData: function(obj = {}) {
+            return new Promise((resolve) => {
+
+                popup.thumbnailPopupInput.off("keydown");
+                popup.thumbnailPopupInput.on("keydown", function (event) {
+                    if(event.key === "Enter" || event.keyCode === 13 || event.keyCode === 10) {
+                        event.preventDefault();
+                    }
+                });
+
+                popup.thumbnailPopupResolvePromise = resolve;
+                popup.thumbnailPopupSubmit = false;
+                popup.thumbnailPopupInput.val(obj['title']);
+                popup.thumbnailPopupTextarea.val(obj['description']);
+                popup.thumbnailPopupForm.removeClass('was-validated');
+                popup.destroyUploader();
+                popup.thumbnailPopup.removeClass('hidden');
+                popup.initialUploader(new ThumbnailUpload("#thumbmail-modal-uploader"), true, obj['image']);
+            });
+        }
+        ,closeThumbnailPopup: function () {
+            popup.thumbnailPopup.addClass('hidden');
+            if (popup.thumbnailPopupResolvePromise) {
+
+                const tempImage = popup.imageUploader.getTempThumbnailFile();
+                const staticImage = popup.imageUploader.getThumbnailStaticUpload();
+                let image = Object.keys(tempImage).length > 0 ? tempImage : staticImage;
+                popup.thumbnailPopupResolvePromise({
+                    submit: popup.thumbnailPopupSubmit,
+                    image: image,
+                    title: popup.thumbnailPopupInput.val(),
+                    description: popup.thumbnailPopupTextarea.val()
+                });
+                popup.thumbnailPopupResolvePromise = null;
+            }
+        }
+        ,setThumbnailPopupLeftBtn: function(color = 'btn-black', text = '취소', submit_ok = false) {
+            popup.thumbnailPopupLeftBtn.removeClass('btn-black').addClass(color);
+            popup.thumbnailPopupLeftBtn.text(text);
+            popup.thumbnailPopupLeftBtn.off("click");
+            if(submit_ok) {
+                popup.thumbnailPopupLeftBtn.on('click', () => popup.thumbnailpopupSubmit());
+            } else {
+                popup.thumbnailPopupLeftBtn.on('click', () => {
+                    popup.thumbnailPopupSubmit = false;
+                    popup.closeThumbnailPopup();
+                })
+            }
+        }
+        ,setThumbnailPopupRightBtn: function(color = 'btn-red', text = '취소', submit_ok = true) {
+            popup.thumbnailPopupRightBtn.removeClass('btn-red').addClass(color);
+            popup.thumbnailPopupRightBtn.text(text);
+            popup.thumbnailPopupRightBtn.off("click");
+            if(submit_ok) {
+                popup.thumbnailPopupRightBtn.on('click', () => popup.thumbnailpopupSubmit());
+            } else {
+                popup.thumbnailPopupRightBtn.on('click', () => {
+                    popup.thumbnailPopupSubmit = false;
+                    popup.closeThumbnailPopup();
+                })
+            }
+        }
+        ,initialUploader: function(uploader, hasData = false, img = {}) {
+            popup.imageUploader = uploader;
+            popup.imageUploaderEvent(popup.imageUploader);
+            FileUtil.loadEditFiles(null, popup.imageUploader);
+            popup.imageUploader.setThumbNail('thumbnail-modal-img');
+            /*popup.imageUploader.setAlertSpanDivId('uploader-image-alert-span');*/
+            if(hasData) {
+                if(img.saved !== "Y") popup.imageUploader.addStaticFile_before(img, true);
+                else popup.imageUploader.addStaticFile(img, false);
+            }
+        }
+        ,destroyUploader: function () {
+            popup.imageUploader = null;
+            $("#thumbmail-modal-uploader").empty();
+            const $thumbnailElement = $("#thumbnail-modal-img");
+            if ($thumbnailElement) {
+                $thumbnailElement.attr('src', '/assets/images/page/detail/profile_noimage.png').attr('data-id', '');
+            }
+            const $spanDiv = $("#uploader-image-alert-span");
+            if($spanDiv) {
+                $spanDiv.text('')
+            }
+        }
+        ,imageUploaderEvent: function (uploader) {
+            $("#modal-image-upload-btn").off('click').on('click', () => {
+                uploader.openFileUpload();
+            });
+            $("#modal-image-delete-btn").off('click').on('click', () => {
+                const modalImage = uploader.getTempThumbnailFile();
+                if(modalImage.hasOwnProperty('fileId')) {
+                    uploader.removeThumbnailFile(modalImage, 'removed-by-user');
+                }
+                const staticThumbnail = uploader.getThumbnailStaticUpload();
+                if( staticThumbnail.hasOwnProperty('fileId') ) {
+                    uploader.removeThumbnailFile(staticThumbnail, 'removed-by-user');
+                }
+            });
+        }
+        ,thumbnailpopupSubmit: function() {
+
+            if(popup.checkThumbnailImgUpload) {
+                $("#uploader-image-alert-span").text('')
+            }
+
+            const $form = popup.thumbnailPopupForm;
+            if (!$form[0].checkValidity()) $form.addClass("was-validated");
+            else {
+                const uploadThumbnail = popup.imageUploader.getTempThumbnailFile();
+                const staticThumbnail = popup.imageUploader.getThumbnailStaticUpload();
+                if( uploadThumbnail.hasOwnProperty('fileId') ) {
+                    popup.thumbnailPopupSubmit = true;
+                    popup.closeThumbnailPopup();
+                } else if( staticThumbnail.hasOwnProperty('fileId') ) {
+                    popup.thumbnailPopupSubmit = true;
+                    popup.closeThumbnailPopup();
+                } else {
+                    $("#uploader-image-alert-span").text('대표 이미지를 등록해주세요.');
+                }
+            }
+        }
+        ,checkThumbnailImgUpload() {
+            const uploadThumbnail = popup.imageUploader.getTempThumbnailFile();
+            const staticThumbnail = popup.imageUploader.getThumbnailStaticUpload();
+            return (!uploadThumbnail?.fileId && !staticThumbnail?.fileId)
+        }
+        /* ======= [3] 팝업 스타일 3 ======= */
+
+
+
+        /* ======= [4] 팝업 스타일 4 ======= */
+        ,openThumbnail2Popup: function () {
+            return new Promise((resolve) => {
+                popup.thumbnail2PopupResolvePromise = resolve;
+                popup.thumbnail2PopupSubmit = false;
+                popup.thumbnail2PopupInput.val('');
+
+                popup.thumbnail2PopupInput.off("keydown");
+                popup.thumbnail2PopupInput.on("keydown", function (event) {
+                    if(event.key === "Enter" || event.keyCode === 13 || event.keyCode === 10) {
+                        event.preventDefault();
+                    }
+                });
+
+                if(popup.thumbnail2Ckeditor) {
+                    popup.thumbnail2Ckeditor.getEditor().destroy().then(() => {
+                        popup.initializeEditor().then(() => {
+                            // after initialize editor
+                        });
+                    });
+                } else {
+                    popup.initializeEditor().then(() => {
+                        // after initialize editor
+                    });
+                }
+
+                $("#thumbnail2-editor-span").css('display', 'none')
+                popup.thumbnail2PopupForm.removeClass('was-validated');
+                popup.destroyUploader2();
+                popup.thumbnail2Popup.removeClass('hidden');
+                popup.initialUploader2(new ThumbnailUpload("#thumbnail2-modal-uploader"), false);
+            });
+        }
+        ,openThumbnail2Popup_withData: function(obj = {}) {
+            return new Promise((resolve) => {
+
+                popup.thumbnail2PopupInput.off("keydown");
+                popup.thumbnail2PopupInput.on("keydown", function (event) {
+                    if(event.key === "Enter" || event.keyCode === 13 || event.keyCode === 10) {
+                        event.preventDefault();
+                    }
+                });
+
+                if(popup.thumbnail2Ckeditor) {
+                    popup.thumbnail2Ckeditor.getEditor().destroy().then(() => {
+                        popup.initializeEditor().then(() => {
+                            popup.thumbnail2Ckeditor.setEditorData(obj['description']);
+                        });
+                    });
+                } else {
+                    popup.initializeEditor().then(() => {
+                        popup.thumbnail2Ckeditor.setEditorData(obj['description']);
+                    });
+                }
+
+                $("#thumbnail2-editor-span").css('display', 'none')
+                popup.thumbnail2PopupResolvePromise = resolve;
+                popup.thumbnail2PopupSubmit = false;
+                popup.thumbnail2PopupInput.val(obj['title']);
+                popup.thumbnail2PopupForm.removeClass('was-validated');
+                popup.destroyUploader2();
+                popup.thumbnail2Popup.removeClass('hidden');
+                popup.initialUploader2(new ThumbnailUpload("#thumbnail2-modal-uploader"), true, obj['image']);
+            });
+        }
+        ,closeThumbnail2Popup: function () {
+            popup.thumbnail2Popup.addClass('hidden');
+            if (popup.thumbnail2PopupResolvePromise) {
+
+                const tempImage = popup.imageUploader2.getTempThumbnailFile();
+                const staticImage = popup.imageUploader2.getThumbnailStaticUpload();
+                let image = Object.keys(tempImage).length > 0 ? tempImage : staticImage;
+                popup.thumbnail2PopupResolvePromise({
+                    submit: popup.thumbnail2PopupSubmit,
+                    image: image,
+                    title: popup.thumbnail2PopupInput.val(),
+                    description: popup.thumbnail2Ckeditor.getEditorData()
+                });
+                popup.thumbnail2PopupResolvePromise = null;
+            }
+        }
+        ,setThumbnail2PopupLeftBtn: function(color = 'btn-black', text = '취소', submit_ok = false) {
+            popup.thumbnail2PopupLeftBtn.removeClass('btn-black').addClass(color);
+            popup.thumbnail2PopupLeftBtn.text(text);
+            popup.thumbnail2PopupLeftBtn.off("click");
+            if(submit_ok) {
+                popup.thumbnail2PopupLeftBtn.on('click', () => popup.thumbnail2popupSubmit());
+            } else {
+                popup.thumbnail2PopupLeftBtn.on('click', () => {
+                    popup.thumbnail2PopupSubmit = false;
+                    popup.closeThumbnail2Popup();
+                })
+            }
+        }
+        ,setThumbnail2PopupRightBtn: function(color = 'btn-red', text = '취소', submit_ok = true) {
+            popup.thumbnail2PopupRightBtn.removeClass('btn-red').addClass(color);
+            popup.thumbnail2PopupRightBtn.text(text);
+            popup.thumbnail2PopupRightBtn.off("click");
+            if(submit_ok) {
+                popup.thumbnail2PopupRightBtn.on('click', () => popup.thumbnail2popupSubmit());
+            } else {
+                popup.thumbnail2PopupRightBtn.on('click', () => {
+                    popup.thumbnail2PopupSubmit = false;
+                    popup.closeThumbnail2Popup();
+                })
+            }
+        }
+        ,initialUploader2: function(uploader, hasData = false, img = {}) {
+            popup.imageUploader2 = uploader;
+            popup.imageUploader2Event(popup.imageUploader2);
+            FileUtil.loadEditFiles(null, popup.imageUploader2);
+            popup.imageUploader2.setUploadInfo(1, ['png', 'jpg', 'gif', 'jpeg', 'PNG', 'JPG', 'GIF', 'JPEG']);
+            popup.imageUploader2.setThumbNail('thumbnail2-modal-img');
+            /*popup.imageUploader2.setAlertSpanDivId('thumbnail2-uploader-image-alert-span');*/
+            if(hasData) {
+                if(img.saved !== "Y") popup.imageUploader2.addStaticFile_before(img, true);
+                else popup.imageUploader2.addStaticFile(img, false);
+            }
+        }
+        ,destroyUploader2: function () {
+            popup.imageUploader2 = null;
+            $("#thumbnail2-modal-uploader").empty();
+            const $thumbnailElement = $("#thumbnail2-modal-img");
+            if ($thumbnailElement) {
+                $thumbnailElement.attr('src', '/assets/images/page/detail/profile_noimage.png').attr('data-id', '');
+            }
+            const $spanDiv = $("#thumbnail2-uploader-image-alert-span");
+            if($spanDiv) {
+                $spanDiv.text('')
+            }
+        }
+        ,imageUploader2Event: function (uploader) {
+            $("#thumbnail2-modal-image-upload-btn").off('click').on('click', () => {
+                uploader.openFileUpload();
+            });
+            $("#thumbnail2-modal-image-delete-btn").off('click').on('click', () => {
+                const modalImage = uploader.getTempThumbnailFile();
+                if(modalImage.hasOwnProperty('fileId')) {
+                    uploader.removeThumbnailFile(modalImage, 'removed-by-user');
+                }
+                const staticThumbnail = uploader.getThumbnailStaticUpload();
+                if( staticThumbnail.hasOwnProperty('fileId') ) {
+                    uploader.removeThumbnailFile(staticThumbnail, 'removed-by-user');
+                }
+            });
+        }
+        ,thumbnail2popupSubmit: function() {
+
+            if(popup.checkThumbnail2ImgUpload) {
+                $("#thumbnail2-uploader-image-alert-span").text('')
+            }
+
+            const $form = popup.thumbnail2PopupForm;
+            if (!$form[0].checkValidity()) $form.addClass("was-validated");
+            else {
+
+                if(popup.thumbnail2Ckeditor.getEditorData().length == 0) {
+                    $("#thumbnail2-editor-span").css('display', 'block')
+                } else {
+                    $("#thumbnail2-editor-span").css('display', 'none')
+                    const uploadThumbnail = popup.imageUploader2.getTempThumbnailFile();
+                    const staticThumbnail = popup.imageUploader2.getThumbnailStaticUpload();
+                    if( uploadThumbnail.hasOwnProperty('fileId') ) {
+                        popup.thumbnail2PopupSubmit = true;
+                        popup.closeThumbnail2Popup();
+                    } else if( staticThumbnail.hasOwnProperty('fileId') ) {
+                        popup.thumbnail2PopupSubmit = true;
+                        popup.closeThumbnail2Popup();
+                    } else {
+                        $("#thumbnail2-uploader-image-alert-span").text('대표 이미지를 등록해주세요.');
+                    }
+                }
+            }
+        }
+        ,initializeEditor: async function () {
+            popup.thumbnail2Ckeditor = new Editor(popup.thumbnail2CkeditorId, '', false);
+            popup.thumbnail2Ckeditor = await popup.thumbnail2Ckeditor.init();
+        }
+        ,checkThumbnail2ImgUpload() {
+            const uploadThumbnail = popup.imageUploader2.getTempThumbnailFile();
+            const staticThumbnail = popup.imageUploader2.getThumbnailStaticUpload();
+            return (!uploadThumbnail?.fileId && !staticThumbnail?.fileId)
+        }
+        /* ======= [4] 팝업 스타일 4 ======= */
+
+    }
+
+</script>

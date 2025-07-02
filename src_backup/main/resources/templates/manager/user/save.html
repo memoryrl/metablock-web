@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<th:block layout:fragment="center-image">
+    <th:block th:with="title1=${currentPageName}, title2=${navigation}, leftImg=${centerLeftImage}, rightImg=${centerRightImage}">
+        <th:block th:replace="fragments/center-image :: main-image-title(${title1}, ${title2}, ${leftImg}, ${rightImg})"></th:block>
+    </th:block>
+</th:block>
+
+<th:block layout:fragment="head">
+    <style>
+        /* 버튼 정렬 */
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="my-account-wrapper pb-100 pt-80" data-aos="fade-up" data-aos-delay="200">
+        <div class="container">
+            <div class="section-title-2 st-border-center text-center mb-35">
+                <h2>계정추가</h2>
+            </div>
+            <hr>
+            <div class="my-account-wrapper pb-100" style="padding: 30px 0px 50px 0px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- My Account Page Start -->
+                            <div class="myaccount-page-wrapper">
+                                <!-- My Account Tab Menu Start -->
+                                <div class="row" style="margin-bottom: 20px;">
+                                    <div class="col-lg-12 col-md-8">
+                                        <div id="account-info">
+                                            <div class="myaccount-content" style="border: 0px; padding: 0px !important;">
+                                                <div class="account-details-form">
+                                                    <form class="needs-validation" id="save-form" novalidate="" autocomplete="off">
+                                                        <input type="hidden" name="status" value="APPROVED"/>
+                                                        <div class="row custom-row">
+                                                            <div class="col-lg-6">
+                                                                <div class="single-input-item">
+                                                                    <label for="userNm" class="custom-label required">이름<span class="req">*</span></label>
+                                                                    <input class="form-control custom-input" type="text" id="userNm" name="userNm" required>
+                                                                    <span class="validation-error-message" id="userNm-error"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label class="custom-label required" for="userId">아이디<span class="req">*</span></label>
+                                                                <div class="input-group">
+                                                                    <input type="text" id="userId" name="userId" class="form-control custom-input" required>
+                                                                    <button class="custom-button" id="userId-chk" type="button">중복 확인</button>
+                                                                    <span class="validation-error-message" id="userId-error"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="margin-bottom: 20px;">
+                                                            <div class="col-lg-6">
+                                                                <div class="single-input-item">
+                                                                    <label for="password" class="custom-label required">비밀번호<span class="req">*</span></label>
+                                                                    <input class="form-control custom-input" type="password" id="password" name="password" placeholder="8~20자" pattern=".{8,20}" required="">
+                                                                    <span class="validation-error-message" id="password-error"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="single-input-item">
+                                                                    <label for="confirmPassword" class="custom-label">비밀번호 확인</label>
+                                                                    <input class="form-control custom-input" type="password" id="confirmPassword" placeholder="8~20자" required="">
+                                                                    <label class="error-message" id="passwordChk-error"></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row custom-row" >
+                                                            <div class="col-lg-6">
+                                                                <label class="custom-label required" for="userEmail">이메일<span class="req">*</span></label>
+                                                                <div class="input-group">
+                                                                    <input type="email"
+                                                                           id="userEmail"
+                                                                           name="userEmail"
+                                                                           class="form-control custom-input"
+                                                                           required />
+                                                                    <button class="custom-button"
+                                                                            id="userEmail-chk"
+                                                                            type="button">중복 확인</button>
+                                                                    <span class="validation-error-message" id="userEmail-error"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="single-input-item">
+                                                                    <div for="userGroup" class="required">소속</div>
+                                                                    <select class="nice-select nice-select-style-1 custom-select" id="userGroup" name="userGroup">
+                                                                        <option value="" disabled selected>-- 유저 소속을 선택해주세요. --</option>
+                                                                        <option th:each="group : ${userGroup}"
+                                                                                th:value="${group?.uid}"
+                                                                                th:selected="${group?.uid == form?.groupUid}"
+                                                                                th:text="${group?.name}"></option>
+                                                                    </select>
+                                                                    <span class="validation-error-message" id="userGroup-error"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row custom-row">
+                                                            <div class="col-lg-6">
+                                                                <div style="margin-bottom: 20px;">
+                                                                    <label for="userDept" class="custom-label">그룹/부서</label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" id="userDept" class="form-control custom-input" required="" readonly disabled>
+                                                                        <input type="hidden" id="userDept-uid" name="userDept" class="form-control custom-input">
+                                                                        <button class="custom-button" id="userDept-choose" type="button">선택</button>
+                                                                    </div>
+                                                                    <span class="validation-error-message" id="userDept-error"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="single-input-item">
+                                                                    <div for="userPosition" class="required">직급</div>
+                                                                    <select class="nice-select nice-select-style-1 custom-select" id="userPosition" name="userPosition">
+                                                                        <option value="" disabled selected>-- 유저 직급을 선택해주세요. --</option>
+                                                                        <option th:each="position : ${userPosition}"
+                                                                                th:value="${position?.uid}"
+                                                                                th:text="${position?.name}"></option>
+                                                                    </select>
+                                                                    <span class="validation-error-message" id="userPosition-error"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row custom-row">
+                                                            <div class="col-lg-6">
+                                                                <div class="single-input-item">
+                                                                    <div for="userAuthor" class="required">권한</div>
+                                                                    <select class="nice-select nice-select-style-1 custom-select" id="userAuthor" name="authorCd" required>
+                                                                        <option value="" disabled selected>-- 유저 권한을 선택해주세요. --</option>
+                                                                        <option th:each="author : ${userAuthorCd}"
+                                                                                th:value="${author?.code}"
+                                                                                th:text="${author?.name}"></option>
+                                                                    </select>
+                                                                    <span class="validation-error-message" id="userAuthor-error"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr style="border: 1px dashed #ccc; margin-top: 30px; margin-bottom: 30px;">
+                                                        <th:block th:with="rowSize=2, colClass=${'col-lg-' + (12 / rowSize)}">
+                                                            <th:block th:each="i : ${#numbers.sequence(0, fields.size() - 1, rowSize)}">
+                                                                <div class="row custom-row">
+                                                                    <th:block th:each="j : ${#numbers.sequence(i, i + rowSize - 1)}"
+                                                                              th:if="${j < fields.size()}">
+                                                                        <th:block th:with="field=${fields[j]}">
+                                                                            <div th:replace="fragments/form-field :: render(${field}, ${colClass}, ${metadata})"></div>
+                                                                        </th:block>
+                                                                    </th:block>
+                                                                </div>
+                                                            </th:block>
+                                                        </th:block>
+
+                                                        <div class="btn-container" style="margin-top: 50px;">
+                                                            <!-- 왼쪽 버튼 -->
+                                                            <button type="button" class="custom-button" id="back-step" >이전 단계</button>
+
+                                                            <!-- 오른쪽 버튼들 -->
+                                                            <div class="right-buttons">
+                                                                <button type="button" class="custom-button" id="save-btn">저장</button>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- My Account Page End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="manager/user/modal/user-change-dept-modal"></th:block>
+</th:block>
+
+
+<th:block layout:fragment="script">
+    <script th:src="@{'/assets/js/page/manager/user/user-save.js'}"></script>
+    <script th:inline="javascript">
+        const fields = [[${fields}]]
+        const builder = new Formbuilder(fields, {});
+
+        $(function () {
+
+            $("#userId-chk").on('click', function() {
+                userSave.checkId();
+            });
+            $("#userEmail-chk").on('click', function() {
+                userSave.checkEmail();
+            });
+            $("#save-btn").on('click', function() {
+                userSave.save();
+            });
+            $("#back-step").on('click', function() {
+                userSave.goBack();
+            });
+
+            $("#userDept-choose").on('click', function() {
+                userSave.userDeptChange();
+            });
+            $("#change-dept-select-btn").on('click', function () {
+                userSave.chooseDept();
+            });
+            $("#change-dept-cancel-btn").on('click', function () {
+                userSave.cancelChooseDept();
+            });
+        });
+    </script>
+</th:block>
+</html>

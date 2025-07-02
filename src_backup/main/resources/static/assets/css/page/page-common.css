@@ -1,0 +1,1237 @@
+/* === [S] CSS CLASS 명 재정의 (HOME & DETAIL & PROFILE) === */
+.page-more-update-wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 30px 0px 95px;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .page-more-update-wrapper {
+        padding: 30px 0px 45px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-more-update-wrapper {
+        display: block;
+        padding: 30px 0px 15px;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .page-more-update-wrapper {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 30px 0px 30px;
+    }
+}
+
+.page-more-update-wrapper .page-more-update > a,
+.page-more-update-wrapper .cart-clear > button,
+.page-more-update-wrapper .cart-clear > a {
+    background-color: #f2f2f2;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 1;
+    padding: 17px 30px 17px;
+    text-transform: capitalize;
+    letter-spacing: .3px;
+    border-radius: 0px;
+    z-index: 1;
+    -webkit-transition: all .5s ease-in-out 0s;
+    -o-transition: all .5s ease-in-out 0s;
+    transition: all .5s ease-in-out 0s;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .page-more-update-wrapper .page-more-update > a,
+    .page-more-update-wrapper .cart-clear > button,
+    .page-more-update-wrapper .cart-clear > a {
+        padding: 17px 25px 17px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-more-update-wrapper .page-more-update > a,
+    .page-more-update-wrapper .cart-clear > button,
+    .page-more-update-wrapper .cart-clear > a {
+        margin: 0 0 15px;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .page-more-update-wrapper .page-more-update > a,
+    .page-more-update-wrapper .cart-clear > button,
+    .page-more-update-wrapper .cart-clear > a {
+        margin: 0 0 0px;
+        padding: 17px 22px 17px;
+    }
+}
+
+.page-more-update-wrapper .cart-clear > button {
+    border: medium none;
+    cursor: pointer;
+    margin-right: 27px;
+    border-radius: 0px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .page-more-update-wrapper .cart-clear > button {
+        margin-right: 15px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-more-update-wrapper .cart-clear > button {
+        margin-right: 10px;
+    }
+}
+/* === [E] CSS CLASS 명 재정의 (HOME & DETAIL & PROFILE) === */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* === [S] CSS CLASS 명 재정의 (LIST & DETAIL03) === */
+@media only screen and (max-width: 767px) {
+    .sidebar-wrapper {
+        margin-top: 40px;
+    }
+    .sidebar-wrapper.blog-sidebar-mt {
+        margin-top: 50px;
+    }
+    .page-responsive.pb-100 {
+        padding-bottom: 55px;
+    }
+}
+
+.page-topbar-wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 767px) {
+    .page-topbar-wrapper {
+        display: block;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .page-topbar-wrapper {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        text-align: inherit;
+    }
+}
+
+.page-topbar-wrapper .page-topbar-left span {
+    color: #6d6d6d;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.page-topbar-wrapper .page-topbar-right {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@media only screen and (max-width: 767px) {
+    .page-topbar-wrapper .page-topbar-right {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        margin-top: 15px;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .page-topbar-wrapper .page-topbar-right {
+        -webkit-box-pack: end;
+        -webkit-justify-content: flex-end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+        margin-top: 0px;
+    }
+}
+
+.page-topbar-wrapper .page-topbar-right .page-sorting-area {
+    margin-right: 10px;
+}
+
+.page-topbar-wrapper .page-topbar-right .page-sorting-area .nice-select.nice-select-style-1 {
+    height: 33px;
+    line-height: 32px;
+    border: solid 1px #b7b7b7;
+    padding-left: 17px;
+    padding-right: 50px;
+    color: #6d6d6d;
+    font-style: italic;
+    border-radius: 0;
+}
+
+.page-topbar-wrapper .page-topbar-right .page-sorting-area .nice-select.nice-select-style-1::before {
+    position: absolute;
+    content: "\e64b";
+    font-family: 'themify';
+    right: 18px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 14px;
+    font-style: normal;
+    color: #000000;
+}
+
+.page-topbar-wrapper .page-topbar-right .page-sorting-area .nice-select.nice-select-style-1::after {
+    display: none;
+}
+
+.page-topbar-wrapper .page-topbar-right .page-sorting-area .nice-select.nice-select-style-1.open::before {
+    content: "\e648";
+}
+
+.page-topbar-wrapper .page-topbar-right .page-view-mode a {
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+    font-size: 18px;
+    color: #606060;
+    text-align: center;
+    border: 1px solid transparent;
+    margin-right: 10px;
+    background-color: #f3f3f3;
+}
+
+.page-topbar-wrapper .page-topbar-right .page-view-mode a.active {
+    border: 1px solid #b7b7b7;
+    background-color: transparent;
+}
+
+.page-topbar-wrapper .page-topbar-right .page-view-mode a:last-child {
+    margin-right: 0;
+}
+
+.page-list-wrap .page-list-img {
+    position: relative;
+}
+
+.page-list-wrap .page-list-img a {
+    display: block;
+}
+
+.page-list-wrap .page-list-img a img {
+    width: 100%;
+}
+
+.page-list-wrap .page-list-img .page-list-badge {
+    position: absolute;
+    top: 7px;
+}
+
+.page-list-wrap .page-list-img .page-list-badge.badge-right {
+    right: 11px;
+}
+
+.page-list-wrap .page-list-img .page-list-badge.badge-pink span {
+    color: #fd1748;
+}
+
+.page-list-wrap .page-list-img .page-list-badge span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.page-list-wrap .page-list-img .page-list-quickview {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .3s ease 0s;
+    -o-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+    margin-top: 20px;
+}
+
+.page-list-wrap .page-list-img .page-list-quickview .page-action-btn-2 {
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-size: 23px;
+    height: 45px;
+    text-align: center;
+    width: 45px;
+    line-height: 45px;
+    border: none;
+    border-radius: 6px;
+    padding: 0;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+.page-list-wrap .page-list-img .page-list-quickview .page-action-btn-2:hover {
+    color: #ffffff;
+    background-color: #e97730;
+}
+
+.page-list-wrap .page-list-content h3 {
+    font-weight: 500;
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.page-list-wrap .page-list-content h3 a {
+    color: #000000;
+}
+
+.page-list-wrap .page-list-content h3 a:hover {
+    color: #e97730;
+}
+
+.page-list-wrap .page-list-content .page-list-rating i {
+    font-size: 15px;
+    margin-right: 2px;
+    color: #e97730;
+}
+
+.page-list-wrap .page-list-content p {
+    margin: 8px 0 14px;
+}
+
+.page-list-wrap .page-list-content .page-list-action .page-action-btn-3 {
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-size: 23px;
+    height: 45px;
+    margin-right: 10px;
+    text-align: center;
+    width: 45px;
+    line-height: 47px;
+    border: none;
+    border-radius: 6px;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    padding: 0;
+}
+
+.page-list-wrap .page-list-content .page-list-action .page-action-btn-3:last-child {
+    margin-right: 0;
+}
+
+.page-list-wrap .page-list-content .page-list-action .page-action-btn-3:hover {
+    color: #ffffff;
+    background-color: #e97730;
+}
+
+@media only screen and (max-width: 767px) {
+    .page-list-wrap .page-list-content {
+        margin-top: 15px;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .page-list-wrap .page-list-content {
+        margin-top: 0px;
+    }
+}
+
+.page-list-wrap:hover .page-list-quickview {
+    margin-top: 0px;
+    opacity: 1;
+    visibility: visible;
+}
+/* === [E] CSS CLASS 명 재정의 (LIST & DETAIL03) === */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* === [S] CSS CLASS 명 재정의 (LIST) === */
+.sidebar-widget .page-filter #slider-range {
+    background: rgba(0, 0, 0, 0.1);
+    border: medium none;
+    border-radius: 0px;
+    height: 3px;
+    margin-bottom: 12px;
+    margin-left: auto;
+    margin-top: 5px;
+}
+
+.sidebar-widget .page-filter #slider-range span {
+    -webkit-transition: all .0s ease 0s;
+    -o-transition: all .0s ease 0s;
+    transition: all .0s ease 0s;
+}
+
+.sidebar-widget .page-filter #slider-range .ui-slider-range {
+    position: absolute;
+    display: block;
+    border: 0;
+    background: #b7b7b7;
+    border: none;
+    -webkit-transition: all .0s ease 0s;
+    -o-transition: all .0s ease 0s;
+    transition: all .0s ease 0s;
+}
+
+.sidebar-widget .page-filter #slider-range .ui-slider-handle {
+    background: #ffffff;
+    border: medium none;
+    border-radius: 50%;
+    height: 13px;
+    margin-left: 0;
+    width: 13px;
+    margin-top: -1px;
+    border: 2px solid #b7b7b7;
+}
+
+.sidebar-widget .page-filter .page-slider-amount {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin: 20px 0 0;
+}
+
+.sidebar-widget .page-filter .page-slider-amount .label-input {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.sidebar-widget .page-filter .page-slider-amount .label-input label {
+    font-size: 14px;
+    color: #575757;
+    /*font-family: "Poppins", sans-serif;*/
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+    margin-right: 2px;
+}
+
+.sidebar-widget .page-filter .page-slider-amount .label-input input {
+    height: auto;
+    width: 50%;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    color: #575757;
+    /*font-family: "Poppins", sans-serif;*/
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1365px) {
+    .sidebar-widget .page-filter .page-slider-amount .label-input input {
+        width: 55%;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .sidebar-widget .page-filter .page-slider-amount .label-input input {
+        width: 65%;
+    }
+}
+
+.sidebar-widget .page-filter .page-slider-amount button {
+    background-color: transparent;
+    border: medium none;
+    color: #575757;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-transition: all .3s ease 0s;
+    -o-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+    /*font-family: "Poppins", sans-serif;*/
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+.sidebar-widget .page-filter .page-slider-amount button:hover {
+    color: #ed3503;
+}
+/* === [E] CSS CLASS 명 재정의 (LIST) === */
+
+
+
+
+
+
+
+
+
+/* === [S] CSS CLASS 명 재정의 (HOME & LIST & DETAIL03) === */
+.page-wrap {
+    overflow: hidden;
+    position: relative;
+}
+
+.page-wrap .page-img {
+    overflow: hidden;
+    position: relative;
+}
+
+.page-wrap .page-img a {
+    display: block;
+}
+
+.page-wrap .page-img a img {
+    width: 100%;
+    -webkit-transition: all .4s ease 0s;
+    -o-transition: all .4s ease 0s;
+    transition: all .4s ease 0s;
+}
+
+.page-wrap .page-img .page-badge {
+    position: absolute;
+    z-index: 5;
+}
+
+.page-wrap .page-img .page-badge.badge-top {
+    top: 11px;
+}
+
+.page-wrap .page-img .page-badge.badge-right {
+    right: 11px;
+}
+
+.page-wrap .page-img .page-badge.badge-pink {
+    color: #fd1748;
+}
+
+.page-wrap .page-img .page-badge span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.page-wrap .page-img .page-badge-2 {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    -webkit-transition: all .5s ease 0s;
+    -o-transition: all .5s ease 0s;
+    transition: all .5s ease 0s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 2;
+}
+
+.page-wrap .page-img .page-badge-2 span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fd1748;
+}
+
+.page-wrap .page-img .page-action-3-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 2;
+    top: 50%;
+    -webkit-transform: translateY(-50%) scale(0.7);
+    -ms-transform: translateY(-50%) scale(0.7);
+    transform: translateY(-50%) scale(0.7);
+    -webkit-transition: all .5s ease 0s;
+    -o-transition: all .5s ease 0s;
+    transition: all .5s ease 0s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.page-wrap .page-img .page-action-3-wrap a {
+    display: inline-block;
+    font-weight: 500;
+    color: #202020;
+    border-bottom: 1px solid #9d9998;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.page-wrap .page-img .page-action-3-wrap a:hover {
+    color: #e97730;
+    border-bottom: 1px solid #e97730;
+}
+
+.page-wrap .page-img .page-action-wrap {
+    display: inline-block;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+.page-wrap .page-img .page-action-wrap .page-action-btn-1 {
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-size: 23px;
+    height: 45px;
+    margin: 0 3px;
+    text-align: center;
+    width: 45px;
+    border: none;
+    border-radius: 6px;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+.page-wrap .page-img .page-action-wrap .page-action-btn-1 i {
+    line-height: 45px;
+}
+
+.page-wrap .page-img .page-action-wrap .page-action-btn-1:first-child {
+    -webkit-transform: translateY(-20px);
+    -ms-transform: translateY(-20px);
+    transform: translateY(-20px);
+}
+
+.page-wrap .page-img .page-action-wrap .page-action-btn-1:last-child {
+    -webkit-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+    transform: translateY(20px);
+}
+
+.page-wrap .page-img .page-action-wrap .page-action-btn-1:hover {
+    color: #ffffff;
+    background-color: #e97730;
+}
+
+.page-wrap .page-img .page-action-2-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .4s ease 0s;
+    -o-transition: all .4s ease 0s;
+    transition: all .4s ease 0s;
+}
+
+.page-wrap .page-img .page-action-2-wrap .page-action-btn-2 {
+    border: none;
+    color: #fff;
+    padding: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-weight: 500;
+    background-color: #000000;
+    -webkit-transition: all .4s ease 0s;
+    -o-transition: all .4s ease 0s;
+    transition: all .4s ease 0s;
+    width: 100%;
+    padding: 9px 10px 10px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.page-wrap .page-img .page-action-2-wrap .page-action-btn-2 i {
+    font-size: 22px;
+    margin-right: 5px;
+}
+
+.page-wrap .page-img .page-action-2-wrap:hover .page-action-btn-2 {
+    background-color: #e97730;
+}
+
+.page-wrap .page-content h3 {
+    font-weight: 500;
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.page-wrap .page-content h3 a {
+    color: #000000;
+}
+
+.page-wrap .page-content h3 a:hover {
+    color: #e97730;
+}
+
+.page-wrap .page-content.page-content-position {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 2;
+    -webkit-transition: all .5s ease 0s;
+    -o-transition: all .5s ease 0s;
+    transition: all .5s ease 0s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.page-wrap.page-overly:before {
+    position: absolute;
+    content: "";
+    left: 40px;
+    right: 40px;
+    top: 40px;
+    bottom: 40px;
+    background-color: rgba(245, 245, 245, 0.88);
+    -webkit-transition: all .5s ease 0s;
+    -o-transition: all .5s ease 0s;
+    transition: all .5s ease 0s;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.page-wrap:hover .page-img a img {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.page-wrap:hover .page-img .page-badge-2 {
+    top: 15px;
+    right: 20px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.page-wrap:hover .page-img .page-action-3-wrap {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateY(-50%) scale(1);
+    -ms-transform: translateY(-50%) scale(1);
+    transform: translateY(-50%) scale(1);
+}
+
+.page-wrap:hover .page-action-wrap {
+    opacity: 1;
+    visibility: visible;
+}
+
+.page-wrap:hover .page-action-wrap .page-action-btn-1:first-child {
+    -webkit-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    transform: translateY(0px);
+}
+
+.page-wrap:hover .page-action-wrap .page-action-btn-1:last-child {
+    -webkit-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    transform: translateY(0px);
+}
+
+.page-wrap:hover .page-action-2-wrap {
+    bottom: 0px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.page-wrap:hover.page-overly:before {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+.page-wrap:hover .page-content.page-content-position {
+    bottom: 20px;
+    left: 25px;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* === HOME & LIST === */
+
+.page-price span {
+    color: #808080;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.page-price span.new-price {
+    color: #fd1748;
+}
+
+.page-price span.old-price {
+    margin-right: 13px;
+    color: #555252;
+    text-decoration: line-through;
+}
+/* === [E] CSS CLASS 명 재정의 (HOME & LIST & DETAIL03) === */
+
+
+
+
+
+
+
+
+
+
+/* === [S] CSS CLASS 명 재정의 (DETAIL) === */
+.page-details-content {
+    padding: 0 0 0 20px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .page-details-content {
+        padding: 40px 0 0 0px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-details-content {
+        padding: 30px 0 0 0px;
+    }
+    .page-details-content.pt-small-none {
+        padding: 0px 0 0 0px;
+    }
+}
+
+.page-details-content h2 {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1;
+    margin: 0;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .page-details-content h2 {
+        font-size: 25px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-details-content h2 {
+        font-size: 24px;
+    }
+}
+
+.page-details-content .product-details-price {
+    margin: 14px 0 23px;
+}
+
+.page-details-content .product-details-price span {
+    font-weight: 500;
+    display: inline-block;
+}
+
+.page-details-content .product-details-price span.old-price {
+    color: #555252;
+    font-size: 18px;
+    text-decoration: line-through;
+    margin-right: 12px;
+}
+
+.page-details-content .product-details-price span.new-price {
+    color: #e97730;
+    font-size: 20px;
+}
+
+.page-details-content .page-details-review {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.page-details-content .page-details-review .page-rating i {
+    font-size: 18px;
+    margin-right: 4px;
+    color: #e97730;
+}
+
+@media only screen and (max-width: 767px) {
+    .page-details-content .page-details-review .page-rating i {
+        font-size: 16px;
+        margin-right: 2px;
+    }
+}
+
+.page-details-content .page-details-review .page-rating i:last-child {
+    margin-right: 0;
+}
+
+.page-details-content .page-details-review span {
+    font-weight: 500;
+    color: #9f9e9e;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.page-details-content p {
+    margin: 0 0 34px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .page-details-content p {
+        margin: 0 0 21px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-details-content p {
+        margin: 0 0 21px;
+    }
+}
+
+.page-details-content .page-details-meta {
+    border-bottom: 1px solid #f2f2f2;
+    margin: 34px 0 40px;
+    padding-bottom: 33px;
+}
+
+@media only screen and (max-width: 767px) {
+    .page-details-content .page-details-meta {
+        margin: 18px 0 23px;
+        padding-bottom: 18px;
+    }
+}
+
+.page-details-content .page-details-meta > ul > li {
+    color: #9f9e9e;
+    font-weight: 500;
+    font-size: 16px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 0 0 13px;
+}
+
+@media only screen and (max-width: 767px) {
+    .page-details-content .page-details-meta > ul > li {
+        margin: 0 0 7px;
+    }
+}
+
+.page-details-content .page-details-meta > ul > li:last-child {
+    margin-bottom: 0;
+}
+
+.page-details-content .page-details-meta > ul > li span {
+    color: #5f5f5f;
+    margin-right: 5px;
+}
+
+.page-details-content .page-details-meta > ul > li ul {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.page-details-content .page-details-meta > ul > li ul li a {
+    color: #9f9e9e;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.page-details-content .page-details-meta > ul > li ul li a:hover {
+    color: #e97730;
+}
+
+.page-details-content .social-icon-style-4 a {
+    background-color: #f2f2f2;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    color: #919191;
+    display: inline-block;
+    text-align: center;
+    margin-right: 7px;
+}
+
+.page-details-content .social-icon-style-4 a:last-child {
+    margin-right: 0;
+}
+
+.page-details-content .social-icon-style-4 a:hover {
+    background-color: #e97730;
+    color: #ffffff;
+}
+
+.page-details-content.quickview-content {
+    padding: 0 0 0 30px;
+}
+
+@media only screen and (max-width: 767px) {
+    .page-details-content.quickview-content {
+        padding: 26px 0 0 0px;
+    }
+}
+
+.page-details-content.quickview-content h2 {
+    padding-right: 70px;
+}
+
+@media only screen and (max-width: 767px) {
+    .page-details-content.quickview-content h2 {
+        padding-right: 0px;
+    }
+}
+
+.page-details-action-wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.single-page-wishlist {
+    margin-right: 23px;
+}
+
+.single-page-wishlist a,
+.single-page-compare a {
+    font-size: 18px;
+    color: #010101;
+}
+
+.single-page-wishlist a:hover,
+.single-page-compare a:hover {
+    color: #e97730;
+}
+
+.page-color {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 32px 0 56px;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .page-color {
+        margin: 25px 0 31px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .page-color {
+        margin: 20px 0 26px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-color {
+        margin: 20px 0 26px;
+    }
+}
+
+.page-color span {
+    color: #303030;
+    font-size: 16px;
+    font-weight: 600;
+    display: inline-block;
+    margin: 0 20px 0 0;
+}
+
+.page-color ul {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.page-color ul li {
+    margin-right: 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .page-color ul li {
+        margin-right: 12px;
+    }
+}
+
+.page-color ul li:last-child {
+    margin-right: 0;
+}
+
+.page-color ul li a {
+    width: 20px;
+    height: 20px;
+    font-size: 0;
+    display: inline-block;
+    position: relative;
+}
+
+.page-color ul li a.pink {
+    background-color: #e930d5;
+}
+
+.page-color ul li a.yellow {
+    background-color: #e97730;
+}
+
+.page-color ul li a.purple {
+    background-color: #8b30e9;
+}
+
+.page-color.page-details-color {
+    margin: 22px 0 32px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .page-color.page-details-color {
+        margin: 22px 0 20px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-color.page-details-color {
+        margin: 22px 0 20px;
+    }
+}
+
+.page-color.page-details-color ul li a {
+    position: relative;
+}
+
+.page-color.page-details-color ul li a.active:before {
+    position: absolute;
+    content: "\e64d";
+    font-family: 'themify';
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    -ms-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.single-page-cart {
+    margin: 0 24px 0 10px;
+}
+
+.single-page-cart.mrg-none {
+    margin: 0 24px 0 0px;
+}
+
+@media only screen and (max-width: 767px) {
+    .single-page-cart {
+        margin: 0 10px 0 10px;
+    }
+}
+
+.single-page-cart > a {
+    display: inline-block;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #e97730;
+    padding: 20px 37px;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 767px) {
+    .single-page-cart > a {
+        padding: 20px 17px;
+    }
+}
+/* === [E] CSS CLASS 명 재정의 (DETAIL) === */

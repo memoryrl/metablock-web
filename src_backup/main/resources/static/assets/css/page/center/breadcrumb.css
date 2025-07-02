@@ -1,0 +1,40 @@
+.breadcrumb-img-1.aos-init.aos-animate,
+.breadcrumb-img-2.aos-init.aos-animate{
+    max-width: 450px;
+}
+@media only screen and (min-width: 1366px) and (max-width: 1600px) {
+    .breadcrumb-area .breadcrumb-img-1 img,
+    .breadcrumb-area .breadcrumb-img-2 img {
+        max-width: 420px;
+    }
+}
+@media only screen and (min-width: 1200px) and (max-width: 1365px) {
+    .breadcrumb-area .breadcrumb-img-1 img,
+    .breadcrumb-area .breadcrumb-img-2 img {
+        max-width: 400px;
+    }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .breadcrumb-area .breadcrumb-img-1 img,
+    .breadcrumb-area .breadcrumb-img-2 img {
+        max-width: 320px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .breadcrumb-area .breadcrumb-img-1 img,
+    .breadcrumb-area .breadcrumb-img-2 img {
+        max-width: 260px;
+    }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .breadcrumb-area .breadcrumb-img-1 img,
+    .breadcrumb-area .breadcrumb-img-2 img {
+        max-width: 200px !important;
+    }
+}
+@media only screen and (max-width: 575px) {
+    .breadcrumb-area .breadcrumb-img-1 img,
+    .breadcrumb-area .breadcrumb-img-2 img {
+        max-width: 150px !important;
+    }
+}

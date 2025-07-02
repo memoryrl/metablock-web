@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>3Xmeta</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="Urdan Minimal eCommerce Bootstrap 5 Template is a stunning eCommerce website template that is the best choice for any online store.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <th:block th:replace="fragments/head"></th:block>
+    <link rel="stylesheet" th:href="@{'/assets/css/style_v2.css'}" />
+    <link rel="stylesheet" th:href="@{'/assets/css/page/page-common.css'}" />
+    <th:block layout:fragment="head"></th:block>
+</head>
+
+<div id="__HEADER__">
+    <th:block th:replace="fragments/header :: header(show = 'Y')"></th:block>
+</div>
+<body data-aos-easing="ease" data-aos-duration="1000" data-aos-delay="0">
+    <div class="main-wrapper main-wrapper-2">
+        <!-- S: sidebar cart -->
+        <th:block th:replace="fragments/sidebar-cart :: sidebar-cart"></th:block>
+        <th:block th:replace="~{fragments/sidebar-download :: sidebar-download}"></th:block>
+        <!-- E: sidebar cart -->
+
+        <!-- S: main image -->
+        <th:block layout:fragment="center-image"></th:block>
+        <!-- E: main image -->
+
+        <th:block layout:fragment="content"></th:block>
+        <th:block th:replace="fragments/footer :: footer(show = 'Y')"></th:block>
+        <th:block th:replace="fragments/sidebar-menu :: sidebar-menu(show = 'Y')"></th:block>
+        <th:block th:replace="fragments/script :: script"></th:block>
+        <script type="module">
+            import 'ckeditor-config';  /* 이미지 업로더 포함 */
+            import 'ckeditor-config2';  /* 이미지 업로더 미포함 */
+        </script>
+        <th:block layout:fragment="script"></th:block>
+        <script th:inline="javascript">
+            let CSV_CHECK_INTERVAL_ID = null;
+
+            $(function() {
+                IntervalCheck();
+            });
+
+            const IntervalCheck = () => {
+                if (sessionStorage.getItem("_CSV_DOWNLOADING_") == 1) {
+                    checkByBell();
+                    CSV_CHECK_INTERVAL_ID = setInterval(() => {
+                        if (sessionStorage.getItem("_CSV_DOWNLOADING_") !== "1") {
+                            console.log("⛔ 체크 중단 감지됨. clearInterval 실행");
+                            clearInterval(CSV_CHECK_INTERVAL_ID);
+                            CSV_CHECK_INTERVAL_ID = null;
+                            return;
+                        }
+                        checkByBell();
+                    }, 10000);
+                }
+            }
+
+            const checkByBell = () => {
+                fetch("/cetus/api/custom-file/downloading-list")
+                    .then(res => res.json())
+                    .then(item => {
+                        if(item === 0) {
+                            const headerDiv = document.getElementById("__HEADER__")
+                            const bellAlarm = headerDiv.querySelector("#_BELL_ALARM_")
+                            bellAlarm.innerHTML = `<span class="product-count bg-red" id="download-csv"></span>`
+                            sessionStorage.setItem("_CHECK_MYDOWNLOAD_", 0)
+                            // download 완료 전, myDownload 방문 시 sessionStorage.getItem("_CSV_DOWNLOADING_") 값이 0으로 바뀌는 것을 방지
+                        }
+                    })
+            }
+
+            async function CREATE_USER_CSV(url, obj) {
+                sessionStorage.setItem("_CSV_DOWNLOADING_", "1")
+                const params = new URLSearchParams()
+                for (const key of Object.keys(obj)) {
+                    params.append(key, obj[key])
+                }
+                const urlWithParams = `${url}?${params.toString()}`
+                const options = { method: "get" }
+                const res = await fetch(urlWithParams, options)
+                Util.alert("다운로드 파일을 생성하고있습니다.").then(() => {
+                    window.location.reload();
+                })
+            }
+        </script>
+    </div>
+
+</body>
+
+</html>

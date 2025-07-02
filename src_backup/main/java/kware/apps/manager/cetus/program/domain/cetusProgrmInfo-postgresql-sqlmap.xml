@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cetusProgrmInfo">
+
+    <select id="menuProgramPageList" parameterType="MenuProgrmInfoSearch" resultType="MenuProgrmInfoList">
+        /* cetusProgrmInfo.menuProgramPageList */
+        SELECT CPI.UID
+              ,CPI.PROGRM_NM
+              ,CPI.URL
+              ,CPI.PROGRM_DC
+              ,CPI.USE_AT
+              ,CPI.REG_UID
+              ,TO_CHAR(CPI.REG_DT, 'YYYY-MM-DD') AS REG_DT
+              ,CU_REG.USER_NM AS REG_NM
+              ,CPI.WORKPLACE_UID
+          FROM CETUS_PROGRM_INFO CPI
+          LEFT JOIN CETUS_USER CU_REG ON CU_REG.UID = CPI.REG_UID
+         WHERE 1 = 1
+           AND CPI.WORKPLACE_UID = #{workplaceUid}::bigint
+        <if test="@Ognl@isNotEmpty(useAt)">
+           AND CPI.USE_AT = #{useAt}
+        </if>
+        <if test="@Ognl@isNotEmpty(browseText)">
+           AND (CPI.PROGRM_NM LIKE '%' || #{browseText} || '%' OR CPI.URL LIKE '%' || #{browseText} || '%' )
+        </if>
+         ORDER BY CPI.REG_DT DESC
+        <if test="@Ognl@isNotEmpty(startNumber) and  @Ognl@isNotEmpty(endNumber)">
+        OFFSET ${startNumber} LIMIT ${endNumber}
+        </if>
+    </select>
+
+    <select id="menuProgramPageCount" parameterType="MenuProgrmInfoSearch" resultType="int">
+        /* cetusProgrmInfo.menuProgramPageCount */
+        SELECT COUNT(*)
+          FROM CETUS_PROGRM_INFO CPI
+          LEFT JOIN CETUS_USER CU_REG ON CU_REG.UID = CPI.REG_UID
+         WHERE 1 = 1
+           AND CPI.WORKPLACE_UID = #{workplaceUid}::bigint
+        <if test="@Ognl@isNotEmpty(useAt)">
+           AND CPI.USE_AT = #{useAt}
+        </if>
+        <if test="@Ognl@isNotEmpty(browseText)">
+           AND (CPI.PROGRM_NM LIKE '%' || #{browseText} || '%' OR CPI.URL LIKE '%' || #{browseText} || '%' )
+        </if>
+    </select>
+
+    <select id="programPageList" parameterType="ProgrmInfoSearch" resultType="ProgrmInfoList">
+        /* cetusProgrmInfo.programPageList */
+        SELECT CPI.UID
+              ,CPI.PROGRM_NM
+              ,CPI.URL
+              ,CPI.PROGRM_DC
+              ,CPI.USE_AT
+              ,CPI.REG_UID
+              ,TO_CHAR(CPI.REG_DT, 'YYYY-MM-DD') AS REG_DT
+              ,CU_REG.USER_NM AS REG_NM
+          FROM CETUS_PROGRM_INFO CPI
+          LEFT JOIN CETUS_USER CU_REG ON CU_REG.UID = CPI.REG_UID
+          LEFT JOIN CETUS_WORKPLACE CW ON CW.UID = CPI.WORKPLACE_UID
+         WHERE 1 = 1
+           AND CPI.WORKPLACE_UID = #{workplaceUid}::bigint
+        <if test="@Ognl@isNotEmpty(useAt)">
+           AND CPI.USE_AT = #{useAt}
+        </if>
+        <if test="@Ognl@isNotEmpty(browseText)">
+           AND (CPI.PROGRM_NM LIKE '%' || #{browseText} || '%' OR CPI.URL LIKE '%' || #{browseText} || '%' OR CU_REG.USER_NM LIKE '%' || #{browseText} || '%' )
+        </if>
+         ORDER BY CPI.REG_DT DESC
+        <if test="@Ognl@isNotEmpty(startNumber) and  @Ognl@isNotEmpty(endNumber)">
+        OFFSET ${startNumber} LIMIT ${endNumber}
+        </if>
+    </select>
+
+    <select id="programPageCount" parameterType="ProgrmInfoSearch" resultType="int">
+        /* cetusProgrmInfo.programPageCount */
+        SELECT COUNT(*)
+          FROM CETUS_PROGRM_INFO CPI
+          LEFT JOIN CETUS_USER CU_REG ON CU_REG.UID = CPI.REG_UID
+         WHERE 1 = 1
+           AND CPI.WORKPLACE_UID = #{workplaceUid}::bigint
+        <if test="@Ognl@isNotEmpty(useAt)">
+           AND CPI.USE_AT = #{useAt}
+        </if>
+        <if test="@Ognl@isNotEmpty(browseText)">
+           AND (CPI.PROGRM_NM LIKE '%' || #{browseText} || '%' OR CPI.URL LIKE '%' || #{browseText} || '%' OR CU_REG.USER_NM LIKE '%' || #{browseText} || '%' )
+        </if>
+    </select>
+    
+    <insert id="insert" parameterType="CetusProgrmInfo">
+        /* cetusProgrmInfo.insert */
+        INSERT INTO CETUS_PROGRM_INFO (
+             PROGRM_NM
+            ,URL
+            ,PROGRM_DC
+            ,USE_AT
+            ,REG_UID
+            ,REG_DT
+            ,UPDT_UID
+            ,UPDT_DT
+            ,WORKPLACE_UID
+            ,LEFT_SLIDE_IMG
+            ,RIGHT_SLIDE_IMG
+            ,LOGO_IMG
+            ,COMPANY_LOGO_IMG
+            ,TITLE1
+            ,TITLE2
+            ,TITLE3
+            ,IS_ROOT_URL
+        ) VALUES (
+             #{progrmNm}
+            ,#{url}
+            ,#{progrmDc}
+            ,#{useAt}
+            ,#{regUid}
+            ,NOW()
+            ,#{updtUid}
+            ,NOW()
+            ,#{workplaceUid}
+            ,#{leftSlideImg}::bigint
+            ,#{rightSlideImg}::bigint
+            ,#{logoImg}::bigint
+            ,#{companyLogoImg}::bigint
+            ,#{title1}
+            ,#{title2}
+            ,#{title3}
+            ,#{isRootUrl}
+        )
+    </insert>
+
+    <update id="update" parameterType="CetusProgrmInfo">
+        /* cetusProgrmInfo.update */
+        UPDATE CETUS_PROGRM_INFO
+           SET PROGRM_NM = #{progrmNm}
+              ,URL = #{url}
+              ,PROGRM_DC = #{progrmDc}
+              ,USE_AT = #{useAt}
+              ,LEFT_SLIDE_IMG = #{leftSlideImg}::bigint
+              ,RIGHT_SLIDE_IMG = #{rightSlideImg}::bigint
+              ,LOGO_IMG = #{logoImg}::bigint
+              ,COMPANY_LOGO_IMG = #{companyLogoImg}::bigint
+              ,TITLE1 = #{title1}
+              ,TITLE2 = #{title2}
+              ,TITLE3 = #{title3}
+              ,IS_ROOT_URL = #{isRootUrl}
+              ,UPDT_UID = #{updtUid}
+              ,UPDT_DT = NOW()
+         WHERE UID = #{uid}
+    </update>
+
+    <select id="view" parameterType="Long" resultType="CetusProgrmInfo">
+        /* cetusProgrmInfo.view */
+        SELECT UID
+              ,PROGRM_NM
+              ,URL
+              ,PROGRM_DC
+              ,USE_AT
+              ,WORKPLACE_UID
+              ,LEFT_SLIDE_IMG
+              ,RIGHT_SLIDE_IMG
+              ,LOGO_IMG
+              ,COMPANY_LOGO_IMG
+              ,TITLE1
+              ,TITLE2
+              ,TITLE3
+              ,IS_ROOT_URL
+          FROM CETUS_PROGRM_INFO
+         WHERE UID = #{uid}
+    </select>
+
+    <select id="getProgramByUrl" resultType="CetusProgrmInfo" parameterType="ProgrmFullInfoSearch">
+        /* cetusProgrmInfo.getProgramByUrl */
+        SELECT UID
+              ,PROGRM_NM
+              ,URL
+              ,PROGRM_DC
+              ,USE_AT
+              ,WORKPLACE_UID
+          FROM CETUS_PROGRM_INFO
+         WHERE URL = #{url}
+           AND WORKPLACE_UID = #{workplaceUid}::bigint
+    </select>
+
+    <select id="getProgramFullInfoByUrl" resultType="ProgrmFullInfo" parameterType="ProgrmFullInfoSearch">
+        /* cetusProgrmInfo.getProgramFullInfoByUrl */
+        SELECT CPI.UID
+              ,CPI.PROGRM_NM
+              ,CPI.URL
+              ,CPI.USE_AT
+              ,CF_LEFT.FILE_ID AS LEFT_SLIDE_IMG_ID
+              ,CF_RIGHT.FILE_ID AS RIGHT_SLIDE_IMG_ID
+          FROM CETUS_PROGRM_INFO CPI
+          LEFT JOIN CETUS_FILE CF_LEFT ON CF_LEFT.FILE_UID = CPI.LEFT_SLIDE_IMG AND CF_LEFT.USE_AT = 'Y' AND CF_LEFT.SAVED = 'Y'
+          LEFT JOIN CETUS_FILE CF_RIGHT ON CF_RIGHT.FILE_UID = CPI.RIGHT_SLIDE_IMG AND CF_RIGHT.USE_AT = 'Y' AND CF_RIGHT.SAVED = 'Y'
+         WHERE CPI.URL = #{url}
+           AND CPI.WORKPLACE_UID = #{workplaceUid}::bigint
+    </select>
+</mapper>

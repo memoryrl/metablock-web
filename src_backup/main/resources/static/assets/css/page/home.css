@@ -1,0 +1,93 @@
+/* Menu Category > Category 텍스트 클릭 > bold & 언더라인 */
+.category-list a.active span {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #e97730;
+}
+
+/* Menu Category > 좌측 추천 컨텐츠 카드 */
+.card-banner {
+    height: 100%;
+    border: none;
+    padding: 20px;
+    background-color: #2424200f;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+}
+/* Menu Category > 좌측 추천 컨텐츠 카드 : EMPTY */
+.card-banner.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* Menu Category > 오른쪽 추천 컨텐츠 > 제목 */
+/* 게시글 카테고리 > 왼쪽 추천 컨텐츠 > 제목 */
+.card-banner h3,
+.blog-content h3 a {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Menu Category > 오른쪽 추천 컨텐츠 > 제목 : 언더라인 */
+/* 게시글 카테고리 > 왼쪽 추천 컨텐츠 > 제목 : 언더라인 */
+.card-banner h3:before,
+.blog-content h3 a:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: -12px;
+    background-color: #e97730;
+    width: 50px;
+    height: 2px;
+}
+
+/* card 패딩 5 */
+.card-padding-5 {
+    padding: 5px;
+}
+/* card 패딩 10 */
+.card-padding-10 {
+    padding: 10px;
+}
+
+/* Menu Category > Category > 하단에 그려지는 border-line 지우기 */
+.sidebar-widget.sidebar-widget-border {
+    border-bottom: none !important;
+}
+/* Menu Category > 우측 이미지 테두리 : 둥글게 */
+.page-wrap .page-img {
+    border-radius: 15px;
+}
+/* Menu Category > 우측 이미지 > 하단 메인 텍스트 */
+.page-wrap .page-content a {
+    font-weight: bold;
+}
+/* Menu Category > 우측 이미지 > 하단 메인 텍스트 하단 before 제거 */
+.page-content h3:before {
+    background-color: transparent !important
+}
+/* Menu Category > 우측 이미지 > 하단 설명 텍스트 */
+.page-wrap .page-content .page-price span {
+    color: #555252 !important;
+    font-size: 14px !important;
+}
+
+/* [메뉴1] 오른쪽 추천 컨텐츠 카드 영역 */
+#menu-category-right-card-01 {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+#menu-category-right-card-01 {
+    opacity: 1;
+}
+/* [메뉴2] 오른쪽 추천 컨텐츠 카드 영역 */
+#menu-category-right-card-02 {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+#menu-category-right-card-02 {
+    opacity: 1;
+}
